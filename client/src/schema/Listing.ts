@@ -9,8 +9,8 @@ export type ListingItem = Infer<typeof ListingItem>;
 const UnknownItem = object({
   kind: string(),
   data: object({
-    name: string()
-  }).rest(unknown())
+    name: string(),
+  }).rest(unknown()),
 });
 
 export const Listing = object({
@@ -19,6 +19,6 @@ export const Listing = object({
     after: string().nullable(),
     before: string().nullable(),
     children: array(UnknownItem),
-    dist: number()
-  })
+    dist: number(),
+  }),
 });

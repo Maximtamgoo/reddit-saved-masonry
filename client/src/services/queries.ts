@@ -15,7 +15,7 @@ export function useGetSignedInUser() {
       const urlCode = urlParams.get("code");
       if (urlCode) await api.authorize(urlCode);
       return await api.getMe();
-    }
+    },
   });
 }
 
@@ -24,7 +24,7 @@ export function useSignOut() {
   return useMutation({
     mutationKey: ["signOut"],
     mutationFn: api.signOut,
-    onSuccess: () => qc.resetQueries({ queryKey: ["userData"], exact: true })
+    onSuccess: () => qc.resetQueries({ queryKey: ["userData"], exact: true }),
   });
 }
 
@@ -59,10 +59,10 @@ export function useGetSavedContent() {
       return {
         after: listing.data.after,
         before: listing.data.before,
-        redditItems
+        redditItems,
       };
     },
-    getNextPageParam: (lastPage) => lastPage.after
+    getNextPageParam: (lastPage) => lastPage.after,
   });
 }
 
@@ -94,10 +94,10 @@ export function useToggleBookmark(id: string, pageParam: string) {
 
           return {
             pages: newPages,
-            pageParams: oldData.pageParams
+            pageParams: oldData.pageParams,
           };
         }
       });
-    }
+    },
   });
 }

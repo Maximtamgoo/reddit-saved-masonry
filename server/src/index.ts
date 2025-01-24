@@ -22,10 +22,10 @@ app.use(
       directives: {
         defaultSrc: ["'self'", "*.reddit.com"],
         imgSrc: ["'self'", "*.redd.it", "*.redditstatic.com", "*.redditmedia.com", "*.imgur.com"],
-        mediaSrc: ["'self'", "*.redd.it", "*.redditstatic.com", "*.redditmedia.com", "*.imgur.com"]
-      }
-    }
-  })
+        mediaSrc: ["'self'", "*.redd.it", "*.redditstatic.com", "*.redditmedia.com", "*.imgur.com"],
+      },
+    },
+  }),
 );
 app.use(routes);
 

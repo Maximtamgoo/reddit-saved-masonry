@@ -9,6 +9,6 @@ function handleResize(cb: () => void) {
 
 export function useWindowHeight() {
   return useSyncExternalStore(handleResize, () =>
-    isMaybeMobile ? window.outerHeight : window.innerHeight
+    isMaybeMobile ? window.outerHeight : window.innerHeight,
   );
 }

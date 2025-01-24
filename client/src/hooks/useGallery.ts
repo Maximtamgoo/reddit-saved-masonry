@@ -19,6 +19,6 @@ export function useGallery(length: number) {
   return {
     index,
     prevIndex,
-    nextIndex
+    nextIndex,
   };
 }

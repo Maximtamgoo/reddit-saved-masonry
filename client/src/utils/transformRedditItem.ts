@@ -11,7 +11,7 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
     subreddit_name_prefixed,
     permalink,
     saved: true,
-    pageParam
+    pageParam,
   };
 
   if (item.kind === "t1") {
@@ -28,7 +28,7 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
       media_metadata,
       title,
       url,
-      sr_detail
+      sr_detail,
     } = item.data;
 
     const icon_url = sr_detail.community_icon ?? sr_detail.icon_img ?? undefined;
@@ -46,13 +46,13 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
             preview: {
               url: largestResolution.mp4 || largestResolution.u || "",
               width: largestResolution.x,
-              height: largestResolution.y
+              height: largestResolution.y,
             },
             source: {
               url: mm.s.mp4 || mm.s.u || "",
               width: mm.s.x,
-              height: mm.s.y
-            }
+              height: mm.s.y,
+            },
           });
         }
       }
@@ -61,7 +61,7 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
         ...t3_base,
         type: "gallery",
         preview: gallery[0].preview,
-        gallery
+        gallery,
       };
     }
 
@@ -69,7 +69,7 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
       const resolutions = preview.images[0].resolutions;
       const redditItem = {
         ...t3_base,
-        preview: resolutions[resolutions.length - 1]
+        preview: resolutions[resolutions.length - 1],
       };
       if (preview.images[0].variants.mp4) {
         return { ...redditItem, type: "playable", source: preview.images[0].variants.mp4.source };
@@ -81,8 +81,8 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
           source: {
             url: preview.reddit_video_preview.fallback_url,
             width: preview.reddit_video_preview.width,
-            height: preview.reddit_video_preview.height
-          }
+            height: preview.reddit_video_preview.height,
+          },
         };
       }
       return { ...redditItem, type: "image", source: preview.images[0].source };
@@ -97,7 +97,7 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
           ...t3_base,
           type: "image",
           preview: imageData,
-          source: imageData
+          source: imageData,
         };
       }
     }

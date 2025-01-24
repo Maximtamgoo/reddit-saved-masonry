@@ -26,7 +26,7 @@ export default function VirtualMasonry<Item>({
   getItemKey,
   estimateSize,
   renderItem,
-  loadMore
+  loadMore,
 }: Props<Item>) {
   const parentRef = useRef<HTMLDivElement>(null);
   const parentRect = useResizeObserver(parentRef);
@@ -40,7 +40,7 @@ export default function VirtualMasonry<Item>({
 
   const itemWidth = useMemo(
     () => Math.floor((parentWidth - gap * (lanes - 1)) / lanes),
-    [parentWidth, gap, lanes]
+    [parentWidth, gap, lanes],
   );
 
   const winVirtualizer = useWindowVirtualizer({
@@ -53,9 +53,9 @@ export default function VirtualMasonry<Item>({
     getItemKey: useCallback(
       (index: number) => getItemKey(index),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [getItemKey, parentWidth, winHeight]
+      [getItemKey, parentWidth, winHeight],
     ),
-    estimateSize: (index) => estimateSize(items[index], itemWidth)
+    estimateSize: (index) => estimateSize(items[index], itemWidth),
   });
 
   const virtualItems = winVirtualizer.getVirtualItems();
@@ -72,7 +72,7 @@ export default function VirtualMasonry<Item>({
           <div
             className="relative w-full"
             style={{
-              height: `${winVirtualizer.getTotalSize()}px`
+              height: `${winVirtualizer.getTotalSize()}px`,
             }}
           >
             {virtualItems.map((item) => {
@@ -86,7 +86,7 @@ export default function VirtualMasonry<Item>({
                     left: `${item.lane * itemWidth}px`,
                     width: `${itemWidth}px`,
                     marginLeft: `${item.lane * gap}px`,
-                    height: `${item.size}px`
+                    height: `${item.size}px`,
                   }}
                 >
                   {renderItem(items[item.index])}

@@ -10,20 +10,20 @@ const accessTokenOptions = (maxAge: number) =>
   ({
     maxAge,
     sameSite: "lax",
-    secure: isProduction
+    secure: isProduction,
   }) as const;
 
 const refreshTokenOptions = {
   maxAge: 2629800 * 1000,
   sameSite: "strict",
   secure: isProduction,
-  httpOnly: true
+  httpOnly: true,
 } as const;
 
 router.get("/api/authurl", async (_req, res, next) => {
   try {
     res.redirect(
-      `https://www.reddit.com/api/v1/authorize?client_id=${env.REDDIT_CLIENTID}&response_type=code&state=_&redirect_uri=${env.REDDIT_REDIRECT_URI}&duration=permanent&scope=identity history save`
+      `https://www.reddit.com/api/v1/authorize?client_id=${env.REDDIT_CLIENTID}&response_type=code&state=_&redirect_uri=${env.REDDIT_REDIRECT_URI}&duration=permanent&scope=identity history save`,
     );
   } catch (error) {
     next(error);

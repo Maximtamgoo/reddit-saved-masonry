@@ -7,13 +7,13 @@ const RedditTokenResponse = object({
   refresh_token: string(),
   expires_in: number(),
   token_type: string(),
-  scope: string()
+  scope: string(),
 });
 
 const WeirdRedditResponse = literal("0");
 
 const base64Creds = Buffer.from(`${env.REDDIT_CLIENTID}:${env.REDDIT_CLIENT_SECRET}`).toString(
-  "base64"
+  "base64",
 );
 
 const options = {
@@ -21,14 +21,14 @@ const options = {
   headers: {
     "User-Agent": env.REDDIT_USERAGENT,
     Authorization: `Basic ${base64Creds}`,
-    "Content-Type": "application/x-www-form-urlencoded"
-  }
+    "Content-Type": "application/x-www-form-urlencoded",
+  },
 };
 
 export async function authorize(code: string) {
   const res = await fetch("https://www.reddit.com/api/v1/access_token", {
     ...options,
-    body: `grant_type=authorization_code&code=${code}&redirect_uri=${env.REDDIT_REDIRECT_URI}`
+    body: `grant_type=authorization_code&code=${code}&redirect_uri=${env.REDDIT_REDIRECT_URI}`,
   });
 
   if (!res.ok) throw createError(res.status, res.statusText);
@@ -38,7 +38,7 @@ export async function authorize(code: string) {
 export async function getNewAccessToken(refreshToken: string) {
   const res = await fetch("https://www.reddit.com/api/v1/access_token", {
     ...options,
-    body: `grant_type=refresh_token&refresh_token=${refreshToken}&redirect_uri=${env.REDDIT_REDIRECT_URI}`
+    body: `grant_type=refresh_token&refresh_token=${refreshToken}&redirect_uri=${env.REDDIT_REDIRECT_URI}`,
   });
 
   if (!res.ok) throw createError(res.status, res.statusText);
@@ -48,7 +48,7 @@ export async function getNewAccessToken(refreshToken: string) {
 export async function revokeToken(tokenHint: "access_token" | "refresh_token", token: string) {
   const res = await fetch("https://www.reddit.com/api/v1/revoke_token", {
     ...options,
-    body: `token=${token}&token_type_hint=${tokenHint}&redirect_uri=${env.REDDIT_REDIRECT_URI}`
+    body: `token=${token}&token_type_hint=${tokenHint}&redirect_uri=${env.REDDIT_REDIRECT_URI}`,
   });
 
   if (!res.ok) throw createError(res.status, res.statusText);
@@ -60,9 +60,9 @@ export async function toggleBookmark(access_token: string, state: "unsave" | "sa
     ...options,
     headers: {
       ...options.headers,
-      Authorization: `Bearer ${access_token}`
+      Authorization: `Bearer ${access_token}`,
     },
-    body: `id=${id}`
+    body: `id=${id}`,
   });
 
   if (!res.ok) throw createError(res.status, res.statusText);

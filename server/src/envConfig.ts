@@ -6,7 +6,7 @@ const Schema = object({
   REDDIT_CLIENTID: string(),
   REDDIT_CLIENT_SECRET: string(),
   REDDIT_USERAGENT: string(),
-  REDDIT_REDIRECT_URI: string()
+  REDDIT_REDIRECT_URI: string(),
 });
 
 const result = Schema.try(process.env, { mode: "strip" });

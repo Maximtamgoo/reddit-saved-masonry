@@ -12,8 +12,8 @@ export const T1_COMMENT = object({
     created: number(),
     created_utc: number(),
     body: string().optional(),
-    body_html: string().optional()
-  })
+    body_html: string().optional(),
+  }),
 });
 
 export type T1_COMMENT = Infer<typeof T1_COMMENT>;

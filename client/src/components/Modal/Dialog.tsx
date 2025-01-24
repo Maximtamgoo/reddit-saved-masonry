@@ -40,6 +40,6 @@ export default function Dialog({ onClose, children }: PropsWithChildren<Props>) 
         <ArrowLeft />
       </button>
     </dialog>,
-    document.body
+    document.body,
   );
 }

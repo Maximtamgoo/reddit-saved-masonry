@@ -16,10 +16,10 @@ export default defineConfig({
       typescript: true,
       eslint: {
         useFlatConfig: true,
-        lintCommand: "eslint './src/**/*.{ts,tsx}'"
-      }
+        lintCommand: "eslint './src/**/*.{ts,tsx}'",
+      },
     }),
-    !isHostRender && Sonda({ gzip: true })
+    !isHostRender && Sonda({ gzip: true }),
   ],
   build: { sourcemap: !isHostRender },
   server: {
@@ -27,13 +27,13 @@ export default defineConfig({
     port: 3000,
     strictPort: true,
     proxy: {
-      "/api": "http://localhost:5000"
-    }
+      "/api": "http://localhost:5000",
+    },
   },
   resolve: {
     alias: {
-      "@src": `${import.meta.dirname}/src`
-    }
+      "@src": `${import.meta.dirname}/src`,
+    },
   },
-  cacheDir: "../node_modules/.vite"
+  cacheDir: "../node_modules/.vite",
 });

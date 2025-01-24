@@ -15,21 +15,21 @@ export default tseslint.config(
       react.configs.flat.recommended,
       react.configs.flat["jsx-runtime"],
       reactRefresh.configs.recommended,
-      pluginQuery.configs["flat/recommended"]
+      pluginQuery.configs["flat/recommended"],
     ],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: "latest",
-      globals: { ...globals.browser, ...globals.node }
+      globals: { ...globals.browser, ...globals.node },
     },
     settings: { react: { version: "detect" } },
     plugins: {
-      "react-hooks": reactHooks
+      "react-hooks": reactHooks,
     },
     rules: {
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "warn",
-      ...reactHooks.configs.recommended.rules
-    }
-  }
+      ...reactHooks.configs.recommended.rules,
+    },
+  },
 );

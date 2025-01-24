@@ -19,7 +19,7 @@ export default function Text({ text }: Props) {
       style={{
         display: "-webkit-box",
         WebkitBoxOrient: "vertical",
-        WebkitLineClamp: lines
+        WebkitLineClamp: lines,
       }}
     >
       {text}

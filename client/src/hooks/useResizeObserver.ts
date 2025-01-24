@@ -10,7 +10,7 @@ const defaultState: Rect = {
   top: 0,
   left: 0,
   bottom: 0,
-  right: 0
+  right: 0,
 };
 
 export function useResizeObserver(ref: RefObject<HTMLElement | null>) {

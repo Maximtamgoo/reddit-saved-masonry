@@ -7,7 +7,7 @@ import {
   object,
   record,
   string,
-  union
+  union,
 } from "@badrap/valita";
 
 export const Entry = object({ url: string(), width: number(), height: number() });
@@ -17,7 +17,7 @@ const GalleryEntry = object({
   x: number(),
   y: number(),
   u: string().optional(),
-  mp4: string().optional()
+  mp4: string().optional(),
 });
 
 const preview = object({
@@ -29,14 +29,14 @@ const preview = object({
       variants: object({
         gif: object({
           resolutions: array(Entry),
-          source: Entry
+          source: Entry,
         }).optional(),
         mp4: object({
           resolutions: array(Entry),
-          source: Entry
-        }).optional()
-      })
-    })
+          source: Entry,
+        }).optional(),
+      }),
+    }),
   )
     .assert((arr) => arr.length === 1)
     .optional(),
@@ -46,17 +46,17 @@ const preview = object({
     hls_url: string(),
     is_gif: boolean(),
     height: number(),
-    width: number()
-  }).optional()
+    width: number(),
+  }).optional(),
 });
 
 const gallery_data = object({
   items: array(
     object({
       caption: string().optional(),
-      media_id: string()
-    })
-  )
+      media_id: string(),
+    }),
+  ),
 });
 
 const media_metadata = record(
@@ -65,18 +65,18 @@ const media_metadata = record(
       status: literal("valid"),
       id: string(),
       p: array(GalleryEntry).optional(),
-      s: GalleryEntry.optional()
+      s: GalleryEntry.optional(),
     }),
     object({
-      status: literal("failed")
-    })
-  )
+      status: literal("failed"),
+    }),
+  ),
 );
 
 const secure_media = object({
   type: string().optional(),
   oembed: object({
-    html: string()
+    html: string(),
   }).optional(),
   reddit_video: object({
     fallback_url: string(),
@@ -85,20 +85,20 @@ const secure_media = object({
     dash_url: string(),
     duration: number(),
     hls_url: string(),
-    is_gif: boolean()
-  }).optional()
+    is_gif: boolean(),
+  }).optional(),
 });
 
 const secure_media_embed = object({
   content: string().optional(),
-  media_domain_url: string().optional()
+  media_domain_url: string().optional(),
 });
 
 const emptyStringToNull = string().map((s) => (s === "" ? null : s));
 
 const sr_detail = object({
   community_icon: emptyStringToNull.nullable(),
-  icon_img: emptyStringToNull.nullable()
+  icon_img: emptyStringToNull.nullable(),
 });
 
 const t3_link_data = object({
@@ -118,7 +118,7 @@ const t3_link_data = object({
     literal("image"),
     literal("link"),
     literal("rich:video"),
-    literal("hosted:video")
+    literal("hosted:video"),
   ).optional(),
   is_video: boolean().optional(),
   is_self: boolean().optional(),
@@ -133,12 +133,12 @@ const t3_link_data = object({
   gallery_data: gallery_data.nullable().optional(),
   media_metadata: media_metadata.nullable().optional(),
   secure_media: secure_media.nullable().optional(),
-  secure_media_embed: secure_media_embed.optional()
+  secure_media_embed: secure_media_embed.optional(),
 });
 
 export const T3_LINK = object({
   kind: literal("t3"),
-  data: t3_link_data
+  data: t3_link_data,
 });
 
 export type T3_LINK = Infer<typeof T3_LINK>;

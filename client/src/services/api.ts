@@ -13,14 +13,14 @@ export async function authorize(authorization_code: string) {
   const res = await fetch("/api/authorize", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ authorization_code })
+    body: JSON.stringify({ authorization_code }),
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
 }
 
 export async function getNewAccessToken() {
   const res = await fetch("/api/access_token", {
-    method: "POST"
+    method: "POST",
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
 }
@@ -30,8 +30,8 @@ export async function getMe() {
   if (!token) await getNewAccessToken();
   const res = await fetch("https://oauth.reddit.com/api/v1/me", {
     headers: {
-      Authorization: `Bearer ${getCookie("access_token")}`
-    }
+      Authorization: `Bearer ${getCookie("access_token")}`,
+    },
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
   return object({ name: string(), icon_img: string() }).parse(await res.json(), { mode: "strip" });
@@ -44,9 +44,9 @@ export async function getSavedContent(username: string, after: string, limit = 5
     `https://oauth.reddit.com/user/${username}/saved?after=${after}&limit=${limit}&sr_detail=1&raw_json=1`,
     {
       headers: {
-        Authorization: `Bearer ${getCookie("access_token")}`
-      }
-    }
+        Authorization: `Bearer ${getCookie("access_token")}`,
+      },
+    },
   );
   if (!res.ok) throw new HttpError(res.status, res.statusText);
   return Listing.parse(await res.json(), { mode: "strip" });
@@ -59,9 +59,9 @@ export async function toggleBookmark(id: string, state: boolean) {
     method: "POST",
     headers: {
       Authorization: `Bearer ${getCookie("access_token")}`,
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify({ id })
+    body: JSON.stringify({ id }),
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
   return (await res.json()) as { saved: boolean };
