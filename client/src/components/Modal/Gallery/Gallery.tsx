@@ -1,8 +1,9 @@
 import { useGallery } from "@src/hooks/useGallery";
 import { GalleryItem } from "@src/schema/RedditItem";
+import Image from "../Image";
+import Playable from "../Playable";
 import ArrowBtn from "./ArrowBtn";
-import Image from "./Image";
-import Playable from "./Playable";
+import style from "./Gallery.module.css";
 
 type Props = {
   items: GalleryItem[];
@@ -13,7 +14,7 @@ export function Gallery({ items }: Props) {
   const item = items[index];
 
   return (
-    <div className="h-full">
+    <>
       {item.type === "image" && <Image key={item.source.url} url={item.source.url} />}
       {item.type === "playable" && (
         <Playable key={item.source.url} url={item.source.url} poster={item.preview.url} />
@@ -21,12 +22,12 @@ export function Gallery({ items }: Props) {
       {items.length > 1 && (
         <>
           {index > 0 && <ArrowBtn direction="left" onClick={prevIndex} />}
-          <div className="absolute bottom-5 left-2/4 grid h-8 min-w-8 -translate-x-2/4 place-items-center rounded-full bg-transparent/90 px-3 font-semibold text-white">
+          <div className={style.gallery_position}>
             {index + 1} / {items.length}
           </div>
           {index < items.length - 1 && <ArrowBtn direction="right" onClick={nextIndex} />}
         </>
       )}
-    </div>
+    </>
   );
 }

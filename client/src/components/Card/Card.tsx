@@ -1,9 +1,10 @@
 import { RedditItem } from "@src/schema/RedditItem";
 import { memo, useState } from "react";
-import Dialog from "../Modal/Dialog";
+import Dialog from "../Dialog/Dialog";
 import Modal from "../Modal/Modal";
+import style from "./Card.module.css";
 import Details from "./Details";
-import Preview from "./Preview";
+import Preview from "./Preview/Preview";
 import Text from "./Text";
 
 type Props = {
@@ -14,7 +15,7 @@ export default memo(function Card({ item }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className="flex h-full flex-col overflow-hidden rounded-lg ring-2 ring-slate-200">
+    <section className={style.card}>
       <Details item={item} />
       {(item.type === "text" || item.type === "comment") && <Text text={item.text} />}
       {(item.type === "gallery" || item.type === "image" || item.type === "playable") && (

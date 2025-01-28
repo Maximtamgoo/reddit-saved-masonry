@@ -1,7 +1,8 @@
 import { RedditItem } from "@src/schema/RedditItem";
 import ArrowRedirect from "@src/svg/square-arrow-out-up-right.svg?react";
 import Link from "../Link";
-import { Gallery } from "./Gallery";
+import { Gallery } from "./Gallery/Gallery";
+import style from "./Modal.module.css";
 
 type Props = {
   item: RedditItem;
@@ -9,12 +10,12 @@ type Props = {
 
 export default function Modal({ item }: Props) {
   return (
-    <div className="fixed inset-0 bg-transparent/90 backdrop-blur">
+    <div className={style.modal}>
       {item.type === "gallery" && <Gallery items={item.gallery} />}
       {item.type === "image" && <Gallery items={[item]} />}
       {item.type === "playable" && <Gallery items={[item]} />}
       <Link
-        className="absolute right-5 top-5 grid size-10 place-items-center rounded-full bg-transparent/90 text-white"
+        className={style.redirect}
         href={`https://www.reddit.com${item.permalink}`}
         onClick={(e) => e.stopPropagation()}
       >

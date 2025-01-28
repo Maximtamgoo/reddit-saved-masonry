@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from "react";
+import style from "./Card.module.css";
 
 type Props = {
   text: string;
@@ -15,10 +16,8 @@ export default function Text({ text }: Props) {
   return (
     <div
       ref={ref}
-      className="overflow-hidden whitespace-break-spaces break-words px-4"
+      className={style.text}
       style={{
-        display: "-webkit-box",
-        WebkitBoxOrient: "vertical",
         WebkitLineClamp: lines,
       }}
     >

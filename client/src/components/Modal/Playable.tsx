@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import style from "./Modal.module.css";
 
 type Props = {
   url: string;
@@ -18,13 +19,12 @@ export default function Playable({ url, poster }: Props) {
   }, []);
 
   return (
-    <div className="flex h-full items-center justify-center">
+    <div className={style.media}>
       {isError ? (
         <div className="text-8xl text-white">?</div>
       ) : (
         <video
           ref={videoRef}
-          className="max-h-full"
           src={url}
           poster={poster}
           autoPlay={true}

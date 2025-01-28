@@ -3,6 +3,7 @@ import type { RedditItem } from "@src/schema/RedditItem";
 import { useToggleBookmark } from "@src/services/queries";
 import Bookmark from "@src/svg/bookmark.svg?react";
 import { memo, useState } from "react";
+import style from "./Card.module.css";
 
 type Props = {
   item: RedditItem;
@@ -18,29 +19,23 @@ export default memo(function Details({ item }: Props) {
   const icon_url = item.type !== "comment" ? item.icon_url : undefined;
 
   return (
-    <div className="grid gap-2 p-4">
-      <div className="flex min-w-0 gap-2">
-        <div className="grid size-8 shrink-0 place-items-center overflow-hidden rounded-full bg-sky-50">
-          {!isImgError && <img src={icon_url} onError={() => setIsImgError(true)} />}
-        </div>
-        <div className="flex min-w-0 grow items-center text-slate-600">
-          <Link className="truncate hover:text-slate-800 hover:underline" href={subredditLink}>
-            {item.subreddit_name_prefixed}
-          </Link>
-          <span className="px-1">&bull;</span>
-          <Link className="truncate hover:text-slate-800 hover:underline" href={authorLink}>
-            u/{item.author}
-          </Link>
-        </div>
-        <button
-          className="grid size-8 shrink-0 place-items-center rounded-full bg-sky-50 hover:bg-sky-100"
-          disabled={isPending}
-          onClick={() => mutate({ saved: !item.saved })}
-        >
-          <Bookmark className={`stroke-sky-500 ${item.saved && "fill-sky-500"}`} />
-        </button>
+    <div className={style.details}>
+      <div className={style.sr_img}>
+        {!isImgError && icon_url && <img src={icon_url} onError={() => setIsImgError(true)} />}
       </div>
-      <Link className="max-w-fit truncate text-xl font-medium text-slate-800" href={postLink}>
+      <div className={`${style.link_wrapper} truncate`}>
+        <Link href={subredditLink}>{item.subreddit_name_prefixed}</Link>
+        <i>&bull;</i>
+        <Link href={authorLink}>u/{item.author}</Link>
+      </div>
+      <button
+        className={style.bookmark_btn}
+        disabled={isPending}
+        onClick={() => mutate({ saved: !item.saved })}
+      >
+        <Bookmark data-saved={item.saved} />
+      </button>
+      <Link className={`${style.title} truncate`} href={postLink}>
         {item.type === "comment" ? "Comment" : item.title}
       </Link>
     </div>

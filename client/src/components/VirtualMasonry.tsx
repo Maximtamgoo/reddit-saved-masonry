@@ -66,12 +66,18 @@ export default function VirtualMasonry<Item>({
   }, [virtualItems, items.length, loadMore]);
 
   return (
-    <div ref={parentRef} className="max-w-full">
+    <div
+      ref={parentRef}
+      style={{
+        maxWidth: "100%",
+      }}
+    >
       {winVirtualizer.options.enabled && (
         <>
           <div
-            className="relative w-full"
             style={{
+              position: "relative",
+              width: "100%",
               height: `${winVirtualizer.getTotalSize()}px`,
             }}
           >
@@ -80,8 +86,9 @@ export default function VirtualMasonry<Item>({
                 <div
                   key={item.key}
                   data-index={item.index}
-                  className="absolute top-0"
                   style={{
+                    position: "absolute",
+                    top: 0,
                     transform: `translateY(${item.start - winVirtualizer.options.scrollMargin}px)`,
                     left: `${item.lane * itemWidth}px`,
                     width: `${itemWidth}px`,

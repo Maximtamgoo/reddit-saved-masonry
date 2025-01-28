@@ -1,0 +1,34 @@
+.header {
+  display: flex;
+  align-items: center;
+  height: 60px;
+}
+
+.header > svg {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+}
+
+.header > span {
+  flex-grow: 1;
+  font-size: 30px;
+}
+
+.menu {
+  display: flex;
+  gap: 10px;
+}
+
+.menu > a,
+.menu > button {
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  background: lightgray;
+  width: 40px;
+  height: 40px;
+  overflow: hidden;
+  color: black;
+}

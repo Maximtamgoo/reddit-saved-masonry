@@ -44,10 +44,10 @@ export default function MainPage() {
 
   if (isPending) {
     return (
-      <main className="absolute inset-0 grid place-content-center justify-items-center gap-2 text-slate-800">
+      <div className="absolute inset-0 grid place-content-center justify-items-center gap-2 text-slate-800">
         <LoaderCircle className="size-14 animate-spin rounded-full" />
         <div className="text-xl">Getting Posts</div>
-      </main>
+      </div>
     );
   }
 

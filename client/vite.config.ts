@@ -21,7 +21,16 @@ export default defineConfig({
     }),
     !isHostRender && Sonda({ gzip: true }),
   ],
-  build: { sourcemap: !isHostRender },
+  css: {
+    transformer: "lightningcss",
+    lightningcss: {
+      // targets: browserslistToTargets(browserslist('>= 0.25%'))
+    },
+  },
+  build: {
+    cssMinify: "lightningcss",
+    sourcemap: !isHostRender,
+  },
   server: {
     open: true,
     port: 3000,

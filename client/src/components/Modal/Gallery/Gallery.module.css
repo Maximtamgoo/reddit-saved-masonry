@@ -1,0 +1,37 @@
+.gallery_position {
+  display: grid;
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  place-items: center;
+  translate: -50%;
+  border-radius: 0.5em;
+  background: rgba(0, 0, 0, 0.9);
+  padding-inline: 10px;
+  min-width: 40px;
+  height: 40px;
+  color: white;
+  font-weight: 600;
+}
+
+.arrow_btn {
+  display: grid;
+  position: absolute;
+  top: 50%;
+  place-items: center;
+  translate: 0 -50%;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.9);
+  width: 40px;
+  height: 40px;
+  color: white;
+}
+
+.arrow_btn[data-arrow="left"] {
+  left: 15px;
+}
+
+.arrow_btn[data-arrow="right"] {
+  right: 15px;
+  rotate: 180deg;
+}

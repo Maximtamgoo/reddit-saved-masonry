@@ -1,4 +1,5 @@
 import { useState } from "react";
+import style from "./Modal.module.css";
 
 type Props = {
   url: string;
@@ -8,12 +9,11 @@ export default function Image({ url }: Props) {
   const [isError, setIsError] = useState(false);
 
   return (
-    <div className="flex h-full items-center justify-center">
+    <div className={style.media}>
       {isError ? (
         <div className="text-8xl text-white">?</div>
       ) : (
         <img
-          className="max-h-full"
           src={url}
           onClick={(e) => e.stopPropagation()}
           onError={() => setIsError(true)}

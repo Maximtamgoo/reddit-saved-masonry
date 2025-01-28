@@ -1,0 +1,74 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  outline: 2px solid grey;
+  border-radius: 10px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.details {
+  display: grid;
+  grid-template-rows: 32px 32px;
+  grid-template-columns: 32px auto 32px;
+  gap: 8px;
+  padding: 14px;
+  color: black;
+}
+
+.details a {
+  color: black;
+}
+
+.link_wrapper {
+  align-content: center;
+}
+
+.link_wrapper i {
+  padding-inline: 5px;
+}
+
+.sr_img {
+  border-radius: 50%;
+  background: grey;
+  overflow: hidden;
+}
+
+.sr_img > img {
+  object-fit: contain;
+}
+
+.bookmark_btn {
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: gray;
+}
+
+.bookmark_btn:hover {
+  background: blue;
+}
+
+.bookmark_btn > svg[data-saved="true"] {
+  fill: black;
+}
+
+.title {
+  grid-column: 1 / 4;
+  align-content: center;
+  max-width: fit-content;
+  font-weight: 500;
+  font-size: larger;
+  text-decoration: none;
+}
+
+.text {
+  display: -webkit-box;
+  flex-grow: 1;
+  padding-inline: 14px;
+  overflow: hidden;
+  line-height: 24px;
+  white-space: break-spaces;
+  overflow-wrap: break-word;
+  -webkit-box-orient: vertical;
+}
