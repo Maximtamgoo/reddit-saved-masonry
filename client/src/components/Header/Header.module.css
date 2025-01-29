@@ -1,30 +1,26 @@
 .header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 40px auto repeat(3, 40px);
   align-items: center;
+  gap: 10px;
   height: 60px;
 }
 
 .header > svg {
-  flex-shrink: 0;
+  margin-left: -5px;
   width: 40px;
   height: 40px;
 }
 
 .header > span {
-  flex-grow: 1;
+  margin-left: -15px;
   font-size: 30px;
 }
 
-.menu {
-  display: flex;
-  gap: 10px;
-}
-
-.menu > a,
-.menu > button {
+.header > a,
+.header > button {
   display: grid;
   place-items: center;
-  cursor: pointer;
   border-radius: 50%;
   background: lightgray;
   width: 40px;

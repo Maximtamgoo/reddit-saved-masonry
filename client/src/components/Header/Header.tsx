@@ -13,17 +13,15 @@ export default function Header() {
     <header className={style.header}>
       <Bookmark />
       <span className="truncate">Reddit Saved Masonry</span>
-      <nav className={style.menu}>
-        <Link href={`https://www.reddit.com/user/${data?.name}/saved`}>
-          {isSuccess && <img src={data.icon_img} />}
-        </Link>
-        <Link href="https://github.com/Maximtamgoo/reddit-saved-masonry">
-          <Github />
-        </Link>
-        <button onClick={() => mutate()}>
-          <LogOut />
-        </button>
-      </nav>
+      <Link href={`https://www.reddit.com/user/${data?.name}/saved`}>
+        {isSuccess && <img src={data.icon_img} />}
+      </Link>
+      <Link href="https://github.com/Maximtamgoo/reddit-saved-masonry">
+        <Github />
+      </Link>
+      <button onClick={() => mutate()}>
+        <LogOut />
+      </button>
     </header>
   );
 }
