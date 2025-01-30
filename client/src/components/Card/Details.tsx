@@ -23,7 +23,7 @@ export default memo(function Details({ item }: Props) {
       <div className={style.sr_img}>
         {!isImgError && icon_url && <img src={icon_url} onError={() => setIsImgError(true)} />}
       </div>
-      <div className={`${style.link_wrapper} truncate`}>
+      <div className="truncate">
         <Link href={subredditLink}>{item.subreddit_name_prefixed}</Link>
         <i>&bull;</i>
         <Link href={authorLink}>u/{item.author}</Link>

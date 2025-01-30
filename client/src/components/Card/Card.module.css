@@ -13,19 +13,18 @@
   grid-template-columns: 32px auto 32px;
   gap: 8px;
   padding: 14px;
-  color: black;
+}
+
+.details > * {
+  align-content: center;
+}
+
+.details i {
+  padding-inline: 5px;
 }
 
 .details a {
   color: black;
-}
-
-.link_wrapper {
-  align-content: center;
-}
-
-.link_wrapper i {
-  padding-inline: 5px;
 }
 
 .sr_img {
@@ -55,7 +54,6 @@
 
 .title {
   grid-column: 1 / 4;
-  align-content: center;
   max-width: fit-content;
   font-weight: 500;
   font-size: larger;
