@@ -1,5 +1,5 @@
 import ChevronLeft from "@src/svg/chevron-left.svg?react";
-import style from "./Gallery.module.css";
+import style from "./GalleryModal.module.css";
 
 type Props = {
   direction: "left" | "right";
@@ -16,7 +16,7 @@ export default function ArrowBtn({ direction, onClick }: Props) {
         onClick();
       }}
     >
-      {direction === "left" ? <ChevronLeft /> : <ChevronLeft className="rotate-180" />}
+      <ChevronLeft />
     </button>
   );
 }

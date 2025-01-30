@@ -1,7 +1,7 @@
 import { RedditItem } from "@src/schema/RedditItem";
 import { memo, useState } from "react";
 import Dialog from "../Dialog/Dialog";
-import Modal from "../Modal/Modal";
+import GalleryModal from "../GalleryModal/GalleryModal";
 import style from "./Card.module.css";
 import Details from "./Details";
 import Preview from "./Preview/Preview";
@@ -29,7 +29,7 @@ export default memo(function Card({ item }: Props) {
       {item.type === "unknown" && <div className="grid grow place-items-center text-8xl">?</div>}
       {isOpen && (
         <Dialog onClose={() => setIsOpen(false)}>
-          <Modal item={item} />
+          <GalleryModal redditItem={item} />
         </Dialog>
       )}
     </section>

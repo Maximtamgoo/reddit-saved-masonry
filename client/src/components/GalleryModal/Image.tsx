@@ -1,5 +1,5 @@
 import { useState } from "react";
-import style from "./Modal.module.css";
+import style from "./GalleryModal.module.css";
 
 type Props = {
   url: string;
