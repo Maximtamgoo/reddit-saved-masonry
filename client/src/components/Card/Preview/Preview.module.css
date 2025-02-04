@@ -28,7 +28,14 @@
 }
 
 .loading {
+  display: grid;
   position: absolute;
+  place-items: center;
+  inset: 0;
+  background: grey;
+}
+
+.loading > svg {
   width: 40px;
   height: 40px;
 }

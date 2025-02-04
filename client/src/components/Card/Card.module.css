@@ -7,6 +7,13 @@
   overflow: hidden;
 }
 
+.unknown {
+  display: grid;
+  flex-grow: 1;
+  place-items: center;
+  font-size: 80px;
+}
+
 .details {
   display: grid;
   grid-template-rows: 32px 32px;

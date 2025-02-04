@@ -14,34 +14,30 @@ export default function Preview({ url, playable = false, galleryLength = 0, onCl
   const [loading, setLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
+  if (isError) throw "Preview Error";
+
   return (
     <div className={style.preview} onClick={onClick}>
-      {isError ? (
-        <div className="text-8xl">?</div>
-      ) : (
-        <>
-          <img
-            src={url}
-            onLoad={() => setLoading(false)}
-            onError={() => {
-              setIsError(true);
-              setLoading(false);
-            }}
-            alt="Reddit Content"
-          />
-          {!loading && playable && (
-            <button className={style.play_btn}>
-              <Play />
-            </button>
-          )}
-        </>
+      <img
+        src={url}
+        onLoad={() => setLoading(false)}
+        onError={() => {
+          setIsError(true);
+          setLoading(false);
+        }}
+        alt="Reddit Content"
+      />
+      {!loading && playable && (
+        <button className={style.play_btn}>
+          <Play />
+        </button>
       )}
-      {galleryLength > 1 && <div className={style.gallery_length}>{galleryLength}</div>}
       {loading && (
         <div className={style.loading}>
-          <FileImage className={style.loading} />
+          <FileImage />
         </div>
       )}
+      {galleryLength > 1 && <div className={style.gallery_length}>{galleryLength}</div>}
     </div>
   );
 }
