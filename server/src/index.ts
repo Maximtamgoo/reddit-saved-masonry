@@ -5,12 +5,12 @@ import express, { ErrorRequestHandler } from "express";
 import helmet from "helmet";
 import createError from "http-errors";
 import morgan from "morgan";
+import { existsSync } from "node:fs";
+import path from "node:path";
 import { env } from "./envConfig.js";
 import routes from "./routes.js";
+
 const app = express();
-
-console.log("NODE_ENV:", env.NODE_ENV);
-
 app.use(express.json());
 app.use(compression());
 app.use(cookieParser());
@@ -29,17 +29,10 @@ app.use(
 );
 app.use(routes);
 
-if (env.NODE_ENV === "production") {
-  const clientDist = `${new URL("../../client", import.meta.url).pathname}/dist`;
+const clientDist = path.join(import.meta.dirname, "../../client/dist");
+if (existsSync(clientDist)) {
   app.use(express.static(clientDist));
-
-  app.get("/*", (_req, res, next) => {
-    try {
-      res.sendFile(`${clientDist}/index.html`);
-    } catch (error) {
-      next(error);
-    }
-  });
+  console.log("Serving static files:", clientDist);
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -56,4 +49,4 @@ app.use(((error, _req, res, _next) => {
   }
 }) as ErrorRequestHandler);
 
-app.listen(env.PORT, () => console.log("server started on port:", env.PORT));
+app.listen(env.PORT, () => console.log("Server started on port:", env.PORT));

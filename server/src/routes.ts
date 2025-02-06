@@ -4,21 +4,12 @@ import { env } from "./envConfig.js";
 import { authorize, getNewAccessToken, revokeToken, toggleBookmark } from "./reddit.js";
 const router = express.Router();
 
-const isProduction = env.NODE_ENV === "production";
-
 const accessTokenOptions = (maxAge: number) =>
   ({
     maxAge,
     sameSite: "lax",
-    secure: isProduction,
+    secure: true,
   }) as const;
-
-const refreshTokenOptions = {
-  maxAge: 2629800 * 1000,
-  sameSite: "strict",
-  secure: isProduction,
-  httpOnly: true,
-} as const;
 
 router.get("/api/authurl", async (_req, res, next) => {
   try {
@@ -35,7 +26,12 @@ router.post("/api/authorize", async (req, res, next) => {
     const authorization_code = string().parse(req.body.authorization_code);
     const token = await authorize(authorization_code);
     res.cookie("access_token", token.access_token, accessTokenOptions(token.expires_in * 1000));
-    res.cookie("refresh_token", token.refresh_token, refreshTokenOptions);
+    res.cookie("refresh_token", token.refresh_token, {
+      maxAge: 2629800 * 1000,
+      sameSite: "strict",
+      secure: true,
+      httpOnly: true,
+    });
     res.send();
   } catch (error) {
     next(error);

@@ -1,8 +1,7 @@
-import { string, object, union, literal } from "@badrap/valita";
+import { number, object, string } from "@badrap/valita";
 
 const Schema = object({
-  NODE_ENV: union(literal("development"), literal("production")),
-  PORT: string(),
+  PORT: number().optional(() => 5000),
   REDDIT_CLIENTID: string(),
   REDDIT_CLIENT_SECRET: string(),
   REDDIT_USERAGENT: string(),

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./server/dist/index.js",
+    "start": "npm start -w server",
     "build": "npm run build-client && npm run build-server",
     "build-client": "npm run build -w client",
     "build-server": "npm run build -w server",
