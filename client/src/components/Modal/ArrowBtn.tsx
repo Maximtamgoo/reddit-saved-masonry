@@ -1,5 +1,6 @@
 import ChevronLeft from "@src/svg/chevron-left.svg?react";
-import style from "./GalleryModal.module.css";
+import { cn } from "@src/utils/cn";
+import style from "./Modal.module.css";
 
 type Props = {
   direction: "left" | "right";
@@ -9,7 +10,7 @@ type Props = {
 export default function ArrowBtn({ direction, onClick }: Props) {
   return (
     <button
-      className={style.arrow_btn}
+      className={cn(style.modal_btn, style.arrow_btn)}
       data-arrow={direction}
       onClick={(e) => {
         e.stopPropagation();

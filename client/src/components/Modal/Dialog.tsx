@@ -1,7 +1,8 @@
 import ArrowLeft from "@src/svg/arrow-left.svg?react";
+import { cn } from "@src/utils/cn";
 import { PropsWithChildren, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import style from "./Dialog.module.css";
+import style from "./Modal.module.css";
 
 type Props = {
   onClose: () => void;
@@ -29,7 +30,7 @@ export default function Dialog({ onClose, children }: PropsWithChildren<Props>) 
   return createPortal(
     <dialog ref={ref} onClick={onClose} onClose={onClose} className={style.dialog}>
       {children}
-      <button className={style.close_btn} onClick={onClose}>
+      <button className={cn(style.modal_btn, style.close)} onClick={onClose}>
         <ArrowLeft />
       </button>
     </dialog>,
