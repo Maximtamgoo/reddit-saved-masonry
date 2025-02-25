@@ -6,11 +6,11 @@
   "scripts": {
     "start": "node --env-file-if-exists=../.env ./dist/index.js",
     "build": "tsc",
-    "dev": "tsx watch --env-file=../.env ./src/index.ts"
+    "dev": "tsx watch --clear-screen=false --env-file=../.env ./src/index.ts"
   },
   "dependencies": {
     "@badrap/valita": "^0.4.2",
-    "compression": "^1.7.5",
+    "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "express": "^4.21.2",
     "helmet": "^8.0.0",
@@ -23,8 +23,8 @@
     "@types/express": "^5.0.0",
     "@types/http-errors": "^2.0.4",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.13.0",
-    "tsx": "^4.19.2",
+    "@types/node": "^22.13.5",
+    "tsx": "^4.19.3",
     "typescript": "^5.7.3"
   }
 }
