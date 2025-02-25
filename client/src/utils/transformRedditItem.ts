@@ -42,6 +42,7 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
         if (mm.status === "valid" && mm.p && mm.s) {
           const largestResolution = mm.p[mm.p.length - 1];
           gallery.push({
+            id: mm.id,
             type: mm.s.mp4 ? "playable" : "image",
             preview: {
               url: largestResolution.mp4 || largestResolution.u || "",

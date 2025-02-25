@@ -14,12 +14,14 @@ const Base = object({
 });
 
 const Playable = object({
+  id: string(),
   type: literal("playable"),
   preview: Entry,
   source: Entry,
 });
 
 const Image = object({
+  id: string(),
   type: literal("image"),
   preview: Entry,
   source: Entry,
