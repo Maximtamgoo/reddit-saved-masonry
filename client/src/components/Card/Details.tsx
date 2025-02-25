@@ -2,6 +2,7 @@ import Link from "@src/components/Link";
 import type { RedditItem } from "@src/schema/RedditItem";
 import { useToggleBookmark } from "@src/services/queries";
 import Bookmark from "@src/svg/bookmark.svg?react";
+import { cn } from "@src/utils/cn";
 import { memo, useState } from "react";
 import style from "./Card.module.css";
 
@@ -35,7 +36,7 @@ export default memo(function Details({ item }: Props) {
       >
         <Bookmark data-saved={item.saved} />
       </button>
-      <Link className={`${style.title} truncate`} href={postLink}>
+      <Link className={cn(style.title, "truncate")} href={postLink}>
         {item.type === "comment" ? "Comment" : item.title}
       </Link>
     </div>

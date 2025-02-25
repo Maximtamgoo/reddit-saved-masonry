@@ -11,6 +11,7 @@
   display: grid;
   flex-grow: 1;
   place-items: center;
+  background: lightgrey;
   font-size: 80px;
 }
 
@@ -27,7 +28,7 @@
 }
 
 .details i {
-  padding-inline: 5px;
+  padding: 0 5px;
 }
 
 .details a {
@@ -35,19 +36,17 @@
 }
 
 .sr_img {
-  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  border-radius: 2em;
   background: grey;
   overflow: hidden;
-}
-
-.sr_img > img {
-  object-fit: contain;
 }
 
 .bookmark_btn {
   display: grid;
   place-items: center;
-  border-radius: 50%;
+  border-radius: 2em;
   background: gray;
 }
 
@@ -68,12 +67,20 @@
 }
 
 .text {
-  display: -webkit-box;
-  flex-grow: 1;
-  padding-inline: 14px;
+  position: relative;
+  padding: 0 14px;
   overflow: hidden;
-  line-height: 24px;
+  line-height: 1.5;
   white-space: break-spaces;
   overflow-wrap: break-word;
-  -webkit-box-orient: vertical;
+}
+
+.text::before {
+  position: absolute;
+  right: 14px;
+  bottom: 0;
+  left: 14px;
+  backdrop-filter: blur(2px);
+  height: 10px;
+  content: "";
 }
