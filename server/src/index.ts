@@ -35,7 +35,6 @@ if (existsSync(clientDist)) {
   console.log("Serving static files:", clientDist);
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use(((error, _req, res, _next) => {
   if (error instanceof ValitaError) {
     console.log(error.message);

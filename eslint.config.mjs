@@ -19,7 +19,6 @@ export default tseslint.config(
     ],
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
-      ecmaVersion: "latest",
       globals: { ...globals.browser, ...globals.node },
     },
     settings: { react: { version: "detect" } },
@@ -27,8 +26,7 @@ export default tseslint.config(
       "react-hooks": reactHooks,
     },
     rules: {
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-unused-vars": "off",
       ...reactHooks.configs.recommended.rules,
     },
   },
