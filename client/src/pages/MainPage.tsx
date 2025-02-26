@@ -6,19 +6,18 @@ import LoaderCircle from "@src/svg/loader-circle.svg?react";
 import RotateCw from "@src/svg/rotate-cw.svg?react";
 import { calculateAspectRatioFit } from "@src/utils/calculateAspectRatioFit";
 import { useCallback, useMemo, useRef } from "react";
-
-const isMaybeMobile = "maxTouchPoints" in navigator && navigator.maxTouchPoints > 0;
+import style from "./MainPage.module.css";
 
 export default function MainPage() {
   const isBusyRef = useRef(false);
-  const { data, isPending, isError, error, hasNextPage, fetchNextPage } = useGetSavedContent();
+  const { data, isLoading, isLoadingError, isError, hasNextPage, fetchNextPage } =
+    useGetSavedContent();
 
   const redditItems = useMemo(() => data?.pages.flatMap((page) => page.redditItems) ?? [], [data]);
 
   const estimateSize = useCallback((item: RedditItem, width: number) => {
     const minHeight = 350;
-    const winHeight = isMaybeMobile ? window.outerHeight : window.innerHeight;
-    const maxHeight = winHeight - 40;
+    const maxHeight = window.screen.height;
     const detailsHeight = 100;
     let totalHeight = detailsHeight;
 
@@ -38,49 +37,45 @@ export default function MainPage() {
     }
   }, [hasNextPage, isError, fetchNextPage]);
 
-  if (isError) {
-    console.log("error:", error);
-  }
-
-  if (isPending) {
+  if (isLoadingError || isLoading) {
     return (
-      <div className="absolute inset-0 grid place-content-center justify-items-center gap-2 text-slate-800">
-        <LoaderCircle className="size-14 animate-spin rounded-full" />
-        <div className="text-xl">Getting Posts</div>
+      <div className={style.center}>
+        <Loader isError={isLoadingError} onClick={fetchNextPage} />
       </div>
     );
   }
 
   return (
-    <VirtualMasonry
-      items={redditItems}
-      minLaneWidth={375}
-      maxLanes={3}
-      gap={25}
-      overscan={20}
-      getItemKey={(index) => redditItems[index].id ?? index}
-      estimateSize={estimateSize}
-      loadMore={loadMore}
-      renderItem={(item) => <Card item={item} />}
-      renderLoader={
-        <div className="flex h-24 flex-col items-center justify-center text-lg">
-          {isError ? (
-            <>
-              Error: {error.message}
-              <button
-                className="grid size-10 place-items-center rounded-full bg-slate-100 hover:bg-slate-200"
-                onClick={() => fetchNextPage()}
-              >
-                <RotateCw />
-              </button>
-            </>
-          ) : hasNextPage ? (
-            <LoaderCircle className="size-14 animate-spin" />
-          ) : (
-            "Reached the Reddit limit..."
-          )}
-        </div>
-      }
-    />
+    <>
+      <VirtualMasonry
+        items={redditItems}
+        minLaneWidth={350}
+        maxLanes={3}
+        gap={25}
+        overscan={20}
+        getItemKey={(item) => item.id}
+        estimateSize={estimateSize}
+        loadMore={loadMore}
+        renderItem={(item) => <Card item={item} />}
+        renderLoader={<Loader isError={isError} onClick={fetchNextPage} />}
+        hasMore={hasNextPage}
+      />
+      {!hasNextPage && <div className={style.loader}>Reached the Reddit limit...</div>}
+    </>
+  );
+}
+
+function Loader({ isError = false, onClick }: { isError?: boolean; onClick?: () => void }) {
+  return (
+    <div className={style.loader}>
+      {isError ? "Could not get posts" : "Getting Posts"}
+      {isError ? (
+        <button className={style.retry} onClick={onClick}>
+          <RotateCw />
+        </button>
+      ) : (
+        <LoaderCircle className={style.spin} width={40} height={40} />
+      )}
+    </div>
   );
 }

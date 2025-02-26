@@ -1,5 +1,4 @@
 import { useResizeObserver } from "@src/hooks/useResizeObserver";
-import { useWindowHeight } from "@src/hooks/useWindowHeight";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 
@@ -10,10 +9,11 @@ type Props<Item> = {
   gap: number;
   overscan: number;
   renderLoader: ReactNode;
-  getItemKey: (index: number) => string | number;
+  getItemKey: (item: Item) => string | number;
   estimateSize: (item: Item, width: number) => number;
   renderItem: (item: Item) => ReactNode;
   loadMore: () => void;
+  hasMore: boolean;
 };
 
 export default function VirtualMasonry<Item>({
@@ -23,6 +23,7 @@ export default function VirtualMasonry<Item>({
   gap,
   overscan,
   renderLoader,
+  hasMore,
   getItemKey,
   estimateSize,
   renderItem,
@@ -31,7 +32,6 @@ export default function VirtualMasonry<Item>({
   const parentRef = useRef<HTMLDivElement>(null);
   const parentRect = useResizeObserver(parentRef);
   const parentWidth = parentRect.width;
-  const winHeight = useWindowHeight();
 
   const lanes = useMemo(() => {
     const lanes = Math.floor((parentWidth + gap) / (minLaneWidth + gap));
@@ -51,9 +51,9 @@ export default function VirtualMasonry<Item>({
     overscan,
     scrollMargin: parentRef.current?.offsetTop ?? 0,
     getItemKey: useCallback(
-      (index: number) => getItemKey(index),
+      (index: number) => getItemKey(items[index]),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [getItemKey, parentWidth, winHeight],
+      [getItemKey, parentWidth],
     ),
     estimateSize: (index) => estimateSize(items[index], itemWidth),
   });
@@ -101,7 +101,7 @@ export default function VirtualMasonry<Item>({
               );
             })}
           </div>
-          {renderLoader}
+          {hasMore && renderLoader}
         </>
       )}
     </div>
