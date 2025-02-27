@@ -1,11 +1,5 @@
 @import "../../node_modules/modern-normalize/modern-normalize.css";
 
-:root {
-  margin: 0 auto;
-  padding: 0 14px;
-  max-width: 1600px;
-}
-
 body {
   background-color: white;
   overflow-y: scroll;
@@ -23,6 +17,12 @@ button {
   border: none;
   background: none;
   padding: 0;
+}
+
+#root {
+  margin: 0 auto;
+  padding: 0 14px;
+  max-width: 1600px;
 }
 
 .truncate {

@@ -19,7 +19,7 @@ export default function Gallery({ items }: Props) {
 
   return (
     <>
-      {!isError ? (
+      {isError ? (
         <div className={style.error}>?</div>
       ) : (
         <>
