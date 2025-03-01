@@ -11,7 +11,7 @@ export function useGetSignedInUser() {
       const urlParams = new URLSearchParams(location.search);
       if (location.pathname === "/auth_callback") history.replaceState(null, "", "/");
       const urlError = urlParams.get("error");
-      if (urlError) throw urlError;
+      if (urlError) throw Error(urlError);
       const urlCode = urlParams.get("code");
       if (urlCode) await api.authorize(urlCode);
       return await api.getMe();
@@ -36,7 +36,6 @@ export function useGetSavedContent() {
     initialPageParam: "",
     queryFn: async ({ pageParam }) => {
       const listing = await api.getSavedContent(username ?? "", pageParam);
-      console.log("listing:", listing);
       const redditItems: RedditItem[] = [];
       for (const item of listing.data.children) {
         const listingItemResult = ListingItem.try(item, { mode: "strip" });
@@ -78,7 +77,7 @@ export function useToggleBookmark(id: string, pageParam: string) {
         if (oldData) {
           let found = false;
           const newPages = [];
-          for (const i in oldData.pages) {
+          for (let i = 0; i < oldData.pages.length; i++) {
             const page = oldData.pages[i];
             if (!found) {
               if (oldData.pageParams[i] === pageParam) {
