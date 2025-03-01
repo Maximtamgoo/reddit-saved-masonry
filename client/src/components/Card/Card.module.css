@@ -66,6 +66,47 @@
   text-decoration: none;
 }
 
+.preview {
+  display: flex;
+  position: relative;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  background: lightgrey;
+  min-height: 0;
+}
+
+.play_btn {
+  display: grid;
+  position: absolute;
+  place-items: center;
+  border-radius: 2em;
+  background: gray;
+  width: 40px;
+  height: 40px;
+}
+
+.play_btn > svg {
+  fill: black;
+}
+
+.gallery_length {
+  display: grid;
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  place-items: center;
+  outline: 2px solid lightgray;
+  border-radius: 8px;
+  background: rgba(0 0 0 / 0.8);
+  padding: 0 6px;
+  min-width: 32px;
+  height: 32px;
+  color: white;
+  font-weight: 600;
+}
+
 .text {
   position: relative;
   padding: 0 14px;

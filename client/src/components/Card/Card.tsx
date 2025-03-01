@@ -4,7 +4,7 @@ import Dialog from "../Modal/Dialog";
 import Modal from "../Modal/Modal";
 import style from "./Card.module.css";
 import Details from "./Details";
-import Preview from "./Preview/Preview";
+import Preview from "./Preview";
 import Text from "./Text";
 
 type Props = {

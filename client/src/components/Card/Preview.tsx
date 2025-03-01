@@ -1,6 +1,6 @@
 import Play from "@src/svg/play.svg?react";
 import { useState } from "react";
-import style from "./Preview.module.css";
+import style from "./Card.module.css";
 
 type Props = {
   url: string;
@@ -13,7 +13,7 @@ export default function Preview({ url, playable = false, galleryLength = 0, onCl
   const [isError, setIsError] = useState(false);
 
   if (isError) {
-    return <div className={style.preview}>?</div>;
+    return <div className={style.unknown}>?</div>;
   }
 
   return (
