@@ -5,13 +5,13 @@ import { useGetSavedContent } from "@src/services/queries";
 import LoaderCircle from "@src/svg/loader-circle.svg?react";
 import RotateCw from "@src/svg/rotate-cw.svg?react";
 import { calculateAspectRatioFit } from "@src/utils/calculateAspectRatioFit";
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo } from "react";
 import style from "./MainPage.module.css";
 
 export default function MainPage() {
-  const isBusyRef = useRef(false);
-  const { data, isLoading, isLoadingError, isError, hasNextPage, fetchNextPage } =
-    useGetSavedContent();
+  const query = useGetSavedContent();
+  const { data, isLoading, isLoadingError, isError } = query;
+  const { hasNextPage, isFetchingNextPage, fetchNextPage } = query;
 
   const redditItems = useMemo(() => data?.pages.flatMap((page) => page.redditItems) ?? [], [data]);
 
@@ -29,13 +29,11 @@ export default function MainPage() {
     return Math.max(minHeight, Math.min(maxHeight, Math.round(totalHeight)));
   }, []);
 
-  const loadMore = useCallback(async () => {
-    if (!isBusyRef.current && hasNextPage && !isError) {
-      isBusyRef.current = true;
-      await fetchNextPage();
-      isBusyRef.current = false;
+  const loadMore = useCallback(() => {
+    if (!isFetchingNextPage && hasNextPage && !isError) {
+      fetchNextPage();
     }
-  }, [hasNextPage, isError, fetchNextPage]);
+  }, [isFetchingNextPage, hasNextPage, isError, fetchNextPage]);
 
   if (isLoadingError || isLoading) {
     return (
