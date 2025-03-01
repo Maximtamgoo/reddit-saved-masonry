@@ -2,7 +2,7 @@ import { object, string } from "@badrap/valita";
 import { Listing } from "@src/schema/Listing";
 import HttpError from "@src/utils/HttpError";
 
-function getCookie(name: string) {
+export function getCookie(name: string) {
   return document.cookie
     .split("; ")
     .find((row) => row.startsWith(`${name}=`))
@@ -18,19 +18,23 @@ export async function authorize(authorization_code: string) {
   if (!res.ok) throw new HttpError(res.status, res.statusText);
 }
 
-export async function getNewAccessToken() {
+export async function getAccessToken() {
+  const token = getCookie("access_token");
+  if (token) return token;
   const res = await fetch("/api/access_token", {
     method: "POST",
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
+  const newToken = getCookie("access_token");
+  if (!newToken) throw Error("access_token cookie not found");
+  return newToken;
 }
 
 export async function getMe() {
-  const token = getCookie("access_token");
-  if (!token) await getNewAccessToken();
+  const access_token = await getAccessToken();
   const res = await fetch("https://oauth.reddit.com/api/v1/me", {
     headers: {
-      Authorization: `Bearer ${getCookie("access_token")}`,
+      Authorization: `Bearer ${access_token}`,
     },
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
@@ -38,13 +42,12 @@ export async function getMe() {
 }
 
 export async function getSavedContent(username: string, after: string, limit = 50) {
-  const token = getCookie("access_token");
-  if (!token) await getNewAccessToken();
+  const access_token = await getAccessToken();
   const res = await fetch(
     `https://oauth.reddit.com/user/${username}/saved?after=${after}&limit=${limit}&sr_detail=1&raw_json=1`,
     {
       headers: {
-        Authorization: `Bearer ${getCookie("access_token")}`,
+        Authorization: `Bearer ${access_token}`,
       },
     },
   );
@@ -53,12 +56,11 @@ export async function getSavedContent(username: string, after: string, limit = 5
 }
 
 export async function toggleBookmark(id: string, state: boolean) {
-  const token = getCookie("access_token");
-  if (!token) await getNewAccessToken();
+  const access_token = await getAccessToken();
   const res = await fetch(`/api/bookmark/${state ? "save" : "unsave"}`, {
     method: "POST",
     headers: {
-      Authorization: `Bearer ${getCookie("access_token")}`,
+      Authorization: `Bearer ${access_token}`,
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ id }),
