@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.2",
-    "@tanstack/react-query": "^5.66.9",
-    "@tanstack/react-virtual": "^3.13.0",
+    "@tanstack/react-query": "^5.66.11",
+    "@tanstack/react-virtual": "^3.13.2",
     "modern-normalize": "^3.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
@@ -22,13 +22,13 @@
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react-swc": "^3.8.0",
     "eslint-plugin-react": "^7.37.4",
-    "eslint-plugin-react-hooks": "^5.1.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "lightningcss": "^1.29.1",
     "prettier-plugin-css-order": "^2.1.2",
     "sonda": "^0.7.1",
-    "typescript": "^5.7.3",
-    "vite": "^6.1.1",
+    "typescript": "^5.8.2",
+    "vite": "^6.2.0",
     "vite-plugin-checker": "^0.9.0",
     "vite-plugin-svgr": "^4.3.0"
   }
