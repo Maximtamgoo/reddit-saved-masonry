@@ -86,6 +86,8 @@ const secure_media = object({
     duration: number(),
     hls_url: string(),
     is_gif: boolean(),
+    width: number(),
+    height: number(),
   }).optional(),
 });
 

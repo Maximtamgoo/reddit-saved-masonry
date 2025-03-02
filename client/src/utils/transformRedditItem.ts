@@ -19,13 +19,14 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
   }
 
   const {
+    title,
     is_self,
     selftext,
-    preview,
     is_gallery,
     gallery_data,
     media_metadata,
-    title,
+    preview,
+    secure_media,
     url,
     sr_detail,
   } = item.data;
@@ -82,6 +83,17 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
           url: preview.reddit_video_preview.fallback_url,
           width: preview.reddit_video_preview.width,
           height: preview.reddit_video_preview.height,
+        },
+      };
+    }
+    if (secure_media && secure_media.reddit_video) {
+      return {
+        ...redditItem,
+        type: "playable",
+        source: {
+          url: secure_media.reddit_video.fallback_url,
+          width: secure_media.reddit_video.width,
+          height: secure_media.reddit_video.height,
         },
       };
     }
