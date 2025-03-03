@@ -1,6 +1,6 @@
 import { useResizeObserver } from "@src/hooks/useResizeObserver";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo, useRef } from "react";
 
 type Props<Item> = {
   items: Item[];

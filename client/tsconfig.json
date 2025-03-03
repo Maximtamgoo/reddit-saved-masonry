@@ -21,6 +21,7 @@
     "noUncheckedSideEffectImports": true,
 
     /* Other */
+    "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@src/*": ["./src/*"]

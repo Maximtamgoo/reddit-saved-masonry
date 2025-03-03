@@ -1,4 +1,4 @@
-import { array, boolean, Infer, literal, object, string, union } from "@badrap/valita";
+import { type Infer, array, boolean, literal, object, string, union } from "@badrap/valita";
 import { Entry } from "./t3_link";
 
 const Base = object({

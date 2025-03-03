@@ -1,5 +1,5 @@
 import { literal, string, union } from "@badrap/valita";
-import express, { Request } from "express";
+import express, { type Request } from "express";
 import { env } from "./envConfig.js";
 import { authorize, getNewAccessToken, revokeToken, toggleBookmark } from "./reddit.js";
 const router = express.Router();

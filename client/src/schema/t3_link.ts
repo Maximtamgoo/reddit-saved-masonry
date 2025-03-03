@@ -1,7 +1,7 @@
 import {
+  type Infer,
   array,
   boolean,
-  Infer,
   literal,
   number,
   object,

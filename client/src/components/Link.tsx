@@ -1,4 +1,4 @@
-import { ComponentProps, PropsWithChildren } from "react";
+import type { ComponentProps, PropsWithChildren } from "react";
 
 export default function Link({ children, ...props }: PropsWithChildren & ComponentProps<"a">) {
   return (

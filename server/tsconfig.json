@@ -4,6 +4,7 @@
     /* Language and Environment */
     "target": "ES2022",
     "lib": ["ES2022"],
+    "moduleDetection": "force",
     /* Modules */
     "module": "NodeNext",
     "moduleResolution": "NodeNext",
@@ -14,6 +15,7 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
+    "verbatimModuleSyntax": true,
     /* Type Checking */
     "strict": true,
     "noUnusedLocals": true,

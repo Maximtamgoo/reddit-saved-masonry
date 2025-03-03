@@ -1,5 +1,5 @@
 import { useGallery } from "@src/hooks/useGallery";
-import { GalleryItem } from "@src/schema/RedditItem";
+import { type GalleryItem } from "@src/schema/RedditItem";
 import { cn } from "@src/utils/cn";
 import { useState } from "react";
 import ArrowBtn from "./ArrowBtn";

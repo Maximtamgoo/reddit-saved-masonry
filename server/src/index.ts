@@ -1,7 +1,7 @@
 import { ValitaError } from "@badrap/valita";
 import compression from "compression";
 import cookieParser from "cookie-parser";
-import express, { ErrorRequestHandler } from "express";
+import express, { type ErrorRequestHandler } from "express";
 import helmet from "helmet";
 import createError from "http-errors";
 import morgan from "morgan";

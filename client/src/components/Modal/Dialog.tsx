@@ -1,6 +1,6 @@
 import ArrowLeft from "@src/svg/arrow-left.svg?react";
 import { cn } from "@src/utils/cn";
-import { PropsWithChildren, useEffect, useRef } from "react";
+import { type PropsWithChildren, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import style from "./Modal.module.css";
 

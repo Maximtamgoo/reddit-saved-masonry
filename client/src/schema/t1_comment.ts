@@ -1,4 +1,4 @@
-import { Infer, literal, number, object, string } from "@badrap/valita";
+import { type Infer, literal, number, object, string } from "@badrap/valita";
 
 export const T1_COMMENT = object({
   kind: literal("t1"),
