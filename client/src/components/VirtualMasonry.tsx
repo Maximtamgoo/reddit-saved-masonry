@@ -1,6 +1,6 @@
 import { useResizeObserver } from "@src/hooks/useResizeObserver";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { type ReactNode, useEffect, useMemo } from "react";
+import { type ReactNode, useCallback, useEffect, useMemo } from "react";
 
 type Props<Item> = {
   items: Item[];
@@ -47,7 +47,11 @@ export default function VirtualMasonry<Item>({
     gap,
     overscan,
     scrollMargin: rect.top,
-    getItemKey: (index: number) => getItemKey(items[index]),
+    getItemKey: useCallback(
+      (index: number) => getItemKey(items[index]),
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [getItemKey, items, parentWidth],
+    ),
     estimateSize: (index) => estimateSize(items[index], itemWidth),
   });
 

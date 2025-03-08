@@ -13,11 +13,9 @@ export default function MainPage() {
 
   const redditItems = useMemo(() => data?.pages.flatMap((page) => page.redditItems) ?? [], [data]);
 
-  const getItemKey = useCallback((item: RedditItem) => item.id, []);
-
   const estimateSize = useCallback((item: RedditItem, width: number) => {
     const minHeight = 350;
-    const maxHeight = window.screen.height;
+    const maxHeight = (window.screen.height / 100) * 75;
     const detailsHeight = 100;
     let totalHeight = detailsHeight;
 
@@ -37,8 +35,6 @@ export default function MainPage() {
     }
   }, [hasNextPage, isError, fetchNextPage]);
 
-  const renderItem = useCallback((item: RedditItem) => <Card item={item} />, []);
-
   if (isLoadingError || isLoading) {
     return (
       <div className="center">
@@ -54,10 +50,10 @@ export default function MainPage() {
       maxLanes={3}
       gap={25}
       overscan={20}
-      getItemKey={getItemKey}
+      getItemKey={(item) => item.id}
       estimateSize={estimateSize}
       loadMore={loadMore}
-      renderItem={renderItem}
+      renderItem={(item) => <Card item={item} />}
       renderLoader={
         <Loader
           isError={isError}
