@@ -110,6 +110,7 @@
 .text {
   position: relative;
   padding: 0 14px;
+  height: 100%;
   overflow: hidden;
   line-height: 1.5;
   white-space: break-spaces;

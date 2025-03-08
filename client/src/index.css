@@ -30,3 +30,10 @@ button {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.center {
+  display: grid;
+  position: absolute;
+  place-items: center;
+  inset: 0;
+}

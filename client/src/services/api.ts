@@ -21,9 +21,7 @@ export async function authorize(authorization_code: string) {
 export async function getAccessToken() {
   const token = getCookie("access_token");
   if (token) return token;
-  const res = await fetch("/api/access_token", {
-    method: "POST",
-  });
+  const res = await fetch("/api/access_token", { method: "POST" });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
   const newToken = getCookie("access_token");
   if (!newToken) throw Error("access_token cookie not found");
@@ -33,9 +31,7 @@ export async function getAccessToken() {
 export async function getMe() {
   const access_token = await getAccessToken();
   const res = await fetch("https://oauth.reddit.com/api/v1/me", {
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-    },
+    headers: { Authorization: `Bearer ${access_token}` },
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
   return object({ name: string(), icon_img: string() }).parse(await res.json(), { mode: "strip" });
@@ -43,14 +39,10 @@ export async function getMe() {
 
 export async function getSavedContent(username: string, after: string, limit = 50) {
   const access_token = await getAccessToken();
-  const res = await fetch(
-    `https://oauth.reddit.com/user/${username}/saved?after=${after}&limit=${limit}&sr_detail=1&raw_json=1`,
-    {
-      headers: {
-        Authorization: `Bearer ${access_token}`,
-      },
-    },
-  );
+  const url = `https://oauth.reddit.com/user/${username}/saved?after=${after}&limit=${limit}&sr_detail=1&raw_json=1`;
+  const res = await fetch(url, {
+    headers: { Authorization: `Bearer ${access_token}` },
+  });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
   return Listing.parse(await res.json(), { mode: "strip" });
 }

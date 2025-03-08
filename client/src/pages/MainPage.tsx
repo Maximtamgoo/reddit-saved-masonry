@@ -1,19 +1,19 @@
 import Card from "@src/components/Card/Card";
+import Loader from "@src/components/Loader/Loader";
 import VirtualMasonry from "@src/components/VirtualMasonry";
 import { RedditItem } from "@src/schema/RedditItem";
 import { useGetSavedContent } from "@src/services/queries";
-import LoaderCircle from "@src/svg/loader-circle.svg?react";
-import RotateCw from "@src/svg/rotate-cw.svg?react";
 import { calculateAspectRatioFit } from "@src/utils/calculateAspectRatioFit";
-import { useCallback, useMemo } from "react";
-import style from "./MainPage.module.css";
+import { useCallback, useMemo, useRef } from "react";
 
 export default function MainPage() {
+  const isBusyRef = useRef(false);
   const query = useGetSavedContent();
-  const { data, isLoading, isLoadingError, isError } = query;
-  const { hasNextPage, isFetchingNextPage, fetchNextPage } = query;
+  const { data, isLoading, isLoadingError, isError, hasNextPage, fetchNextPage } = query;
 
   const redditItems = useMemo(() => data?.pages.flatMap((page) => page.redditItems) ?? [], [data]);
+
+  const getItemKey = useCallback((item: RedditItem) => item.id, []);
 
   const estimateSize = useCallback((item: RedditItem, width: number) => {
     const minHeight = 350;
@@ -29,51 +29,43 @@ export default function MainPage() {
     return Math.max(minHeight, Math.min(maxHeight, Math.round(totalHeight)));
   }, []);
 
-  const loadMore = useCallback(() => {
-    if (!isFetchingNextPage && hasNextPage && !isError) {
-      fetchNextPage();
+  const loadMore = useCallback(async () => {
+    if (!isBusyRef.current && hasNextPage && !isError) {
+      isBusyRef.current = true;
+      await fetchNextPage();
+      isBusyRef.current = false;
     }
-  }, [isFetchingNextPage, hasNextPage, isError, fetchNextPage]);
+  }, [hasNextPage, isError, fetchNextPage]);
+
+  const renderItem = useCallback((item: RedditItem) => <Card item={item} />, []);
 
   if (isLoadingError || isLoading) {
     return (
-      <div className={style.center}>
+      <div className="center">
         <Loader isError={isLoadingError} onClick={fetchNextPage} />
       </div>
     );
   }
 
   return (
-    <>
-      <VirtualMasonry
-        items={redditItems}
-        minLaneWidth={350}
-        maxLanes={3}
-        gap={25}
-        overscan={20}
-        getItemKey={(item) => item.id}
-        estimateSize={estimateSize}
-        loadMore={loadMore}
-        renderItem={(item) => <Card item={item} />}
-        renderLoader={<Loader isError={isError} onClick={fetchNextPage} />}
-        hasMore={hasNextPage}
-      />
-      {!hasNextPage && <div className={style.loader}>Reached the Reddit limit...</div>}
-    </>
-  );
-}
-
-function Loader({ isError = false, onClick }: { isError?: boolean; onClick?: () => void }) {
-  return (
-    <div className={style.loader}>
-      {isError ? "Could not get posts" : "Getting Posts"}
-      {isError ? (
-        <button className={style.retry} onClick={onClick}>
-          <RotateCw />
-        </button>
-      ) : (
-        <LoaderCircle className={style.spin} width={40} height={40} />
-      )}
-    </div>
+    <VirtualMasonry
+      items={redditItems}
+      minLaneWidth={350}
+      maxLanes={3}
+      gap={25}
+      overscan={20}
+      getItemKey={getItemKey}
+      estimateSize={estimateSize}
+      loadMore={loadMore}
+      renderItem={renderItem}
+      renderLoader={
+        <Loader
+          isError={isError}
+          isEnd={!hasNextPage}
+          endMessage="Reached the Reddit limit..."
+          onClick={fetchNextPage}
+        />
+      }
+    />
   );
 }
