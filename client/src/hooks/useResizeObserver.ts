@@ -1,4 +1,4 @@
-import { type RefObject, useLayoutEffect, useState } from "react";
+import { useCallback, useState } from "react";
 
 type Rect = Omit<DOMRectReadOnly, "toJSON">;
 
@@ -13,14 +13,14 @@ const defaultState: Rect = {
   right: 0,
 };
 
-export function useResizeObserver(ref: RefObject<HTMLElement | null>) {
+export function useResizeObserver() {
   const [rect, setRect] = useState(defaultState);
 
-  useLayoutEffect(() => {
+  const ref = useCallback((node: Element | null) => {
     const observer = new ResizeObserver(([entry]) => setRect(entry.contentRect));
-    if (ref.current) observer.observe(ref.current);
+    if (node) observer.observe(node);
     return () => observer.disconnect();
-  }, [ref]);
+  }, []);
 
-  return rect;
+  return { ref, rect };
 }
