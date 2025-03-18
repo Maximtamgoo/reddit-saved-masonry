@@ -6,14 +6,15 @@
   "scripts": {
     "start": "node --env-file-if-exists=../.env ./dist/index.js",
     "build": "tsc",
-    "dev": "tsx watch --clear-screen=false --env-file=../.env ./src/index.ts"
+    "dev": "tsx watch --env-file=../.env ./src/index.ts",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@badrap/valita": "^0.4.3",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "express": "^4.21.2",
-    "helmet": "^8.0.0",
+    "helmet": "^8.1.0",
     "http-errors": "^2.0.0",
     "morgan": "^1.10.0"
   },
