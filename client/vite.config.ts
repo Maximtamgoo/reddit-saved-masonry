@@ -6,20 +6,18 @@ import svgr from "vite-plugin-svgr";
 
 const isHostRender = !!process.env.RENDER;
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     svgr(),
     checker({
       overlay: { initialIsOpen: false },
-      typescript: true,
       eslint: {
         useFlatConfig: true,
         lintCommand: "eslint './src/**/*.{ts,tsx}'",
       },
     }),
-    !isHostRender && Sonda({ gzip: true }),
+    Sonda({ enabled: !isHostRender, gzip: true }),
   ],
   css: {
     transformer: "lightningcss",

@@ -1,0 +1,25 @@
+.playable {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  min-height: 0;
+}
+
+.click_layer {
+  display: grid;
+  position: absolute;
+  place-items: center;
+  cursor: pointer;
+  inset: 0;
+  background: transparent;
+}
+
+.play_btn {
+  display: grid;
+  place-items: center;
+  border-radius: 2em;
+  background: gray;
+  width: 40px;
+  height: 40px;
+}

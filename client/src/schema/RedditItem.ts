@@ -1,4 +1,4 @@
-import { type Infer, array, boolean, literal, object, string, union } from "@badrap/valita";
+import { type Infer, array, boolean, literal, number, object, string, union } from "@badrap/valita";
 import { Entry } from "./t3_link";
 
 const Base = object({
@@ -34,6 +34,7 @@ const Gallery = object({
   type: literal("gallery"),
   preview: Entry,
   gallery: array(GalleryItem),
+  galleryHeight: number(),
 });
 
 const Text = object({

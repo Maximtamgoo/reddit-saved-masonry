@@ -37,10 +37,12 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
 
   if (is_gallery && gallery_data && media_metadata) {
     const gallery: GalleryItem[] = [];
+    let maxHeight = 0;
     for (const item of gallery_data.items) {
       const mm = media_metadata[item.media_id];
       if (mm.status === "valid" && mm.p && mm.s) {
         const largestResolution = mm.p[mm.p.length - 1];
+        if (largestResolution.y > maxHeight) maxHeight = largestResolution.y;
         gallery.push({
           id: mm.id,
           type: mm.s.mp4 ? "playable" : "image",
@@ -63,6 +65,7 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
       type: "gallery",
       preview: gallery[0].preview,
       gallery,
+      galleryHeight: maxHeight,
     };
   }
 

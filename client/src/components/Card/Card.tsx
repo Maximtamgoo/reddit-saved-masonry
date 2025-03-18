@@ -1,10 +1,13 @@
 import { RedditItem } from "@src/schema/RedditItem";
-import { memo, useState } from "react";
-import Dialog from "../Modal/Dialog";
-import Modal from "../Modal/Modal";
+import { memo } from "react";
+// import Dialog from "../Modal/Dialog";
+// import Modal from "../Modal/Modal";
 import style from "./Card.module.css";
 import Details from "./Details";
-import Preview from "./Preview";
+import Gallery from "./Gallery";
+import Image from "./Image";
+import Playable from "./Playable";
+// import Preview from "./Preview";
 import Text from "./Text";
 
 type Props = {
@@ -12,18 +15,18 @@ type Props = {
 };
 
 export default memo(function Card({ item }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+  // const [isOpen, setIsOpen] = useState(false);
 
   return (
     <section className={style.card}>
       <Details item={item} />
       {(item.type === "text" || item.type === "comment") && <Text text={item.text} />}
-      {(item.type === "gallery" || item.type === "image" || item.type === "playable") && (
+      {/* {item.type === "image" && (
         <>
           <Preview
             url={item.preview.url}
-            playable={item.type === "playable"}
-            galleryLength={item.type === "gallery" ? item.gallery.length : 0}
+            playable={false}
+            galleryLength={0}
             onClick={() => setIsOpen(true)}
           />
           {isOpen && (
@@ -32,7 +35,10 @@ export default memo(function Card({ item }: Props) {
             </Dialog>
           )}
         </>
-      )}
+      )} */}
+      {item.type === "image" && <Image src={item.preview.url} />}
+      {item.type === "playable" && <Playable src={item.source.url} poster={item.preview.url} />}
+      {item.type === "gallery" && <Gallery items={item.gallery} />}
       {item.type === "unknown" && <div className={style.unknown}>?</div>}
     </section>
   );
