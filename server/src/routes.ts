@@ -1,5 +1,6 @@
 import { literal, string, union } from "@badrap/valita";
 import express, { type Request } from "express";
+import createError from "http-errors";
 import { env } from "./envConfig.js";
 import { authorize, getNewAccessToken, revokeToken, toggleBookmark } from "./reddit.js";
 const router = express.Router();
@@ -9,11 +10,13 @@ type UnknownObj = {
 };
 type Req = Request<UnknownObj, UnknownObj, UnknownObj>;
 
+const isProduction = process.env.NODE_ENV === "production";
+
 const accessTokenOptions = (maxAge: number) =>
   ({
     maxAge,
     sameSite: "lax",
-    secure: true,
+    secure: isProduction,
   }) as const;
 
 router.get("/api/authurl", (_req, res, next) => {
@@ -34,7 +37,7 @@ router.post("/api/authorize", async (req: Req, res, next) => {
     res.cookie("refresh_token", token.refresh_token, {
       maxAge: 2629800 * 1000,
       sameSite: "strict",
-      secure: true,
+      secure: isProduction,
       httpOnly: true,
     });
     res.send();
@@ -45,8 +48,9 @@ router.post("/api/authorize", async (req: Req, res, next) => {
 
 router.post("/api/access_token", async (req: Req, res, next) => {
   try {
-    const refresh_token = string().parse(req.cookies.refresh_token);
-    const token = await getNewAccessToken(refresh_token);
+    const result = string().try(req.cookies.refresh_token);
+    if (!result.ok) throw createError(400, "Invalid refresh_token");
+    const token = await getNewAccessToken(result.value);
     res.cookie("access_token", token.access_token, accessTokenOptions(token.expires_in * 1000));
     res.send();
   } catch (error) {
@@ -56,10 +60,10 @@ router.post("/api/access_token", async (req: Req, res, next) => {
 
 router.post("/api/signout", async (req: Req, res, next) => {
   try {
-    const refresh_token = string().parse(req.cookies.refresh_token);
-    await revokeToken("refresh_token", refresh_token);
     res.clearCookie("refresh_token");
     res.clearCookie("access_token");
+    const result = string().try(req.cookies.refresh_token);
+    if (result.ok) await revokeToken("refresh_token", result.value);
     res.send();
   } catch (error) {
     next(error);
