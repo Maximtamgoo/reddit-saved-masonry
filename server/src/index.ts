@@ -33,6 +33,7 @@ const clientDist = path.join(import.meta.dirname, "../../client/dist");
 if (existsSync(clientDist)) {
   app.use(express.static(clientDist));
   console.log("Serving static files:", clientDist);
+  app.get("/*", (_req, res) => res.redirect("/"));
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
