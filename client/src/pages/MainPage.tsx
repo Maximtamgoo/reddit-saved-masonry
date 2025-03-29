@@ -17,18 +17,11 @@ export default function MainPage() {
     const minHeight = 350;
     const maxHeight = (window.screen.height / 100) * 75;
     const detailsHeight = 100;
-    const galleryActionsHeight = 50;
     let totalHeight = detailsHeight;
 
-    if (item.type === "playable" || item.type === "image") {
+    if (item.type === "playable" || item.type === "image" || item.type === "gallery") {
       const p = item.preview;
       totalHeight += calculateAspectRatioFit(p.width, p.height, width, p.height).height;
-    }
-
-    if (item.type === "gallery") {
-      const p = item.preview;
-      totalHeight += galleryActionsHeight;
-      totalHeight += calculateAspectRatioFit(p.width, item.galleryHeight, width, p.height).height;
     }
 
     return Math.max(minHeight, Math.min(maxHeight, Math.round(totalHeight)));
