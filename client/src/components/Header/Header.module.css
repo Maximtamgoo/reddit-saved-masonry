@@ -1,30 +1,35 @@
 .header {
   display: grid;
-  grid-template-columns: 40px auto repeat(3, 40px);
+  grid-template-rows: 60px;
+  grid-template-columns: 40px 1fr repeat(3, 40px);
   align-items: center;
   gap: 10px;
-  height: 60px;
+  margin: 5px 0 15px 0;
+  outline: 1px solid var(--bg-slate-200);
+  border-radius: 10px;
+  background-color: var(--bg-white);
+  padding: 0 10px 0 5px;
+  & > svg {
+    stroke: var(--bg-sky-500);
+    fill: var(--bg-sky-500);
+    width: 40px;
+    height: 40px;
+  }
+  & > span {
+    font-size: 30px;
+  }
 }
 
-.header > svg {
-  margin-left: -5px;
-  width: 40px;
-  height: 40px;
-}
-
-.header > span {
-  margin-left: -15px;
-  font-size: 30px;
-}
-
-.header > a,
-.header > button {
+.nav_btn {
   display: grid;
   place-items: center;
   border-radius: 50%;
-  background: lightgray;
+  background-color: var(--bg-slate-100);
   width: 40px;
   height: 40px;
   overflow: hidden;
   color: black;
+  &:hover {
+    background-color: var(--bg-slate-200);
+  }
 }

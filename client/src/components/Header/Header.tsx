@@ -14,14 +14,14 @@ export default function Header() {
       <Bookmark />
       <span className="truncate">Reddit Saved Masonry</span>
       {isSuccess && (
-        <Link href={`https://www.reddit.com/user/${data.name}/saved`}>
+        <Link className={style.nav_btn} href={`https://www.reddit.com/user/${data.name}/saved`}>
           <img src={data.icon_img} />
         </Link>
       )}
-      <Link href="https://github.com/Maximtamgoo/reddit-saved-masonry">
+      <Link className={style.nav_btn} href="https://github.com/Maximtamgoo/reddit-saved-masonry">
         <Github />
       </Link>
-      <button onClick={() => mutate()}>
+      <button className={style.nav_btn} onClick={() => mutate()}>
         <LogOut />
       </button>
     </header>
