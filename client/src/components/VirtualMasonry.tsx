@@ -50,7 +50,7 @@ export default function VirtualMasonry<Item>({
     getItemKey: useCallback(
       (index: number) => getItemKey(items[index]),
       // eslint-disable-next-line react-hooks/exhaustive-deps
-      [getItemKey, items, parentWidth],
+      [getItemKey, parentWidth],
     ),
     estimateSize: (index) => estimateSize(items[index], itemWidth),
   });
