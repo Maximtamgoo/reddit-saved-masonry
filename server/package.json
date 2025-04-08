@@ -13,7 +13,7 @@
     "@badrap/valita": "^0.4.3",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
     "helmet": "^8.1.0",
     "http-errors": "^2.0.0",
     "morgan": "^1.10.0"
@@ -21,11 +21,11 @@
   "devDependencies": {
     "@types/compression": "^1.7.5",
     "@types/cookie-parser": "^1.4.8",
-    "@types/express": "^5.0.0",
+    "@types/express": "^5.0.1",
     "@types/http-errors": "^2.0.4",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.13.10",
+    "@types/node": "^22.14.0",
     "tsx": "^4.19.3",
-    "typescript": "^5.8.2"
+    "typescript": "^5.8.3"
   }
 }
