@@ -1,9 +1,9 @@
-import pluginQuery from "@tanstack/eslint-plugin-query";
+import tseslint from "typescript-eslint";
+import rootConfig from "../eslint.config.mjs";
 import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
-import rootConfig from "../eslint.config.mjs";
+import pluginQuery from "@tanstack/eslint-plugin-query";
 
 export default tseslint.config({
   extends: [
