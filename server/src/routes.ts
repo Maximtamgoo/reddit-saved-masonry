@@ -10,7 +10,7 @@ type UnknownObj = {
 };
 type Req = Request<UnknownObj, UnknownObj, UnknownObj>;
 
-const isProduction = process.env.NODE_ENV === "production";
+const isProduction = env.NODE_ENV === "production";
 
 const accessTokenOptions = (maxAge: number) =>
   ({

@@ -29,11 +29,13 @@ app.use(
 );
 app.use(routes);
 
+console.log("NODE_ENV:", env.NODE_ENV);
+
 const clientDist = path.join(import.meta.dirname, "../../client/dist");
-if (existsSync(clientDist)) {
+if (env.NODE_ENV === "production" && existsSync(clientDist)) {
   app.use(express.static(clientDist));
   console.log("Serving static files:", clientDist);
-  app.get("/*", (_req, res) => res.redirect("/"));
+  app.get("/*all", (_req, res) => res.redirect("/"));
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
