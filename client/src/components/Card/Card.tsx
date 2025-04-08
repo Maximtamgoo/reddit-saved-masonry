@@ -1,11 +1,21 @@
-import { RedditItem } from "@src/schema/RedditItem";
+import { css } from "@acab/ecsstatic";
 import { memo, useState } from "react";
+import { RedditItem } from "@src/schema/RedditItem";
 import Dialog from "../Modal/Dialog";
 import Modal from "../Modal/Modal";
-import style from "./Card.module.css";
 import Details from "./Details";
 import Preview from "./Preview";
 import Text from "./Text";
+
+const card = css`
+  display: grid;
+  grid-template-rows: auto 1fr;
+  outline: 2px solid var(--c-slate-300);
+  border-radius: var(--rounded-lg);
+  background-color: var(--c-white);
+  height: 100%;
+  overflow: hidden;
+`;
 
 type Props = {
   item: RedditItem;
@@ -15,7 +25,7 @@ export default memo(function Card({ item }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <section className={style.card}>
+    <section className={card}>
       <Details item={item} />
       {(item.type === "text" || item.type === "comment") && <Text text={item.text} />}
       {(item.type === "image" || item.type === "playable" || item.type === "gallery") && (
@@ -33,7 +43,7 @@ export default memo(function Card({ item }: Props) {
           )}
         </>
       )}
-      {item.type === "unknown" && <div className={style.unknown}>?</div>}
+      {/* {item.type === "unknown" && <div className={style.unknown}>?</div>} */}
     </section>
   );
 });

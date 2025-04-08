@@ -1,5 +1,5 @@
 import Card from "@src/components/Card/Card";
-import Loader from "@src/components/Loader/Loader";
+import Loader from "@src/components/Loader";
 import VirtualMasonry from "@src/components/VirtualMasonry";
 import { RedditItem } from "@src/schema/RedditItem";
 import { useGetSavedContent } from "@src/services/queries";
@@ -15,8 +15,8 @@ export default function MainPage() {
 
   const estimateSize = useCallback((item: RedditItem, width: number) => {
     const minHeight = 350;
-    const maxHeight = (window.screen.height / 100) * 75;
-    const detailsHeight = 100;
+    const maxHeight = (window.screen.availHeight / 100) * 75;
+    const detailsHeight = 110;
     let totalHeight = detailsHeight;
 
     if (item.type === "playable" || item.type === "image" || item.type === "gallery") {
@@ -46,9 +46,9 @@ export default function MainPage() {
   return (
     <VirtualMasonry
       items={redditItems}
-      minLaneWidth={350}
+      minLaneWidth={300}
       maxLanes={3}
-      gap={25}
+      gap={30}
       overscan={20}
       getItemKey={(item) => item.id}
       estimateSize={estimateSize}
