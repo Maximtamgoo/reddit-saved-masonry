@@ -1,13 +1,7 @@
 import { object, string } from "@badrap/valita";
 import { Listing } from "@src/schema/Listing";
+import { getCookie } from "@src/utils/getCookie";
 import HttpError from "@src/utils/HttpError";
-
-export function getCookie(name: string) {
-  return document.cookie
-    .split("; ")
-    .find((row) => row.startsWith(`${name}=`))
-    ?.split("=")[1];
-}
 
 export async function authorize(authorization_code: string) {
   const res = await fetch("/api/authorize", {
