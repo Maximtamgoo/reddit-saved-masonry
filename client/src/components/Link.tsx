@@ -1,6 +1,6 @@
-import type { ComponentProps, PropsWithChildren } from "react";
+import type { ComponentProps } from "react";
 
-export default function Link({ children, ...props }: PropsWithChildren & ComponentProps<"a">) {
+export default function Link({ children, ...props }: ComponentProps<"a">) {
   return (
     <a href="#" target="_blank" rel="noreferrer" {...props}>
       {children}
