@@ -7,8 +7,10 @@ const preview = css`
   position: relative;
   grid-template-rows: minmax(0, 1fr);
   place-items: center;
-  cursor: pointer;
   min-height: 0px;
+  border-bottom-right-radius: var(--rounded-lg);
+  border-bottom-left-radius: var(--rounded-lg);
+  outline-offset: -1px;
 `;
 
 const play_btn = css`
@@ -19,7 +21,7 @@ const play_btn = css`
   height: var(--space-10);
   border-radius: var(--rounded-full);
   color: var(--c-white);
-  background-color: var(--c-black);
+  background-color: rgba(0, 0, 0, 0.75);
   outline: 1px solid var(--c-white);
 `;
 
@@ -29,11 +31,11 @@ const gallery = css`
   top: var(--space-4);
   right: var(--space-4);
   place-items: center;
-  outline: 1px solid var(--c-white);
   border-radius: var(--rounded-lg);
-  background-color: var(--c-black);
-  min-width: var(--space-10);
-  height: var(--space-10);
+  background-color: rgba(0, 0, 0, 0.75);
+  outline: 1px solid var(--c-white);
+  min-width: var(--space-8);
+  height: var(--space-8);
   color: var(--c-white);
   font-weight: 600;
 `;
@@ -49,11 +51,11 @@ export default function Preview({ url, playable = false, galleryLength = 0, onCl
   const [isError, setIsError] = useState(false);
 
   if (isError) {
-    return <div className={""}>?</div>;
+    return <div className="unknown">?</div>;
   }
 
   return (
-    <div className={preview} onClick={onClick}>
+    <button className={preview} onClick={onClick}>
       {/* <img
         role="presentation"
         className="absolute size-full object-cover blur-xl brightness-60"
@@ -66,6 +68,6 @@ export default function Preview({ url, playable = false, galleryLength = 0, onCl
         </button>
       )}
       {galleryLength > 1 && <div className={gallery}>{galleryLength}</div>}
-    </div>
+    </button>
   );
 }

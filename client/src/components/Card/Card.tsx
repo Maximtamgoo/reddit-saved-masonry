@@ -10,9 +10,9 @@ import Text from "./Text";
 const card = css`
   display: grid;
   grid-template-rows: auto 1fr;
-  outline: 2px solid var(--c-slate-300);
+  border: 1px solid var(--ring-color);
   border-radius: var(--rounded-lg);
-  background-color: var(--c-white);
+  background-color: var(--card-bg);
   height: 100%;
   overflow: hidden;
 `;
@@ -24,16 +24,22 @@ type Props = {
 export default memo(function Card({ item }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const isText = item.type === "text" || item.type === "comment";
+  const isGallery = item.type === "gallery" && item.gallery.length > 1;
+  const isPlayable = item.type === "playable";
+  const isMedia = item.type === "image" || isPlayable || isGallery;
+
   return (
     <section className={card}>
       <Details item={item} />
-      {(item.type === "text" || item.type === "comment") && <Text text={item.text} />}
-      {(item.type === "image" || item.type === "playable" || item.type === "gallery") && (
+
+      {isText && <Text text={item.text} />}
+      {isMedia && (
         <>
           <Preview
             url={item.preview.url}
-            playable={item.type === "playable"}
-            galleryLength={item.type === "gallery" ? item.gallery.length : 0}
+            playable={isPlayable}
+            galleryLength={isGallery ? item.gallery.length : 0}
             onClick={() => setIsOpen(true)}
           />
           {isOpen && (
@@ -43,7 +49,7 @@ export default memo(function Card({ item }: Props) {
           )}
         </>
       )}
-      {/* {item.type === "unknown" && <div className={style.unknown}>?</div>} */}
+      {item.type === "unknown" && <div className="unknown">?</div>}
     </section>
   );
 });

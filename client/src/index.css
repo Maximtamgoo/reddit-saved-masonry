@@ -5,9 +5,17 @@
 @import "./styles/rounded.css";
 @import "./styles/box-shadow.css";
 
+:root {
+  /* color-scheme: light dark; */
+  --header-bg: var(--c-slate-100);
+  --card-bg: var(--c-slate-100);
+  --ring-color: var(--c-slate-300);
+  --btn-bg: var(--c-slate-200);
+  --btn-hover: var(--c-slate-300);
+}
+
 body {
   background-color: var(--c-slate-50);
-  overflow-y: scroll;
 }
 
 button {
@@ -19,7 +27,7 @@ button {
 #root {
   margin-inline: auto;
   padding-inline: var(--space-2);
-  max-width: 1600px;
+  max-width: 96rem;
 }
 
 .truncate {
@@ -33,4 +41,11 @@ button {
   position: absolute;
   place-items: center;
   inset: 0;
+}
+
+.unknown {
+  display: grid;
+  place-items: center;
+  background-color: var(--c-slate-200);
+  font-size: var(--space-20);
 }

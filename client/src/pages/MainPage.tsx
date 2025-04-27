@@ -14,9 +14,9 @@ export default function MainPage() {
   const redditItems = useMemo(() => data?.pages.flatMap((page) => page.redditItems) ?? [], [data]);
 
   const estimateSize = useCallback((item: RedditItem, width: number) => {
-    const minHeight = 350;
+    const minHeight = 300;
     const maxHeight = (window.screen.availHeight / 100) * 75;
-    const detailsHeight = 110;
+    const detailsHeight = 100;
     let totalHeight = detailsHeight;
 
     if (item.type === "playable" || item.type === "image" || item.type === "gallery") {
@@ -24,7 +24,7 @@ export default function MainPage() {
       totalHeight += calculateAspectRatioFit(p.width, p.height, width, p.height).height;
     }
 
-    return Math.max(minHeight, Math.min(maxHeight, Math.round(totalHeight)));
+    return Math.max(minHeight, Math.min(maxHeight, Math.floor(totalHeight)));
   }, []);
 
   const loadMore = useCallback(async () => {
@@ -48,9 +48,9 @@ export default function MainPage() {
       items={redditItems}
       minLaneWidth={300}
       maxLanes={3}
-      gap={30}
+      gap={24}
       overscan={20}
-      getItemKey={(item) => item.id}
+      getItemKey={(i) => redditItems[i].id}
       estimateSize={estimateSize}
       loadMore={loadMore}
       renderItem={(item) => <Card item={item} />}

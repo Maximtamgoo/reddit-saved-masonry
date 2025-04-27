@@ -1,45 +1,65 @@
 import { css } from "@acab/ecsstatic";
 import { useGetSignedInUser, useSignOut } from "@src/services/queries";
+import { cn } from "@src/utils/cn";
 import Link from "@src/components/Link";
 import Bookmark from "@src/svg/bookmark.svg?react";
 import Github from "@src/svg/github.svg?react";
-import LogOut from "@src/svg/log-out.svg?react";
+import Moon from "@src/svg/moon.svg?react";
 
 const header = css`
-  display: grid;
-  grid-template-columns: var(--space-10) 1fr repeat(3, var(--space-10));
+  display: flex;
+  position: sticky;
+  top: 0;
+  align-items: center;
   gap: var(--space-2);
-  margin-top: var(--space-2);
-  margin-bottom: var(--space-4);
-  outline: 2px solid var(--c-slate-300);
-  border-radius: var(--rounded-lg);
-  background-color: var(--c-white);
+  z-index: 10;
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--ring-color);
+  border-top: none;
+  border-bottom-right-radius: var(--rounded-lg);
+  border-bottom-left-radius: var(--rounded-lg);
+  background-color: var(--header-bg);
   padding: var(--space-2) var(--space-4);
-  overflow: hidden;
-  font-size: var(--text-3xl);
-  & > svg {
-    width: var(--space-10);
-    height: var(--space-10);
-    color: var(--c-sky-500);
-  }
   & > span {
-    align-content: center;
-    line-height: 1;
+    flex-grow: 1;
+    font-size: var(--text-2xl);
   }
 `;
 
 const nav_btn = css`
   display: grid;
+  flex-shrink: 0;
   place-items: center;
   border-radius: var(--rounded-full);
-  background-color: var(--c-slate-100);
-  width: var(--space-10);
-  height: var(--space-10);
-  overflow: hidden;
+  width: var(--space-8);
+  height: var(--space-8);
   color: var(--c-black);
+  background-color: var(--btn-bg);
   &:hover {
-    background-color: var(--c-slate-200);
+    background-color: var(--btn-hover);
   }
+`;
+
+const bookmark = css`
+  flex-shrink: 0;
+  margin-inline: calc(var(--space-1) * -1);
+  width: var(--space-9);
+  height: var(--space-9);
+  color: var(--c-sky-500);
+`;
+
+const profile = css`
+  overflow: hidden;
+  &:hover {
+    filter: brightness(0.9);
+  }
+`;
+
+const logOut = css`
+  padding-inline: var(--space-3);
+  width: auto;
+  font-weight: 500;
+  font-size: var(--text-sm);
 `;
 
 export default function Header() {
@@ -48,18 +68,22 @@ export default function Header() {
 
   return (
     <header className={header}>
-      <Bookmark />
+      <Bookmark className={bookmark} />
       <span className="truncate">Reddit Saved Masonry</span>
-      {isSuccess && (
-        <Link className={nav_btn} href={`https://www.reddit.com/user/${data.name}/saved`}>
-          <img src={data.icon_img} />
-        </Link>
-      )}
+      <button className={nav_btn}>
+        <Moon />
+      </button>
       <Link className={nav_btn} href="https://github.com/Maximtamgoo/reddit-saved-masonry">
         <Github />
       </Link>
-      <button className={nav_btn} onClick={() => mutate()}>
-        <LogOut />
+      <Link
+        className={cn(nav_btn, profile)}
+        href={`https://www.reddit.com/user/${data?.name}/saved`}
+      >
+        {isSuccess && <img src={data.icon_img} />}
+      </Link>
+      <button className={cn(nav_btn, logOut)} onClick={() => mutate()}>
+        Log out
       </button>
     </header>
   );
