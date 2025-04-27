@@ -1,6 +1,6 @@
 import { useResizeObserver } from "@src/hooks/useResizeObserver";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { type ReactNode, useCallback, useEffect, useMemo } from "react";
+import { type ReactNode, useCallback, useDeferredValue, useEffect, useMemo } from "react";
 
 type Props<Item> = {
   items: Item[];
@@ -9,7 +9,7 @@ type Props<Item> = {
   gap: number;
   overscan: number;
   renderLoader: ReactNode;
-  getItemKey: (item: Item) => string | number;
+  getItemKey: (index: number) => string | number;
   estimateSize: (item: Item, width: number) => number;
   renderItem: (item: Item) => ReactNode;
   loadMore: () => void;
@@ -28,7 +28,7 @@ export default function VirtualMasonry<Item>({
   loadMore,
 }: Props<Item>) {
   const { ref, rect } = useResizeObserver();
-  const parentWidth = rect.width;
+  const parentWidth = useDeferredValue(rect.width);
 
   const lanes = useMemo(() => {
     const lanes = Math.floor((parentWidth + gap) / (minLaneWidth + gap));
@@ -46,13 +46,11 @@ export default function VirtualMasonry<Item>({
     lanes,
     gap,
     overscan,
-    scrollMargin: rect.top,
     getItemKey: useCallback(
-      (index: number) => getItemKey(items[index]),
-      // eslint-disable-next-line react-hooks/exhaustive-deps
+      (i: number) => (parentWidth ? getItemKey(i) : getItemKey(i)),
       [getItemKey, parentWidth],
     ),
-    estimateSize: (index) => estimateSize(items[index], itemWidth),
+    estimateSize: (i) => estimateSize(items[i], itemWidth),
   });
 
   const virtualItems = winVirtualizer.getVirtualItems();
@@ -79,11 +77,11 @@ export default function VirtualMasonry<Item>({
               style={{
                 position: "absolute",
                 top: 0,
-                transform: `translateY(${item.start - winVirtualizer.options.scrollMargin}px)`,
-                left: item.lane * itemWidth,
-                width: itemWidth,
-                marginLeft: item.lane * gap,
-                height: item.size,
+                translate: `0 ${item.start - winVirtualizer.options.scrollMargin}px`,
+                left: item.lane * itemWidth + "px",
+                width: itemWidth + "px",
+                marginLeft: item.lane * gap + "px",
+                height: item.size + "px",
               }}
             >
               {renderItem(items[item.index])}
