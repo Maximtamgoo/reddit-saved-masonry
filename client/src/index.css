@@ -9,7 +9,7 @@
   /* color-scheme: light dark; */
   --header-bg: var(--c-slate-100);
   --card-bg: var(--c-slate-100);
-  --ring-color: var(--c-slate-300);
+  --ring-color: var(--c-slate-400);
   --btn-bg: var(--c-slate-200);
   --btn-hover: var(--c-slate-300);
 }
@@ -22,6 +22,15 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+dialog {
+  border: none;
+  background-color: rgba(0, 0, 0, 0.75);
+  width: 100%;
+  max-width: 100%;
+  height: 100%;
+  max-height: 100%;
 }
 
 #root {
@@ -43,9 +52,13 @@ button {
   inset: 0;
 }
 
-.unknown {
+.modal_btn {
   display: grid;
+  position: absolute;
   place-items: center;
-  background-color: var(--c-slate-200);
-  font-size: var(--space-20);
+  border-radius: var(--rounded-full);
+  background-color: rgba(0, 0, 0, 0.75);
+  width: var(--space-10);
+  height: var(--space-10);
+  color: var(--c-white);
 }

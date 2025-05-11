@@ -1,16 +1,13 @@
 import { css } from "@acab/ecsstatic";
+import type { PropsWithChildren } from "react";
 
-const className = css`
+const text = css`
   padding-inline: var(--space-4);
   overflow: hidden;
   white-space: break-spaces;
-  word-break: break-all;
+  word-wrap: break-word;
 `;
 
-type Props = {
-  text: string;
-};
-
-export default function Text({ text }: Props) {
-  return <div className={className}>{text}</div>;
+export default function Text({ children }: PropsWithChildren) {
+  return <div className={text}>{children}</div>;
 }

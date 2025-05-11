@@ -1,50 +1,64 @@
 import { useGallery } from "@src/hooks/useGallery";
 import { type GalleryItem } from "@src/schema/RedditItem";
+import ArrowBtn from "../Modal/ArrowBtn";
+import { css } from "@acab/ecsstatic";
+import Item from "./Item";
 import { cn } from "@src/utils/cn";
-import { useState } from "react";
-import ArrowBtn from "./ArrowBtn";
-import style from "./Modal.module.css";
-import Playable from "./Playable";
+
+const gallery = css`
+  display: flex;
+  position: fixed;
+  justify-content: center;
+  align-items: center;
+  inset: 0;
+  user-select: none;
+`;
+
+const item_nav = css`
+  bottom: 20px;
+  left: 50%;
+  translate: -50%;
+  padding-inline: var(--space-4);
+  width: auto;
+  font-weight: 600;
+`;
+
+const arrow = css`
+  top: 50%;
+  translate: 0 -50%;
+  &[data-arrow="left"] {
+    left: 20px;
+  }
+  &[data-arrow="right"] {
+    right: 20px;
+    rotate: 180deg;
+  }
+`;
 
 type Props = {
   items: GalleryItem[];
 };
 
 export default function Gallery({ items }: Props) {
-  const [isError, setIsError] = useState(false);
-  const galleryLength = items.length;
-  const { index, prevIndex, nextIndex } = useGallery(galleryLength);
+  const length = items.length;
+  const { index, prevIndex, nextIndex } = useGallery(length);
   const item = items[index];
-  const src = item.preview.url;
+  const arrow_btn = cn("modal_btn", arrow);
 
   return (
-    <>
-      {isError ? (
-        <div className={style.error}>?</div>
-      ) : (
+    <div className={gallery}>
+      <Item key={item.id} item={item} />
+      {length > 1 && (
         <>
-          {item.type === "image" && (
-            <img key={item.id} src={src} onError={() => setIsError(true)} alt="Reddit Content" />
-          )}
-          {item.type === "playable" && (
-            <Playable
-              key={item.id}
-              src={item.source.url}
-              poster={src}
-              onError={() => setIsError(true)}
-            />
-          )}
-        </>
-      )}
-      {galleryLength > 1 && (
-        <>
-          {index > 0 && <ArrowBtn direction="left" onClick={prevIndex} />}
-          <div className={cn(style.modal_btn, style.item_num)}>
-            {index + 1} / {galleryLength}
+          {index > 0 && <ArrowBtn className={arrow_btn} direction="left" onClick={prevIndex} />}
+          <div className={cn("modal_btn", item_nav)}>
+            {index + 1} / {length}
           </div>
-          {index < galleryLength - 1 && <ArrowBtn direction="right" onClick={nextIndex} />}
+          {index < length - 1 && (
+            <ArrowBtn className={arrow_btn} direction="right" onClick={nextIndex} />
+          )}
         </>
       )}
-    </>
+    </div>
   );
 }

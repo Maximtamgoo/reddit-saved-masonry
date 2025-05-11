@@ -16,8 +16,7 @@ const header = css`
   margin-bottom: var(--space-2);
   border: 1px solid var(--ring-color);
   border-top: none;
-  border-bottom-right-radius: var(--rounded-lg);
-  border-bottom-left-radius: var(--rounded-lg);
+  border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
   background-color: var(--header-bg);
   padding: var(--space-2) var(--space-4);
   & > span {

@@ -1,12 +1,23 @@
-import ArrowLeft from "@src/svg/arrow-left.svg?react";
-import { cn } from "@src/utils/cn";
-import { type PropsWithChildren } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  type ComponentProps,
+  type PropsWithChildren,
+} from "react";
 import { createPortal } from "react-dom";
-import style from "./Modal.module.css";
 
-type Props = {
-  onClose: () => void;
+type Context = {
+  isOpen: boolean;
+  setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
+
+const Context = createContext<Context | null>(null);
+
+export default function Dialog({ children }: PropsWithChildren) {
+  const [isOpen, setIsOpen] = useState(false);
+  return <Context value={{ isOpen, setIsOpen }}>{children}</Context>;
+}
 
 function openModal(node: HTMLDialogElement) {
   const paddingRight = document.body.style.paddingRight;
@@ -22,14 +33,38 @@ function openModal(node: HTMLDialogElement) {
   };
 }
 
-export default function Dialog({ onClose, children }: PropsWithChildren<Props>) {
+Dialog.Content = function Content({ children }: PropsWithChildren) {
+  const context = useContext(Context);
+  if (!context) throw "Missing Dialog.Content Context";
+
+  if (!context.isOpen) return null;
+
+  const onClose = () => context.setIsOpen(false);
+
   return createPortal(
-    <dialog ref={openModal} onClick={onClose} onClose={onClose} className={style.dialog}>
+    <dialog ref={openModal} onClick={onClose} onClose={onClose}>
       {children}
-      <button className={cn(style.modal_btn, style.close)} onClick={onClose}>
-        <ArrowLeft />
-      </button>
     </dialog>,
     document.body,
   );
-}
+};
+
+Dialog.Trigger = function Trigger({ className, children }: ComponentProps<"button">) {
+  const context = useContext(Context);
+  if (!context) throw "Missing Dialog.Trigger Context";
+  return (
+    <button className={className} onClick={() => context.setIsOpen(true)}>
+      {children}
+    </button>
+  );
+};
+
+Dialog.Close = function Close({ className, children }: ComponentProps<"button">) {
+  const context = useContext(Context);
+  if (!context) throw "Missing Dialog.Close Context";
+  return (
+    <button className={className} onClick={() => context.setIsOpen(false)}>
+      {children}
+    </button>
+  );
+};
