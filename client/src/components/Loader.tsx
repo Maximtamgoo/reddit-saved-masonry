@@ -27,7 +27,7 @@ const retry = css`
   place-items: center;
   gap: 5px;
   border-radius: 2em;
-  background: lightgray;
+  background-color: lightgray;
   width: 40px;
   height: 40px;
 `;

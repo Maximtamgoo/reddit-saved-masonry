@@ -13,7 +13,7 @@ const login = css`
 
   & > button {
     border-radius: 0.5em;
-    background: gray;
+    background-color: gray;
     width: 155px;
     height: 40px;
   }
