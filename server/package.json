@@ -24,8 +24,8 @@
     "@types/express": "^5.0.1",
     "@types/http-errors": "^2.0.4",
     "@types/morgan": "^1.9.9",
-    "@types/node": "^22.15.2",
-    "tsx": "^4.19.3",
+    "@types/node": "^22.15.17",
+    "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }
 }
