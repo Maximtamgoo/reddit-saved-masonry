@@ -26,14 +26,13 @@ const btn_base = css`
 `;
 
 const credits = css`
-  color: var(--credit);
+  color: var(--fg);
   & > a {
     margin-inline: 2px;
     color: inherit;
     text-decoration: none;
   }
   & > a:hover {
-    color: var(--credit-hover);
     text-decoration: underline;
   }
   & > i {
