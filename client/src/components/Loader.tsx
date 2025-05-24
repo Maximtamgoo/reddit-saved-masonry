@@ -10,6 +10,7 @@ const loader = css`
   gap: 10px;
   height: 60px;
   font-size: x-large;
+  color: var(--fg);
 `;
 
 const spin = css`
@@ -27,9 +28,13 @@ const retry = css`
   place-items: center;
   gap: 5px;
   border-radius: 2em;
-  background-color: lightgray;
+  color: var(--fg);
+  background-color: var(--btn-bg);
   width: 40px;
   height: 40px;
+  &:hover {
+    background-color: var(--btn-hover);
+  }
 `;
 
 type Props = { isError?: boolean; isEnd?: boolean; endMessage?: string; onClick?: () => void };
