@@ -1,9 +1,8 @@
 @import "./styles/reset.css";
-@import "./styles/new-colors.css";
+@import "./styles/colors.css";
 @import "./styles/space.css";
 @import "./styles/text.css";
 @import "./styles/rounded.css";
-@import "./styles/box-shadow.css";
 
 :root[data-theme="light"] {
   color-scheme: light;
