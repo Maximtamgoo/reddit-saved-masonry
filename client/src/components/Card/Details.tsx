@@ -19,19 +19,22 @@ const btn_base = css`
   display: grid;
   place-items: center;
   border-radius: var(--rounded-full);
-  width: var(--space-8);
-  height: var(--space-8);
+  width: var(--space-9);
+  height: var(--space-9);
   background-color: var(--btn-bg);
   overflow: hidden;
 `;
 
 const credits = css`
-  color: var(--c-black);
-  /* font-size: var(--text-sm); */
+  color: var(--credit);
   & > a {
     margin-inline: 2px;
     color: inherit;
     text-decoration: none;
+  }
+  & > a:hover {
+    color: var(--credit-hover);
+    text-decoration: underline;
   }
   & > i {
     margin-inline: var(--space-1);
@@ -39,7 +42,7 @@ const credits = css`
 `;
 
 const bookmark = css`
-  color: var(--c-sky-500);
+  color: var(--title);
   &:hover {
     background-color: var(--btn-hover);
   }
@@ -51,11 +54,14 @@ const bookmark = css`
 const title = css`
   grid-column: span 3;
   max-width: fit-content;
-  color: var(--c-black);
+  color: var(--title);
   font-weight: 500;
   font-size: var(--text-xl);
   line-height: 1.4;
   text-decoration: none;
+  &:hover {
+    color: var(--title-hover);
+  }
 `;
 
 type Props = {

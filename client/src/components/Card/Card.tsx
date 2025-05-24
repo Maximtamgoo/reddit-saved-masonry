@@ -15,9 +15,9 @@ import { cn } from "@src/utils/cn";
 const card = css`
   display: grid;
   grid-template-rows: auto 1fr;
-  border: 1px solid var(--ring-color);
+  outline: 1px solid var(--ring-color);
   border-radius: var(--rounded-lg);
-  background-color: var(--card-bg);
+  background-color: var(--bg);
   height: 100%;
 `;
 

@@ -37,31 +37,33 @@ export default function MainPage() {
 
   if (isLoadingError || isLoading) {
     return (
-      <div className="center">
+      <main className="center">
         <Loader isError={isLoadingError} onClick={fetchNextPage} />
-      </div>
+      </main>
     );
   }
 
   return (
-    <VirtualMasonry
-      items={redditItems}
-      minLaneWidth={300}
-      maxLanes={3}
-      gap={24}
-      overscan={20}
-      getItemKey={(i) => redditItems[i].id}
-      estimateSize={estimateSize}
-      loadMore={loadMore}
-      renderItem={(item) => <Card item={item} />}
-      renderLoader={
-        <Loader
-          isError={isError}
-          isEnd={!hasNextPage}
-          endMessage="Reached the Reddit limit..."
-          onClick={fetchNextPage}
-        />
-      }
-    />
+    <main>
+      <VirtualMasonry
+        items={redditItems}
+        minLaneWidth={300}
+        maxLanes={3}
+        gap={24}
+        overscan={20}
+        getItemKey={(i) => redditItems[i].id}
+        estimateSize={estimateSize}
+        loadMore={loadMore}
+        renderItem={(item) => <Card item={item} />}
+        renderLoader={
+          <Loader
+            isError={isError}
+            isEnd={!hasNextPage}
+            endMessage="Reached the Reddit limit..."
+            onClick={fetchNextPage}
+          />
+        }
+      />
+    </main>
   );
 }

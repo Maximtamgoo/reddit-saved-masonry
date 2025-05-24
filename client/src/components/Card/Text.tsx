@@ -6,6 +6,7 @@ const text = css`
   overflow: hidden;
   white-space: break-spaces;
   word-wrap: break-word;
+  color: var(--fg);
 `;
 
 export default function Text({ children }: PropsWithChildren) {

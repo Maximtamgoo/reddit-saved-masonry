@@ -1,21 +1,39 @@
 @import "./styles/reset.css";
-@import "./styles/colors.css";
+@import "./styles/new-colors.css";
 @import "./styles/space.css";
 @import "./styles/text.css";
 @import "./styles/rounded.css";
 @import "./styles/box-shadow.css";
 
-:root {
-  /* color-scheme: light dark; */
-  --header-bg: var(--c-slate-100);
-  --card-bg: var(--c-slate-100);
-  --ring-color: var(--c-slate-400);
-  --btn-bg: var(--c-slate-200);
-  --btn-hover: var(--c-slate-300);
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 body {
-  background-color: var(--c-slate-50);
+  background-color: light-dark(var(--c-zinc-50), var(--c-zinc-900));
+  --ring-color: light-dark(var(--c-zinc-300), var(--c-zinc-600));
+  --title: var(--c-sky-500);
+  --title-hover: light-dark(var(--c-sky-600), var(--c-sky-400));
+}
+
+header {
+  --bg: light-dark(var(--c-zinc-50), var(--c-zinc-800));
+  --fg: light-dark(var(--c-zinc-900), var(--c-zinc-100));
+  --btn-bg: light-dark(var(--c-zinc-200), var(--c-zinc-700));
+  --btn-hover: light-dark(var(--c-zinc-300), var(--c-zinc-600));
+}
+
+section {
+  --bg: light-dark(var(--c-zinc-100), var(--c-zinc-800));
+  --fg: light-dark(var(--c-zinc-800), var(--c-zinc-100));
+  --btn-bg: light-dark(var(--c-zinc-200), var(--c-zinc-700));
+  --btn-hover: light-dark(var(--c-zinc-300), var(--c-zinc-600));
+  --credit: light-dark(var(--c-zinc-800), var(--c-zinc-100));
+  --credit-hover: light-dark(var(--c-zinc-900), var(--c-white));
 }
 
 button {
@@ -33,10 +51,14 @@ dialog {
   max-height: 100%;
 }
 
-#root {
+nav,
+main {
   margin-inline: auto;
-  padding-inline: var(--space-2);
   max-width: 96rem;
+}
+
+main {
+  padding-inline: var(--space-2);
 }
 
 .truncate {
