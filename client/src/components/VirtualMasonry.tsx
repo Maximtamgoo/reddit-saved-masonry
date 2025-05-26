@@ -6,7 +6,7 @@ type Props<Item> = {
   items: Item[];
   minLaneWidth: number;
   maxLanes?: number;
-  gap: number;
+  gap?: number;
   overscan: number;
   renderLoader: ReactNode;
   getItemKey: (index: number) => string | number;
@@ -19,7 +19,7 @@ export default function VirtualMasonry<Item>({
   items,
   minLaneWidth,
   maxLanes,
-  gap,
+  gap = 0,
   overscan,
   renderLoader,
   getItemKey,
