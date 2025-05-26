@@ -13,10 +13,11 @@ import Unknown from "./Unknown";
 import { cn } from "@src/utils/cn";
 
 const card = css`
+  container: card / inline-size;
   display: grid;
   grid-template-rows: auto 1fr;
   outline: 1px solid var(--ring-color);
-  border-radius: var(--rounded-lg);
+  border-radius: var(--rounded-xl);
   background-color: var(--bg);
   height: 100%;
 `;
@@ -35,7 +36,7 @@ const trigger = css`
   min-height: 0px;
   z-index: 10;
   outline-offset: 1px;
-  border-radius: 0 0 var(--rounded-lg) var(--rounded-lg);
+  border-radius: 0 0 var(--rounded-xl) var(--rounded-xl);
   overflow: hidden;
 `;
 
