@@ -12,7 +12,7 @@ const header = css`
   position: sticky;
   top: 0;
   z-index: 10;
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
   border-bottom: 1px solid var(--ring-color);
   background-color: var(--bg);
 `;

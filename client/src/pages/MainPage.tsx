@@ -1,6 +1,7 @@
 import Card from "@src/components/Card/Card";
 import Loader from "@src/components/Loader";
 import VirtualMasonry from "@src/components/VirtualMasonry";
+import { useResizeObserver } from "@src/hooks/useResizeObserver";
 import { RedditItem } from "@src/schema/RedditItem";
 import { useGetSavedContent } from "@src/services/queries";
 import { calculateAspectRatioFit } from "@src/utils/calculateAspectRatioFit";
@@ -8,10 +9,13 @@ import { useCallback, useMemo, useRef } from "react";
 
 export default function MainPage() {
   const isBusyRef = useRef(false);
+  const { ref, rect } = useResizeObserver();
   const query = useGetSavedContent();
   const { data, isLoading, isLoadingError, isError, hasNextPage, fetchNextPage } = query;
 
   const redditItems = useMemo(() => data?.pages.flatMap((page) => page.redditItems) ?? [], [data]);
+
+  const gap = useMemo(() => (rect.width < 1175 ? 16 : 24), [rect.width]);
 
   const estimateSize = useCallback((item: RedditItem, width: number) => {
     const minHeight = 300;
@@ -44,12 +48,12 @@ export default function MainPage() {
   }
 
   return (
-    <main>
+    <main ref={ref}>
       <VirtualMasonry
         items={redditItems}
         minLaneWidth={300}
         maxLanes={3}
-        gap={24}
+        gap={gap}
         overscan={20}
         getItemKey={(i) => redditItems[i].id}
         estimateSize={estimateSize}
