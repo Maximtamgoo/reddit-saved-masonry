@@ -4,6 +4,10 @@
 @import "./styles/text.css";
 @import "./styles/rounded.css";
 
+:root[data-theme="system"] {
+  color-scheme: light dark;
+}
+
 :root[data-theme="light"] {
   color-scheme: light;
 }

@@ -14,7 +14,7 @@ const details = css`
   column-gap: var(--space-2);
   row-gap: var(--space-1);
   padding: var(--space-4);
-  padding-bottom: var(--space-2);
+  padding-bottom: var(--space-3);
 `;
 
 const btn_base = css`
@@ -29,7 +29,7 @@ const btn_base = css`
 
 const credits = css`
   color: var(--fg);
-  height: 46px;
+  height: 42px;
   font-size: var(--text-base);
   align-content: center;
   padding: 2px;
