@@ -1,5 +1,5 @@
 import { css } from "@acab/ecsstatic";
-import { useGetSignedInUser, useSignOut } from "@src/services/queries";
+import { useSignOut } from "@src/services/queries";
 import { cn } from "@src/utils/cn";
 import Link from "@src/components/Link";
 import Bookmark from "@src/svg/bookmark.svg?react";
@@ -81,9 +81,13 @@ const signOut = css`
   font-size: var(--text-sm);
 `;
 
-export default function Header() {
+type Props = {
+  username?: string;
+  icon_img?: string;
+};
+
+export default function Header({ username, icon_img }: Props) {
   const { setTheme } = useTheme();
-  const { data, isSuccess } = useGetSignedInUser();
   const { mutate } = useSignOut();
 
   return (
@@ -103,15 +107,19 @@ export default function Header() {
         >
           <Github />
         </Link>
-        <Link
-          className={cn(nav_btn, profile)}
-          href={`https://www.reddit.com/user/${data?.name}/saved`}
-        >
-          {isSuccess && <img src={data.icon_img} />}
-        </Link>
-        <button className={cn(nav_btn, signOut)} onClick={() => mutate()}>
-          Sign out
-        </button>
+        {username && (
+          <Link
+            className={cn(nav_btn, profile)}
+            href={`https://www.reddit.com/user/${username}/saved`}
+          >
+            {icon_img && <img src={icon_img} />}
+          </Link>
+        )}
+        {username && (
+          <button className={cn(nav_btn, signOut)} onClick={() => mutate()}>
+            Sign out
+          </button>
+        )}
       </nav>
     </header>
   );

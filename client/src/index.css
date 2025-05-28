@@ -30,6 +30,16 @@ body {
   background-color: light-dark(var(--c-zinc-50), var(--c-zinc-900));
 }
 
+nav,
+main {
+  margin-inline: auto;
+  max-width: 96rem;
+}
+
+main {
+  padding-inline: var(--space-2);
+}
+
 button {
   cursor: pointer;
   border: none;
@@ -43,16 +53,6 @@ dialog {
   max-width: 100%;
   height: 100%;
   max-height: 100%;
-}
-
-nav,
-main {
-  margin-inline: auto;
-  max-width: 96rem;
-}
-
-main {
-  padding-inline: var(--space-2);
 }
 
 .truncate {
