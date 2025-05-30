@@ -24,7 +24,7 @@ const nav_bar = css`
   padding: var(--space-2) var(--space-6);
   & > span {
     flex-grow: 1;
-    color: var(--title);
+    color: var(--primary);
     font-size: var(--text-2xl);
   }
 `;
@@ -49,7 +49,7 @@ const bookmark = css`
   margin-inline: -0.1rem -0.25rem;
   width: var(--space-9);
   height: var(--space-9);
-  color: var(--title);
+  color: var(--primary);
 `;
 
 const github = css`

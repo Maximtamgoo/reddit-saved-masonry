@@ -59,7 +59,7 @@ const credits = css`
 `;
 
 const bookmark = css`
-  color: var(--title);
+  color: var(--primary);
   &:hover {
     background-color: var(--btn-hover);
   }
@@ -71,12 +71,12 @@ const bookmark = css`
 const title = css`
   grid-column: span 3;
   max-width: fit-content;
-  color: var(--title);
+  color: var(--primary);
   font-weight: 500;
   font-size: var(--text-xl);
   text-decoration: none;
   &:hover {
-    color: var(--title-hover);
+    color: var(--primary-hover);
   }
 `;
 
