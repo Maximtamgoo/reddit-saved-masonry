@@ -3,7 +3,6 @@ import { StrictMode } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./index.css";
 import App from "./App";
-import { ThemeProvider } from "./components/Theme";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -14,10 +13,8 @@ const queryClient = new QueryClient({
 
 createRoot(document.getElementById("root") as Element).render(
   <StrictMode>
-    <ThemeProvider>
-      <QueryClientProvider client={queryClient}>
-        <App />
-      </QueryClientProvider>
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
   </StrictMode>,
 );

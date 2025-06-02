@@ -4,9 +4,7 @@ import { cn } from "@src/utils/cn";
 import Link from "@src/components/Link";
 import Bookmark from "@src/svg/bookmark.svg?react";
 import Github from "@src/svg/github.svg?react";
-import Sun from "@src/svg/sun.svg?react";
-import Moon from "@src/svg/moon.svg?react";
-import { useTheme } from "./Theme";
+import { ThemeSwitch } from "./ThemeSwitch";
 
 const header = css`
   position: sticky;
@@ -34,8 +32,8 @@ const nav_btn = css`
   flex-shrink: 0;
   place-items: center;
   border-radius: var(--rounded-full);
-  width: var(--space-8);
-  height: var(--space-8);
+  width: var(--space-9);
+  height: var(--space-9);
   background-color: var(--btn-bg);
   color: var(--fg);
   overflow: hidden;
@@ -87,7 +85,6 @@ type Props = {
 };
 
 export default function Header({ username, icon_img }: Props) {
-  const { setTheme } = useTheme();
   const { mutate } = useSignOut();
 
   return (
@@ -95,12 +92,7 @@ export default function Header({ username, icon_img }: Props) {
       <nav className={nav_bar}>
         <Bookmark className={bookmark} />
         <span className="truncate">Reddit Saved Masonry</span>
-        <button className={nav_btn} onClick={() => setTheme("light")}>
-          <Sun />
-        </button>
-        <button className={nav_btn} onClick={() => setTheme("dark")}>
-          <Moon />
-        </button>
+        <ThemeSwitch />
         <Link
           className={cn(nav_btn, github)}
           href="https://github.com/Maximtamgoo/reddit-saved-masonry"

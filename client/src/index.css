@@ -4,7 +4,7 @@
 @import "./styles/text.css";
 @import "./styles/rounded.css";
 
-:root[data-theme="system"] {
+:root[data-theme="auto"] {
   color-scheme: light dark;
 }
 
