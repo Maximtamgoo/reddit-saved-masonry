@@ -19,12 +19,12 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "@types/compression": "^1.8.0",
-    "@types/cookie-parser": "^1.4.8",
-    "@types/express": "^5.0.2",
-    "@types/http-errors": "^2.0.4",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^22.15.23",
+    "@types/compression": "^1.8.1",
+    "@types/cookie-parser": "^1.4.9",
+    "@types/express": "^5.0.3",
+    "@types/http-errors": "^2.0.5",
+    "@types/morgan": "^1.9.10",
+    "@types/node": "^22.15.30",
     "tsx": "^4.19.4",
     "typescript": "^5.8.3"
   }
