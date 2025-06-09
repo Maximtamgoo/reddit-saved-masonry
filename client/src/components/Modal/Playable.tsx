@@ -1,3 +1,5 @@
+import type { ComponentProps } from "react";
+
 type Props = {
   src: string;
   poster: string;
@@ -10,7 +12,7 @@ function pauseOnHidden(node: HTMLVideoElement) {
   return () => document.removeEventListener("visibilitychange", onChange);
 }
 
-export default function Playable({ src, poster, onError }: Props) {
+export default function Playable({ src, poster, onError }: Props & ComponentProps<"video">) {
   return (
     <video
       ref={pauseOnHidden}

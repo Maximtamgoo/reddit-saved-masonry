@@ -42,12 +42,13 @@ type Props = {
 export default function Gallery({ items }: Props) {
   const length = items.length;
   const { index, prevIndex, nextIndex } = useGallery(length);
-  const item = items[index];
   const arrow_btn = cn("modal_btn", arrow);
 
   return (
     <div className={gallery}>
-      <Item key={item.id} item={item} />
+      {items.map((item) => (
+        <Item key={item.id} item={item} isVisible={items[index].id === item.id} />
+      ))}
       {length > 1 && (
         <>
           {index > 0 && <ArrowBtn className={arrow_btn} direction="left" onClick={prevIndex} />}

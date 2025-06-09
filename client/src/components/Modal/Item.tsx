@@ -1,9 +1,14 @@
 import type { GalleryItem } from "@src/schema/RedditItem";
-import { useState } from "react";
+import { memo, useState } from "react";
 import Unknown from "../Card/Unknown";
 import Playable from "./Playable";
 
-export default function Item({ item }: { item: GalleryItem }) {
+type Props = {
+  item: GalleryItem;
+  isVisible: boolean;
+};
+
+export default memo(function Item({ item, isVisible }: Props) {
   const [isError, setIsError] = useState(false);
   const isPlayable = item.type === "playable";
   const isImage = item.type === "image";
@@ -16,8 +21,9 @@ export default function Item({ item }: { item: GalleryItem }) {
         <img
           key={item.id}
           src={item.preview.url}
-          onError={() => setIsError(true)}
           alt="Reddit Content"
+          onError={() => setIsError(true)}
+          style={{ display: isVisible ? "block" : "none" }}
         />
       )}
       {isPlayable && (
@@ -26,8 +32,9 @@ export default function Item({ item }: { item: GalleryItem }) {
           src={item.source.url}
           poster={item.preview.url}
           onError={() => setIsError(true)}
+          style={{ display: isVisible ? "block" : "none" }}
         />
       )}
     </>
   );
-}
+});
