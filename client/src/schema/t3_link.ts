@@ -117,6 +117,7 @@ const t3_link_data = object({
   url: string().optional(),
   post_hint: union(
     literal("self"),
+    literal("gallery"),
     literal("image"),
     literal("link"),
     literal("rich:video"),
