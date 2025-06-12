@@ -21,13 +21,14 @@
   --primary-hover: light-dark(var(--c-sky-600), var(--c-sky-400));
   --bg: light-dark(var(--c-zinc-100), var(--c-zinc-800));
   --fg: light-dark(var(--c-zinc-900), var(--c-zinc-50));
-  --ring-color: light-dark(var(--c-zinc-300), var(--c-zinc-600));
+  --ring-color: light-dark(var(--c-zinc-200), var(--c-zinc-700));
   --btn-bg: light-dark(var(--c-zinc-200), var(--c-zinc-700));
   --btn-hover: light-dark(var(--c-zinc-300), var(--c-zinc-600));
 }
 
 body {
   background-color: light-dark(var(--c-zinc-50), var(--c-zinc-900));
+  overflow-y: scroll;
 }
 
 nav,

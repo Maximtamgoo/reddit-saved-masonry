@@ -17,6 +17,8 @@ export default function MainPage() {
 
   const gap = useMemo(() => (rect.width < 1175 ? 16 : 24), [rect.width]);
 
+  const getItemKey = useCallback((item: RedditItem) => item.id, []);
+
   const estimateSize = useCallback((item: RedditItem, width: number) => {
     const minHeight = 300;
     const maxHeight = (window.screen.availHeight / 100) * 75;
@@ -55,7 +57,7 @@ export default function MainPage() {
         maxLanes={3}
         gap={gap}
         overscan={20}
-        getItemKey={(i) => redditItems[i].id}
+        getItemKey={getItemKey}
         estimateSize={estimateSize}
         loadMore={loadMore}
         renderItem={(item) => <Card item={item} />}

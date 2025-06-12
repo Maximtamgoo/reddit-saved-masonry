@@ -9,7 +9,7 @@ type Props<Item> = {
   gap?: number;
   overscan: number;
   renderLoader: ReactNode;
-  getItemKey: (index: number) => string | number;
+  getItemKey: (item: Item) => string;
   estimateSize: (item: Item, width: number) => number;
   renderItem: (item: Item) => ReactNode;
   loadMore: () => void;
@@ -47,8 +47,8 @@ export default function VirtualMasonry<Item>({
     gap,
     overscan,
     getItemKey: useCallback(
-      (i: number) => (parentWidth ? getItemKey(i) : getItemKey(i)),
-      [getItemKey, parentWidth],
+      (i: number) => (parentWidth ? getItemKey(items[i]) : getItemKey(items[i])),
+      [getItemKey, items, parentWidth],
     ),
     estimateSize: (i) => estimateSize(items[i], itemWidth),
   });
