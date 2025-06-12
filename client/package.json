@@ -12,16 +12,16 @@
   "dependencies": {
     "@badrap/valita": "^0.4.5",
     "@tanstack/react-query": "^5.80.6",
-    "@tanstack/react-virtual": "^3.13.9",
+    "@tanstack/react-virtual": "^3.13.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@acab/ecsstatic": "^0.9.0",
     "@tanstack/eslint-plugin-query": "^5.78.0",
-    "@types/react": "^19.1.6",
+    "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react-swc": "^3.10.1",
+    "@vitejs/plugin-react-swc": "^3.10.2",
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
