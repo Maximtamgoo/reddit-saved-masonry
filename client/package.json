@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.5",
-    "@tanstack/react-query": "^5.80.6",
+    "@tanstack/react-query": "^5.80.7",
     "@tanstack/react-virtual": "^3.13.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
@@ -25,7 +25,6 @@
     "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
-    "lightningcss": "^1.30.1",
     "prettier-plugin-css-order": "^2.1.2",
     "sonda": "^0.7.1",
     "typescript": "^5.8.3",

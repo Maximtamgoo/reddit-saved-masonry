@@ -21,14 +21,7 @@ export default defineConfig({
     }),
     Sonda({ enabled: !isHostRender, gzip: true }),
   ],
-  css: {
-    transformer: "lightningcss",
-    lightningcss: {
-      // targets: browserslistToTargets(browserslist('>= 0.25%'))
-    },
-  },
   build: {
-    cssMinify: "lightningcss",
     sourcemap: !isHostRender,
   },
   server: {
