@@ -5,16 +5,15 @@ import Moon from "@src/svg/moon.svg?react";
 import Eclipse from "@src/svg/eclipse.svg?react";
 
 const group = css`
-  background-color: var(--btn-bg);
   display: flex;
-  align-items: center;
   justify-content: center;
-  border: 1px solid var(--ring-color);
-  border-radius: var(--rounded-3xl);
-  padding-inline: var(--space-1);
-  height: var(--space-9);
-  width: fit-content;
+  align-items: center;
   gap: var(--space-1);
+  border-radius: var(--rounded-3xl);
+  background-color: var(--btn-bg);
+  padding-inline: var(--space-1);
+  width: fit-content;
+  height: var(--space-9);
 `;
 
 const radio = css`
