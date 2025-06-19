@@ -18,7 +18,7 @@ const card = css`
   grid-template-rows: auto 1fr;
   outline: 1px solid var(--ring-color);
   border-radius: var(--rounded-xl);
-  background-color: var(--bg);
+  background-color: var(--card-bg);
   height: 100%;
 `;
 

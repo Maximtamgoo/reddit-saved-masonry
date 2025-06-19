@@ -52,14 +52,14 @@ const bookmark = css`
 
 const github = css`
   background-color: var(--bg);
-  & > svg {
-    fill: var(--btn-bg);
-  }
   &:hover {
     background-color: var(--bg);
   }
-  & > svg:hover {
-    fill: var(--btn-hover);
+  & > svg {
+    fill: var(--btn-bg);
+    &:hover {
+      fill: var(--btn-hover);
+    }
   }
 `;
 
