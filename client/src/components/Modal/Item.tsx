@@ -22,6 +22,7 @@ export default memo(function Item({ item, isVisible }: Props) {
           key={item.id}
           src={item.preview.url}
           alt="Reddit Content"
+          onClick={(e) => e.stopPropagation()}
           onError={() => setIsError(true)}
           style={{ display: isVisible ? "block" : "none" }}
         />
@@ -31,6 +32,7 @@ export default memo(function Item({ item, isVisible }: Props) {
           key={item.id}
           src={item.source.url}
           poster={item.preview.url}
+          onClick={(e) => e.stopPropagation()}
           onError={() => setIsError(true)}
           style={{ display: isVisible ? "block" : "none" }}
         />
