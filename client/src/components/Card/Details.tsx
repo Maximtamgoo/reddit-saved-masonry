@@ -107,7 +107,7 @@ export default memo(function Details({ item }: Props) {
         <Link className="truncate" href={subredditLink}>
           {item.subreddit_name_prefixed}
         </Link>
-        <i>&bull;</i>
+        <i>•</i>
         <Link className="truncate" href={authorLink}>
           {item.author}
         </Link>
