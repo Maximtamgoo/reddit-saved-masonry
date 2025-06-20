@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { useState } from "react";
 import { css } from "@acab/ecsstatic";
 import Link from "@src/components/Link";
 import type { RedditItem } from "@src/schema/RedditItem";
@@ -89,7 +89,7 @@ type Props = {
   item: RedditItem;
 };
 
-export default memo(function Details({ item }: Props) {
+export default function Details({ item }: Props) {
   const [isImgError, setIsImgError] = useState(false);
   const { mutate, isPending } = useToggleBookmark(item.id, item.pageParam);
   const postLink = `https://www.reddit.com${item.permalink}`;
@@ -124,4 +124,4 @@ export default memo(function Details({ item }: Props) {
       </Link>
     </div>
   );
-});
+}

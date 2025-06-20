@@ -71,7 +71,9 @@ export default memo(function Card({ item }: Props) {
           </Dialog.Trigger>
         )}
         <Dialog.Content>
-          <Gallery items={galleryItems} />
+          <Dialog.Close className={cn("modal_btn", close)}>
+            <ArrowLeft />
+          </Dialog.Close>
           <Link
             className={cn("modal_btn", link_svg)}
             href={`https://www.reddit.com${item.permalink}`}
@@ -79,9 +81,7 @@ export default memo(function Card({ item }: Props) {
           >
             <LinkSvg />
           </Link>
-          <Dialog.Close className={cn("modal_btn", close)}>
-            <ArrowLeft />
-          </Dialog.Close>
+          <Gallery items={galleryItems} />
         </Dialog.Content>
       </Dialog>
     </section>
