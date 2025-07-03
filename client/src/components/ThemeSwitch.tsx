@@ -21,9 +21,11 @@ const radio = css`
   height: var(--space-7);
   width: var(--space-7);
   border-radius: var(--rounded-full);
-  overflow: hidden;
   & > input[type="radio"] {
+    position: absolute;
     appearance: none;
+    inset: 0;
+    border-radius: var(--rounded-full);
     &:checked + label > svg {
       color: var(--primary);
     }
@@ -37,6 +39,7 @@ const radio = css`
     place-items: center;
     cursor: pointer;
     inset: 0;
+    border-radius: var(--rounded-full);
   }
 `;
 
