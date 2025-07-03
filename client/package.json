@@ -11,14 +11,14 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.5",
-    "@tanstack/react-query": "^5.80.10",
-    "@tanstack/react-virtual": "^3.13.10",
+    "@tanstack/react-query": "^5.81.5",
+    "@tanstack/react-virtual": "^3.13.12",
     "react": "^19.1.0",
     "react-dom": "^19.1.0"
   },
   "devDependencies": {
     "@acab/ecsstatic": "^0.9.0",
-    "@tanstack/eslint-plugin-query": "^5.78.0",
+    "@tanstack/eslint-plugin-query": "^5.81.2",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react-swc": "^3.10.2",
@@ -26,9 +26,9 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "prettier-plugin-css-order": "^2.1.2",
-    "sonda": "^0.8.1",
+    "sonda": "^0.8.2",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5",
+    "vite": "^7.0.1",
     "vite-plugin-checker": "^0.9.3",
     "vite-plugin-svgr": "^4.3.0"
   }
