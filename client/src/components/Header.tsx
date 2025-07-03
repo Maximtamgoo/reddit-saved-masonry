@@ -4,7 +4,9 @@ import { cn } from "@src/utils/cn";
 import Link from "@src/components/Link";
 import Bookmark from "@src/svg/bookmark.svg?react";
 import Github from "@src/svg/github.svg?react";
+import Settings from "@src/svg/settings.svg?react";
 import { ThemeSwitch } from "./ThemeSwitch";
+import { DropdownMenu } from "./DropdownMenu";
 
 const header = css`
   position: sticky;
@@ -63,20 +65,25 @@ const github = css`
   }
 `;
 
-const profile = css`
-  & > img {
-    border-radius: var(--rounded-full);
-  }
-  &:hover {
-    filter: brightness(1.1);
-  }
-`;
-
 const signOut = css`
   padding-inline: var(--space-3);
   width: auto;
   font-weight: 500;
   font-size: var(--text-sm);
+`;
+
+const dropdown = css`
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-1);
+  border-radius: var(--rounded-lg);
+  background-color: var(--card-bg);
+  border: 1px solid var(--ring-color);
+  width: fit-content;
+  height: fit-content;
+  &::backdrop {
+    background-color: transparent;
+  }
 `;
 
 type Props = {
@@ -92,7 +99,6 @@ export default function Header({ username, icon_img }: Props) {
       <nav className={nav_bar}>
         <Bookmark className={bookmark} />
         <span className="truncate">Reddit Saved Masonry</span>
-        <ThemeSwitch />
         <Link
           className={cn(nav_btn, github)}
           href="https://github.com/Maximtamgoo/reddit-saved-masonry"
@@ -100,10 +106,7 @@ export default function Header({ username, icon_img }: Props) {
           <Github />
         </Link>
         {username && (
-          <Link
-            className={cn(nav_btn, profile)}
-            href={`https://www.reddit.com/user/${username}/saved`}
-          >
+          <Link className={nav_btn} href={`https://www.reddit.com/user/${username}/saved`}>
             {icon_img && <img src={icon_img} />}
           </Link>
         )}
@@ -112,6 +115,17 @@ export default function Header({ username, icon_img }: Props) {
             Sign out
           </button>
         )}
+        <DropdownMenu>
+          <DropdownMenu.Trigger className={cn(nav_btn)}>
+            <Settings />
+          </DropdownMenu.Trigger>
+          <DropdownMenu.Content className={dropdown}>
+            <ThemeSwitch />
+            <button className={cn(nav_btn, signOut)} onClick={() => mutate()}>
+              Sign out
+            </button>
+          </DropdownMenu.Content>
+        </DropdownMenu>
       </nav>
     </header>
   );
