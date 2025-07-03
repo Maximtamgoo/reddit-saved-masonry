@@ -21,7 +21,6 @@ export default function Playable({ src, poster, onError }: Props & ComponentProp
       autoPlay={true}
       loop={true}
       controls={true}
-      onClick={(e) => e.stopPropagation()}
       onError={onError}
     />
   );

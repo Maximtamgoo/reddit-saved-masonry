@@ -1,9 +1,8 @@
 import { css } from "@acab/ecsstatic";
-import { memo } from "react";
+import { memo, type MouseEvent } from "react";
 import { RedditItem } from "@src/schema/RedditItem";
 import Details from "./Details";
 import Text from "./Text";
-import Dialog from "../Modal/Dialog";
 import Preview from "./Preview";
 import Link from "../Link";
 import ArrowLeft from "@src/svg/arrow-left.svg?react";
@@ -11,6 +10,7 @@ import LinkSvg from "@src/svg/link.svg?react";
 import Gallery from "../Modal/Gallery";
 import Unknown from "./Unknown";
 import { cn } from "@src/utils/cn";
+import { Dialog } from "@src/components/Dialog";
 
 const card = css`
   container: card / inline-size;
@@ -40,9 +40,23 @@ const trigger = css`
   overflow: hidden;
 `;
 
+const dialog = css`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+`;
+
 type Props = {
   item: RedditItem;
 };
+
+function onClickDialog(e: MouseEvent<HTMLDialogElement>) {
+  if (e.target === e.currentTarget) e.currentTarget.close();
+}
 
 export default memo(function Card({ item }: Props) {
   const isText = item.type === "text" || item.type === "comment";
@@ -70,14 +84,13 @@ export default memo(function Card({ item }: Props) {
             />
           </Dialog.Trigger>
         )}
-        <Dialog.Content>
+        <Dialog.Content onClick={onClickDialog} className={dialog}>
           <Dialog.Close className={cn("modal_btn", close)}>
             <ArrowLeft />
           </Dialog.Close>
           <Link
             className={cn("modal_btn", link_svg)}
             href={`https://www.reddit.com${item.permalink}`}
-            onClick={(e) => e.stopPropagation()}
           >
             <LinkSvg />
           </Link>

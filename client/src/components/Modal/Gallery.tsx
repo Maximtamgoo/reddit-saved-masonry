@@ -5,15 +5,6 @@ import { css } from "@acab/ecsstatic";
 import Item from "./Item";
 import { cn } from "@src/utils/cn";
 
-const gallery = css`
-  display: flex;
-  position: fixed;
-  justify-content: center;
-  align-items: center;
-  inset: 0;
-  user-select: none;
-`;
-
 const item_nav = css`
   bottom: 20px;
   left: 50%;
@@ -21,6 +12,9 @@ const item_nav = css`
   padding-inline: var(--space-4);
   width: auto;
   font-weight: 600;
+  &:hover {
+    background-color: var(--c-zinc-900);
+  }
 `;
 
 const arrow = css`
@@ -45,7 +39,7 @@ export default function Gallery({ items }: Props) {
   const arrow_btn = cn("modal_btn", arrow);
 
   return (
-    <div className={gallery}>
+    <>
       {items.map((item) => (
         <Item key={item.id} item={item} isVisible={items[index].id === item.id} />
       ))}
@@ -60,6 +54,6 @@ export default function Gallery({ items }: Props) {
           )}
         </>
       )}
-    </div>
+    </>
   );
 }

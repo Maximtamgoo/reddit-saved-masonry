@@ -12,14 +12,7 @@ export default function ArrowBtn({
   onClick,
 }: ComponentProps<"button"> & Props) {
   return (
-    <button
-      className={className}
-      data-arrow={direction}
-      onClick={(e) => {
-        e.stopPropagation();
-        onClick();
-      }}
-    >
+    <button className={className} data-arrow={direction} onClick={onClick}>
       <ChevronLeft />
     </button>
   );
