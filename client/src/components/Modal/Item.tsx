@@ -1,7 +1,6 @@
 import type { GalleryItem } from "@src/schema/RedditItem";
-import { memo, useState } from "react";
+import { memo, useRef, useState } from "react";
 import Unknown from "../Card/Unknown";
-import Playable from "./Playable";
 
 type Props = {
   item: GalleryItem;
@@ -9,15 +8,21 @@ type Props = {
 };
 
 export default memo(function Item({ item, isVisible }: Props) {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [isError, setIsError] = useState(false);
-  const isPlayable = item.type === "playable";
-  const isImage = item.type === "image";
 
   if (isError) return <Unknown />;
 
+  if (isVisible) {
+    videoRef.current?.play();
+  } else {
+    videoRef.current?.pause();
+    if (videoRef.current) videoRef.current.currentTime = 0;
+  }
+
   return (
     <>
-      {isImage && (
+      {item.type === "image" && (
         <img
           key={item.id}
           src={item.preview.url}
@@ -26,13 +31,17 @@ export default memo(function Item({ item, isVisible }: Props) {
           style={{ display: isVisible ? "block" : "none" }}
         />
       )}
-      {isPlayable && (
-        <Playable
+      {item.type === "playable" && (
+        <video
+          ref={videoRef}
           key={item.id}
           src={item.source.url}
           poster={item.preview.url}
           onError={() => setIsError(true)}
           style={{ display: isVisible ? "block" : "none" }}
+          autoPlay={isVisible}
+          loop={true}
+          controls={true}
         />
       )}
     </>

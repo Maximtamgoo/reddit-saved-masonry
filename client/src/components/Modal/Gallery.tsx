@@ -6,9 +6,8 @@ import Item from "./Item";
 import { cn } from "@src/utils/cn";
 
 const item_nav = css`
-  bottom: 20px;
-  left: 50%;
-  translate: -50%;
+  top: 20px;
+  right: 80px;
   padding-inline: var(--space-4);
   width: auto;
   font-weight: 600;

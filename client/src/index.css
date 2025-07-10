@@ -65,7 +65,6 @@ button {
   display: grid;
   position: absolute;
   place-items: center;
-  z-index: 1;
   border-radius: var(--rounded-full);
   background-color: var(--c-zinc-900);
   width: var(--space-10);
