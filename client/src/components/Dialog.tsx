@@ -19,7 +19,12 @@ type Context = {
   triggerRef?: RefObject<HTMLButtonElement | null>;
 };
 
-const Context = createContext<Context | null>(null);
+const Context = createContext<Context>({
+  isOpen: false,
+  setIsOpen: () => {},
+  dialogRef: undefined,
+  triggerRef: undefined,
+});
 
 type Props = {
   onOpenEffect?: (dialog: HTMLDialogElement, trigger: HTMLButtonElement) => () => void;
@@ -64,16 +69,13 @@ function disableScrollbar() {
 }
 
 Dialog.Content = function Content({ className, onClick, children }: ComponentProps<"dialog">) {
-  const context = useContext(Context);
-  if (!context) throw "Missing Context in Dialog.Content";
-  const { isOpen, dialogRef } = context;
+  const { isOpen, setIsOpen, dialogRef } = useContext(Context);
 
   useEffect(() => {
     const node = dialogRef?.current;
     if (node && isOpen) {
       const enableScrollbar = disableScrollbar();
       node.showModal();
-      node.focus();
       return () => enableScrollbar();
     }
   }, [isOpen, dialogRef]);
@@ -85,7 +87,7 @@ Dialog.Content = function Content({ className, onClick, children }: ComponentPro
       ref={dialogRef}
       className={cn(dialog, className ?? "")}
       onClick={onClick}
-      onClose={() => context.setIsOpen(false)}
+      onClose={() => setIsOpen(false)}
     >
       {children}
     </dialog>,
@@ -95,7 +97,6 @@ Dialog.Content = function Content({ className, onClick, children }: ComponentPro
 
 Dialog.Trigger = function Trigger({ className, children }: ComponentProps<"button">) {
   const context = useContext(Context);
-  if (!context) throw "Missing Context in Dialog.Trigger";
   return (
     <button ref={context.triggerRef} className={className} onClick={() => context.setIsOpen(true)}>
       {children}
@@ -105,7 +106,6 @@ Dialog.Trigger = function Trigger({ className, children }: ComponentProps<"butto
 
 Dialog.Close = function Close({ className, children }: ComponentProps<"button">) {
   const context = useContext(Context);
-  if (!context) throw "Missing Context in Dialog.Close";
   return (
     <button className={className} onClick={() => context.setIsOpen(false)}>
       {children}
