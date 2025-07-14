@@ -109,7 +109,7 @@ export default function Details({ item }: Props) {
         </Link>
         <i>•</i>
         <Link className="truncate" href={authorLink}>
-          u/{item.author}
+          {item.author}
         </Link>
       </div>
       <button

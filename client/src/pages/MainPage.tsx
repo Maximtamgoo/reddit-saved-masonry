@@ -43,7 +43,7 @@ export default function MainPage() {
 
   if (isLoadingError || isLoading) {
     return (
-      <main className="center">
+      <main style={{ height: "45vh", alignContent: "end" }}>
         <Loader isError={isLoadingError} onClick={fetchNextPage} />
       </main>
     );

@@ -1,19 +1,18 @@
 import { css } from "@acab/ecsstatic";
 
 const login = css`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-6);
   text-align: center;
-  position: absolute;
-  inset: 0;
+  height: 45vh;
+  align-content: end;
+
   & > button {
+    display: block;
+    margin-inline: auto;
+    margin-bottom: var(--space-5);
     border-radius: var(--rounded-lg);
     background-color: var(--btn-bg);
-    padding: var(--space-2) var(--space-3);
-    min-height: var(--space-10);
+    width: var(--space-40);
+    height: var(--space-10);
     &:hover {
       background-color: var(--btn-hover);
     }

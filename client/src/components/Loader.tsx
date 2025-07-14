@@ -7,9 +7,9 @@ const loader = css`
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  height: 60px;
-  font-size: x-large;
+  gap: var(--space-2);
+  height: var(--space-24);
+  font-size: var(--text-2xl);
   color: var(--fg);
 `;
 
