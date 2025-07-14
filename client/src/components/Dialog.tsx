@@ -1,5 +1,6 @@
 import { css } from "@acab/ecsstatic";
 import { cn } from "@src/utils/cn";
+import { lockBodyScroll } from "@src/utils/lockBodyScroll";
 import {
   createContext,
   useContext,
@@ -56,27 +57,15 @@ const dialog = css`
   max-height: 100%;
 `;
 
-function disableScrollbar() {
-  const paddingRight = document.body.style.paddingRight;
-  const overflowY = document.body.style.overflowY;
-  const scrollbarWidth = window.innerWidth - document.body.clientWidth + "px";
-  document.body.style.paddingRight = scrollbarWidth;
-  document.body.style.overflowY = "hidden";
-  return () => {
-    document.body.style.paddingRight = paddingRight;
-    document.body.style.overflowY = overflowY;
-  };
-}
-
 Dialog.Content = function Content({ className, onClick, children }: ComponentProps<"dialog">) {
   const { isOpen, setIsOpen, dialogRef } = useContext(Context);
 
   useEffect(() => {
     const node = dialogRef?.current;
     if (node && isOpen) {
-      const enableScrollbar = disableScrollbar();
+      const unlock = lockBodyScroll();
       node.showModal();
-      return () => enableScrollbar();
+      return () => unlock();
     }
   }, [isOpen, dialogRef]);
 
