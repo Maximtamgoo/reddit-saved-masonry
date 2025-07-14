@@ -72,10 +72,10 @@ export default memo(function Card({ item }: Props) {
   return (
     <section className={card}>
       <Details item={item} />
-      <Dialog>
-        {isText && <Text>{item.text}</Text>}
-        {isUnknown && <Unknown />}
-        {isMedia && (
+      {isText && <Text>{item.text}</Text>}
+      {isUnknown && <Unknown />}
+      {isMedia && (
+        <Dialog>
           <Dialog.Trigger className={trigger}>
             <Preview
               url={item.preview.url}
@@ -83,20 +83,20 @@ export default memo(function Card({ item }: Props) {
               galleryLength={galleryLength}
             />
           </Dialog.Trigger>
-        )}
-        <Dialog.Content onClick={onClickDialog} className={dialog}>
-          <Dialog.Close className={cn("modal_btn", close)}>
-            <ArrowLeft />
-          </Dialog.Close>
-          <Link
-            className={cn("modal_btn", link_svg)}
-            href={`https://www.reddit.com${item.permalink}`}
-          >
-            <LinkSvg />
-          </Link>
-          <Gallery items={galleryItems} />
-        </Dialog.Content>
-      </Dialog>
+          <Dialog.Content onClick={onClickDialog} className={dialog}>
+            <Dialog.Close className={cn("modal_btn", close)}>
+              <ArrowLeft />
+            </Dialog.Close>
+            <Link
+              className={cn("modal_btn", link_svg)}
+              href={`https://www.reddit.com${item.permalink}`}
+            >
+              <LinkSvg />
+            </Link>
+            <Gallery items={galleryItems} />
+          </Dialog.Content>
+        </Dialog>
+      )}
     </section>
   );
 });
