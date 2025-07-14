@@ -27,6 +27,10 @@
   --btn-hover: light-dark(var(--c-zinc-300), var(--c-zinc-600));
 }
 
+#root {
+  isolation: isolate;
+}
+
 body {
   background-color: var(--bg);
   overflow-y: scroll;
