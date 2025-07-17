@@ -4,9 +4,17 @@ import { transformRedditItem } from "@src/utils/transformRedditItem";
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import * as api from "./api";
 
+export const queryKeys = {
+  all: () => ["all"] as const,
+  user: () => [...queryKeys.all(), "user"] as const,
+  savedContent: (name: string) => [...queryKeys.all(), "savedContent", name] as const,
+  bookmark: (id: string) => ["bookmark", id] as const,
+  signOut: () => ["signOut"] as const,
+};
+
 export function useGetSignedInUser() {
   return useQuery({
-    queryKey: ["userData"],
+    queryKey: queryKeys.user(),
     queryFn: async () => {
       const urlParams = new URLSearchParams(location.search);
       if (location.pathname === "/auth_callback") history.replaceState(null, "", "/");
@@ -19,23 +27,23 @@ export function useGetSignedInUser() {
   });
 }
 
-export function useSignOut() {
+type User = ReturnType<typeof useGetSignedInUser>["data"];
+
+function useGetUsername() {
   const qc = useQueryClient();
-  return useMutation({
-    mutationKey: ["signOut"],
-    mutationFn: api.signOut,
-    onSuccess: () => qc.resetQueries({ queryKey: ["userData"], exact: true }),
-  });
+  return qc.getQueryData<User>(queryKeys.user())?.name;
 }
 
+type SavedContent = ReturnType<typeof useGetSavedContent>["data"];
+
 export function useGetSavedContent() {
-  const username = useGetSignedInUser().data?.name;
+  const username = useGetUsername() ?? "";
   return useInfiniteQuery({
-    queryKey: ["redditItems", username],
+    queryKey: queryKeys.savedContent(username),
     enabled: !!username,
     initialPageParam: "",
     queryFn: async ({ pageParam }) => {
-      const listing = await api.getSavedContent(username ?? "", pageParam);
+      const listing = await api.getSavedContent(username, pageParam);
       const redditItems: RedditItem[] = [];
       for (const item of listing.data.children) {
         const listingItemResult = ListingItem.try(item, { mode: "strip" });
@@ -67,13 +75,12 @@ export function useGetSavedContent() {
 
 export function useToggleBookmark(id: string, pageParam: string) {
   const qc = useQueryClient();
-  const username = useGetSignedInUser().data?.name;
+  const username = useGetUsername() ?? "";
   return useMutation({
-    mutationKey: ["toggleBookmark", id],
+    mutationKey: queryKeys.bookmark(id),
     mutationFn: ({ saved }: { saved: boolean }) => api.toggleBookmark(id, saved),
     onSuccess: (_, { saved }) => {
-      type QueryData = ReturnType<typeof useGetSavedContent>["data"];
-      qc.setQueryData<QueryData>(["redditItems", username], (oldData) => {
+      qc.setQueryData<SavedContent>(queryKeys.savedContent(username), (oldData) => {
         if (oldData) {
           let found = false;
           const newPages = [];
@@ -98,5 +105,14 @@ export function useToggleBookmark(id: string, pageParam: string) {
         }
       });
     },
+  });
+}
+
+export function useSignOut() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationKey: queryKeys.signOut(),
+    mutationFn: api.signOut,
+    onSuccess: () => qc.resetQueries({ queryKey: queryKeys.all(), type: "all" }),
   });
 }
