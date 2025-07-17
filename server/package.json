@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.5",
-    "compression": "^1.8.0",
+    "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
     "http-errors": "^2.0.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.1"
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",
@@ -24,7 +24,7 @@
     "@types/express": "^5.0.3",
     "@types/http-errors": "^2.0.5",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^24.0.10",
+    "@types/node": "^24.0.14",
     "tsx": "^4.20.3",
     "typescript": "^5.8.3"
   }
