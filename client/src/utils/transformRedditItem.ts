@@ -1,7 +1,7 @@
 import { ListingItem } from "@src/schema/Listing";
 import type { GalleryItem, RedditItem } from "@src/schema/RedditItem";
 
-export function transformRedditItem(item: ListingItem, pageParam: string): RedditItem {
+export function transformRedditItem(item: ListingItem): RedditItem {
   const { name: id, author, subreddit, subreddit_name_prefixed, permalink } = item.data;
 
   const base = {
@@ -11,7 +11,6 @@ export function transformRedditItem(item: ListingItem, pageParam: string): Reddi
     subreddit_name_prefixed,
     permalink,
     saved: true,
-    pageParam,
   };
 
   if (item.kind === "t1") {

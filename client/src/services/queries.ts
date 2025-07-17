@@ -34,6 +34,8 @@ function useGetUsername() {
   return qc.getQueryData<User>(queryKeys.user())?.name;
 }
 
+const redditItemMap = new Map<string, { pageParamIndex: number; itemIndex: number }>();
+
 type SavedContent = ReturnType<typeof useGetSavedContent>["data"];
 
 export function useGetSavedContent() {
@@ -42,10 +44,14 @@ export function useGetSavedContent() {
     queryKey: queryKeys.savedContent(username),
     enabled: !!username,
     initialPageParam: "",
-    queryFn: async ({ pageParam }) => {
+    queryFn: async ({ pageParam, client, queryKey }) => {
+      const oldData = client.getQueryData<SavedContent>(queryKey);
+      const pageParamIndex = oldData ? oldData.pageParams.length : 0;
+
       const listing = await api.getSavedContent(username, pageParam);
       const redditItems: RedditItem[] = [];
-      for (const item of listing.data.children) {
+      for (let i = 0; i < listing.data.children.length; i++) {
+        const item = listing.data.children[i];
         const listingItemResult = ListingItem.try(item, { mode: "strip" });
         if (!listingItemResult.ok) {
           console.log("Failed to parse ListingItem:", listingItemResult.message);
@@ -53,7 +59,7 @@ export function useGetSavedContent() {
           continue;
         }
 
-        const result = RedditItem.try(transformRedditItem(listingItemResult.value, pageParam));
+        const result = RedditItem.try(transformRedditItem(listingItemResult.value));
         if (!result.ok) {
           console.log("Failed to parse reddit item:", result.message);
           console.log("Failed reddit item:", listingItemResult.value);
@@ -61,6 +67,7 @@ export function useGetSavedContent() {
         }
         if (result.value.type === "unknown") console.log("unknown item:", item);
         redditItems.push(result.value);
+        redditItemMap.set(result.value.id, { pageParamIndex, itemIndex: i });
       }
 
       return {
@@ -73,7 +80,7 @@ export function useGetSavedContent() {
   });
 }
 
-export function useToggleBookmark(id: string, pageParam: string) {
+export function useToggleBookmark(id: string) {
   const qc = useQueryClient();
   const username = useGetUsername() ?? "";
   return useMutation({
@@ -82,26 +89,12 @@ export function useToggleBookmark(id: string, pageParam: string) {
     onSuccess: (_, { saved }) => {
       qc.setQueryData<SavedContent>(queryKeys.savedContent(username), (oldData) => {
         if (oldData) {
-          let found = false;
-          const newPages = [];
-          for (let i = 0; i < oldData.pages.length; i++) {
-            const page = oldData.pages[i];
-            if (!found) {
-              if (oldData.pageParams[i] === pageParam) {
-                const postIndex = page.redditItems.findIndex((post) => post.id === id);
-                if (postIndex !== -1) {
-                  page.redditItems[postIndex].saved = saved;
-                  found = true;
-                }
-              }
-            }
-            newPages.push(page);
+          const indexMap = redditItemMap.get(id);
+          if (indexMap) {
+            const page = oldData.pages[indexMap.pageParamIndex];
+            page.redditItems[indexMap.itemIndex].saved = saved;
+            return oldData;
           }
-
-          return {
-            pages: newPages,
-            pageParams: oldData.pageParams,
-          };
         }
       });
     },

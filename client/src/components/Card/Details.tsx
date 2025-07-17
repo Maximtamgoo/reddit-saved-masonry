@@ -91,7 +91,7 @@ type Props = {
 
 export default function Details({ item }: Props) {
   const [isImgError, setIsImgError] = useState(false);
-  const { mutate, isPending } = useToggleBookmark(item.id, item.pageParam);
+  const { mutate, isPending } = useToggleBookmark(item.id);
   const postLink = `https://www.reddit.com${item.permalink}`;
   const subredditLink = `https://www.reddit.com/r/${item.subreddit}`;
   const authorLink = `https://www.reddit.com/u/${item.author}`;

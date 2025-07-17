@@ -10,7 +10,6 @@ const Base = object({
   subreddit_name_prefixed: string(),
   permalink: string(),
   saved: boolean(),
-  pageParam: string(),
 });
 
 const Playable = object({
