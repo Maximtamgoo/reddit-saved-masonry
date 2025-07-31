@@ -29,9 +29,9 @@ export function useGetSignedInUser() {
 
 type User = ReturnType<typeof useGetSignedInUser>["data"];
 
-function useGetUsername() {
+export function useGetUserData() {
   const qc = useQueryClient();
-  return qc.getQueryData<User>(queryKeys.user())?.name;
+  return qc.getQueryData<User>(queryKeys.user());
 }
 
 const redditItemMap = new Map<string, { pageParamIndex: number; itemIndex: number }>();
@@ -39,7 +39,7 @@ const redditItemMap = new Map<string, { pageParamIndex: number; itemIndex: numbe
 type SavedContent = ReturnType<typeof useGetSavedContent>["data"];
 
 export function useGetSavedContent() {
-  const username = useGetUsername() ?? "";
+  const username = useGetUserData()?.name ?? "";
   return useInfiniteQuery({
     queryKey: queryKeys.savedContent(username),
     enabled: !!username,
@@ -82,7 +82,7 @@ export function useGetSavedContent() {
 
 export function useToggleBookmark(id: string) {
   const qc = useQueryClient();
-  const username = useGetUsername() ?? "";
+  const username = useGetUserData()?.name ?? "";
   return useMutation({
     mutationKey: queryKeys.bookmark(id),
     mutationFn: ({ saved }: { saved: boolean }) => api.toggleBookmark(id, saved),
