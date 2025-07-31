@@ -6,91 +6,76 @@ import Eclipse from "@src/svg/eclipse.svg?react";
 
 const group = css`
   display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: var(--space-1);
-  border-radius: var(--rounded-3xl);
-  background-color: var(--btn-bg);
-  padding-inline: var(--space-1);
-  width: fit-content;
-  height: var(--space-9);
+  gap: var(--space-2);
 `;
 
 const radio = css`
   position: relative;
-  height: var(--space-7);
-  width: var(--space-7);
-  border-radius: var(--rounded-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--btn-bg);
+  font-weight: 500;
+  height: var(--space-9);
+  width: var(--space-24);
+  border-radius: var(--rounded-md);
+  &:hover {
+    background-color: var(--btn-hover);
+  }
   & > input[type="radio"] {
     position: absolute;
     appearance: none;
+    cursor: pointer;
     inset: 0;
-    border-radius: var(--rounded-full);
-    &:checked + label > svg {
+    &:checked + label {
       color: var(--primary);
-    }
-    &:hover + label {
-      background-color: var(--btn-hover);
     }
   }
   & > label {
-    display: grid;
-    position: absolute;
-    place-items: center;
-    cursor: pointer;
-    inset: 0;
-    border-radius: var(--rounded-full);
+    display: flex;
+    gap: var(--space-1);
   }
 `;
 
-type Theme = "auto" | "light" | "dark";
-const initTheme = document.querySelector("html")?.getAttribute("data-theme") as Theme;
+const themes = ["light", "auto", "dark"] as const;
+type Theme = (typeof themes)[number];
 
-function onChange(e: ChangeEvent<HTMLInputElement>) {
-  const theme = e.target.id as Theme;
+function updateTheme(theme: Theme) {
   localStorage.setItem("theme", theme);
   document.querySelector("html")?.setAttribute("data-theme", theme);
 }
 
+function onChange(e: ChangeEvent<HTMLInputElement>) {
+  const theme = e.target.id as Theme;
+  if (document.startViewTransition) {
+    document.startViewTransition(() => updateTheme(theme));
+  } else {
+    updateTheme(theme);
+  }
+}
+
 export function ThemeSwitch() {
+  const themeAttr = document.querySelector("html")?.getAttribute("data-theme") as Theme;
+
   return (
     <div className={group}>
-      <div className={radio}>
-        <input
-          type="radio"
-          id="light"
-          name="theme"
-          onChange={onChange}
-          defaultChecked={initTheme === "light"}
-        />
-        <label htmlFor="light">
-          <Sun />
-        </label>
-      </div>
-      <div className={radio}>
-        <input
-          type="radio"
-          id="auto"
-          name="theme"
-          onChange={onChange}
-          defaultChecked={initTheme === "auto"}
-        />
-        <label htmlFor="auto">
-          <Eclipse />
-        </label>
-      </div>
-      <div className={radio}>
-        <input
-          type="radio"
-          id="dark"
-          name="theme"
-          onChange={onChange}
-          defaultChecked={initTheme === "dark"}
-        />
-        <label htmlFor="dark">
-          <Moon />
-        </label>
-      </div>
+      {themes.map((theme) => (
+        <div className={radio} key={theme}>
+          <input
+            type="radio"
+            id={theme}
+            name="theme"
+            onChange={onChange}
+            defaultChecked={themeAttr === theme}
+          />
+          <label htmlFor={theme}>
+            {theme === "light" && <Sun />}
+            {theme === "auto" && <Eclipse />}
+            {theme === "dark" && <Moon />}
+            {theme.charAt(0).toUpperCase() + theme.slice(1)}
+          </label>
+        </div>
+      ))}
     </div>
   );
 }
