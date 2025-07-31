@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { css } from "@acab/ecsstatic";
 import LoaderCircle from "@src/svg/loader-circle.svg?react";
-import RotateCw from "@src/svg/rotate-cw.svg?react";
+import Rotate from "@src/svg/rotate-ccw.svg?react";
 
 const loader = css`
   display: flex;
@@ -37,6 +37,10 @@ const retry = css`
   }
 `;
 
+const flipSvg = css`
+  transform: scale(-1, 1);
+`;
+
 type Props = { isError?: boolean; isEnd?: boolean; endMessage?: string; onClick?: () => void };
 
 export default memo(function Loader({
@@ -54,7 +58,7 @@ export default memo(function Loader({
       {isError ? "Could not get posts" : "Getting Posts"}
       {isError ? (
         <button className={retry} onClick={onClick}>
-          <RotateCw />
+          <Rotate className={flipSvg} />
         </button>
       ) : (
         <LoaderCircle className={spin} width={40} height={40} />
