@@ -46,6 +46,7 @@ const dialog = css`
   justify-content: center;
   user-select: none;
   &::backdrop {
+    backdrop-filter: blur(5px);
     background-color: rgba(0, 0, 0, 0.75);
   }
 `;
@@ -70,7 +71,7 @@ export default memo(function Card({ item }: Props) {
   const galleryItems = isGallery ? item.gallery : isImage || isPlayable ? [item] : [];
 
   return (
-    <section className={card}>
+    <div className={card}>
       <Details item={item} />
       {isText && <Text>{item.text}</Text>}
       {isUnknown && <Unknown />}
@@ -97,6 +98,6 @@ export default memo(function Card({ item }: Props) {
           </Dialog.Content>
         </Dialog>
       )}
-    </section>
+    </div>
   );
 });
