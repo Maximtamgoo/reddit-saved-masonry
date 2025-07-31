@@ -7,7 +7,7 @@ import App from "./App";
 
 const qc = new QueryClient({
   defaultOptions: {
-    queries: { refetchOnWindowFocus: false, retry: 1, staleTime: Infinity },
+    queries: { retry: 1, staleTime: Infinity },
     mutations: { retry: 1 },
   },
 });
