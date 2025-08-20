@@ -1,4 +1,3 @@
-import { css } from "@acab/ecsstatic";
 import { cn } from "@src/utils/cn";
 import { lockBodyScroll } from "@src/utils/lockBodyScroll";
 import {
@@ -48,14 +47,14 @@ export function Dialog({ onOpenEffect, children }: PropsWithChildren<Props>) {
   return <Context value={{ dialogRef, triggerRef, isOpen, setIsOpen }}>{children}</Context>;
 }
 
-const dialog = css`
-  border: none;
-  background-color: transparent;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  max-height: 100%;
-`;
+// const dialog = css`
+//   border: none;
+//   background-color: transparent;
+//   width: 100%;
+//   max-width: 100%;
+//   height: 100%;
+//   max-height: 100%;
+// `;
 
 Dialog.Content = function Content({ className, onClick, children }: ComponentProps<"dialog">) {
   const { isOpen, setIsOpen, dialogRef } = useContext(Context);
@@ -74,7 +73,7 @@ Dialog.Content = function Content({ className, onClick, children }: ComponentPro
   return createPortal(
     <dialog
       ref={dialogRef}
-      className={cn(dialog, className ?? "")}
+      className={cn(className)}
       onClick={onClick}
       onClose={() => setIsOpen(false)}
     >
