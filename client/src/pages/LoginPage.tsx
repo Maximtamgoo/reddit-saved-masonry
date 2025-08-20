@@ -2,8 +2,8 @@ import { css } from "@acab/ecsstatic";
 
 const login = css`
   text-align: center;
-  height: 45vh;
-  align-content: end;
+  height: calc(100vh - 53px);
+  align-content: center;
 
   & > button {
     display: block;
