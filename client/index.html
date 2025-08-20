@@ -2,9 +2,7 @@
 <html lang="en">
   <head>
     <script>
-      document
-        .querySelector("html")
-        ?.setAttribute("data-theme", localStorage.getItem("theme") ?? "auto");
+      document.documentElement.setAttribute("data-theme", localStorage.getItem("theme") ?? "auto");
     </script>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
