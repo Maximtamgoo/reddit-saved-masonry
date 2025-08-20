@@ -42,8 +42,8 @@ export function useGetSavedContent() {
   const username = useGetUserData()?.name ?? "";
   return useInfiniteQuery({
     queryKey: queryKeys.savedContent(username),
-    enabled: !!username,
     initialPageParam: "",
+    networkMode: "always",
     queryFn: async ({ pageParam, client, queryKey }) => {
       const oldData = client.getQueryData<SavedContent>(queryKey);
       const pageParamIndex = oldData ? oldData.pageParams.length : 0;
