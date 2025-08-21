@@ -106,6 +106,9 @@ export function useSignOut() {
   return useMutation({
     mutationKey: queryKeys.signOut(),
     mutationFn: api.signOut,
-    onSuccess: () => qc.resetQueries({ queryKey: queryKeys.all(), type: "all" }),
+    onSuccess: () => {
+      qc.resetQueries({ queryKey: queryKeys.all(), type: "all" });
+      document.documentElement.style.setProperty("--masonry-max-width", "405px");
+    },
   });
 }

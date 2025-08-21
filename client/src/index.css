@@ -36,21 +36,25 @@ body {
   overflow-y: scroll;
 }
 
-nav,
-main {
-  margin-inline: auto;
-  max-width: 96rem;
-}
-
-main {
-  padding-top: var(--space-3);
-  padding-inline: var(--space-2);
-}
-
 button {
   cursor: pointer;
   border: none;
   background: none;
+}
+
+.btn {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  border-radius: var(--rounded-full);
+  background-color: var(--btn-bg);
+  width: var(--space-9);
+  height: var(--space-9);
+  color: var(--fg);
+  font-weight: 500;
+  &:hover {
+    background-color: var(--btn-hover);
+  }
 }
 
 .truncate {
