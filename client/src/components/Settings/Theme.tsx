@@ -1,8 +1,8 @@
 import { css } from "@acab/ecsstatic";
+import { useState } from "react";
 import Sun from "@src/svg/sun.svg?react";
 import Moon from "@src/svg/moon.svg?react";
 import Eclipse from "@src/svg/eclipse.svg?react";
-import { useState } from "react";
 
 const theme = css`
   display: grid;
@@ -45,22 +45,24 @@ const theme_btns = css`
 const themes = ["light", "auto", "dark"] as const;
 type Theme = (typeof themes)[number];
 
-const localTheme = localStorage.getItem("theme") ?? "";
-const isTheme = ["auto", "light", "dark"].includes(localTheme);
-const initialTheme = isTheme ? localTheme : "auto";
-document.documentElement.setAttribute("data-theme", initialTheme);
-localStorage.setItem("theme", initialTheme);
+function getInitialTheme() {
+  const localTheme = localStorage.getItem("theme") ?? "";
+  const isTheme = themes.includes(localTheme as Theme);
+  return isTheme ? (localTheme as Theme) : "auto";
+}
+
+function updateTheme(theme: Theme) {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
+}
+
+updateTheme(getInitialTheme());
 
 export function Theme() {
-  const [selectedTheme, setSelectedTheme] = useState(initialTheme);
-
-  function updateTheme(theme: Theme) {
-    document.documentElement.setAttribute("data-theme", theme);
-    setSelectedTheme(theme);
-    localStorage.setItem("theme", theme);
-  }
+  const [selectedTheme, setSelectedTheme] = useState(getInitialTheme);
 
   function onClick(theme: Theme) {
+    setSelectedTheme(theme);
     if (document.startViewTransition) {
       document.startViewTransition(() => updateTheme(theme));
     } else {
