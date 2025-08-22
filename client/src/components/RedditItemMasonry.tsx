@@ -7,6 +7,7 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 type Props = {
   items: RedditItem[];
+  gap?: number;
   maxLanes?: number;
   minLaneWidth: number;
   maxLaneWidth: number;
@@ -18,6 +19,7 @@ type Props = {
 
 export function RedditItemMasonry({
   items,
+  gap = 0,
   maxLanes,
   minLaneWidth,
   maxLaneWidth,
@@ -28,9 +30,6 @@ export function RedditItemMasonry({
 }: Props) {
   const { ref, rect } = useResizeObserver();
   const parentWidth = rect.width;
-
-  // const gap = useMemo(() => (parentWidth < 1175 ? 16 : 24), [parentWidth]);
-  const gap = 20;
 
   const lanes = useMemo(() => {
     const lanes = Math.floor((parentWidth + gap) / (minLaneWidth + gap));
@@ -54,18 +53,14 @@ export function RedditItemMasonry({
     count: items.length,
     lanes,
     gap,
-    overscan: 20,
+    overscan: 5,
     getItemKey: useCallback(
-      (i: number) => {
-        // if (i === 0) console.log("getItemKey 0");
-        return items[i].id;
-      },
+      (i: number) => items[i].id,
       // eslint-disable-next-line react-hooks/exhaustive-deps
       [items, lanes, itemWidth, maxCardHeight],
     ),
     estimateSize: useCallback(
       (i: number) => {
-        // if (i === 0) console.log("estimateSize 0");
         const item = items[i];
         const minHeight = minCardHeight;
         const maxHeight = maxCardHeight;

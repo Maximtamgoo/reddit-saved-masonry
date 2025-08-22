@@ -54,7 +54,7 @@ const credits = css`
     margin-inline: var(--space-1);
   }
 
-  @container card (width < 375px) {
+  @container card (width < 400px) {
     display: grid;
     font-size: var(--text-sm);
     & > i {

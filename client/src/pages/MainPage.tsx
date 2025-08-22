@@ -34,6 +34,7 @@ export default function MainPage() {
   return (
     <RedditItemMasonry
       items={redditItems}
+      gap={20}
       maxLanes={maxLanes}
       minLaneWidth={minCardSize}
       maxLaneWidth={maxCardWidth}
