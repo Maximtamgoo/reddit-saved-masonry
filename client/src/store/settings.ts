@@ -19,36 +19,41 @@ interface State {
 }
 
 export const useSettingsStore = create<State>()(
-  // persist(
-  (set, _, store) => ({
-    // static values
-    maxLanesLimit: 5,
-    minCardSize: 350,
-    // user values
-    maxLanes: 3,
-    maxCardWidth: (window.screen.availWidth / 100) * 25,
-    maxCardHeight: (window.screen.availHeight / 100) * 80,
-    actions: {
-      setMaxLanes(maxLanes) {
-        set({ maxLanes });
+  persist(
+    (set, _, store) => ({
+      // static values
+      maxLanesLimit: 5,
+      minCardSize: 350,
+      // user values
+      maxLanes: 3,
+      maxCardWidth: (window.screen.availWidth / 100) * 25,
+      maxCardHeight: (window.screen.availHeight / 100) * 80,
+      actions: {
+        setMaxLanes(maxLanes) {
+          set({ maxLanes });
+        },
+        setMaxCardWidth(px) {
+          set({ maxCardWidth: px });
+        },
+        setMaxCardHeight(px) {
+          set({ maxCardHeight: px });
+        },
+        resetCardSizes() {
+          const { maxCardWidth, maxCardHeight } = store.getInitialState();
+          set({ maxCardWidth, maxCardHeight });
+        },
+        resetMaxLanes() {
+          set({ maxLanes: store.getInitialState().maxLanes });
+        },
       },
-      setMaxCardWidth(px) {
-        set({ maxCardWidth: px });
-      },
-      setMaxCardHeight(px) {
-        set({ maxCardHeight: px });
-      },
-      resetCardSizes() {
-        const { maxCardWidth, maxCardHeight } = store.getInitialState();
-        set({ maxCardWidth, maxCardHeight });
-      },
-      resetMaxLanes() {
-        set({ maxLanes: store.getInitialState().maxLanes });
-      },
+    }),
+    {
+      name: "settings",
+      partialize: (s) => ({
+        maxLanes: s.maxLanes,
+        maxCardWidth: s.maxCardWidth,
+        maxCardHeight: s.maxCardHeight,
+      }),
     },
-  }),
-  //   {
-  //     name: "settings",
-  //   },
-  // ),
+  ),
 );
