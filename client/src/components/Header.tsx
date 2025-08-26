@@ -3,7 +3,7 @@ import { cn } from "@src/utils/cn";
 import Link from "@src/components/Link";
 import Bookmark from "@src/svg/bookmark.svg?react";
 import Github from "@src/svg/github.svg?react";
-import { Settings } from "./Settings/Settings";
+import SettingsPopover from "./Settings/SettingsPopover";
 
 const header = css`
   position: sticky;
@@ -59,7 +59,7 @@ export default function Header() {
         >
           <Github />
         </Link>
-        <Settings />
+        <SettingsPopover />
       </nav>
     </header>
   );
