@@ -20,6 +20,7 @@ const popover = css`
     background-color: var(--bg);
     padding: var(--space-4);
     width: 350px;
+    max-width: 96vw;
   }
 `;
 

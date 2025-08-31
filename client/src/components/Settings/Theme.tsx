@@ -9,6 +9,9 @@ const theme = css`
   gap: var(--space-3);
   & > span {
     font-size: var(--text-lg);
+    @media (width < 300px) {
+      font-size: var(--text-base);
+    }
   }
 `;
 
@@ -17,14 +20,18 @@ const theme_btns = css`
   gap: var(--space-1);
   & > button {
     display: flex;
+    flex-grow: 1;
     justify-content: center;
     align-items: center;
-    gap: var(--space-1);
+    gap: var(--space-2);
     background-color: var(--btn-bg);
-    width: 100%;
+    width: fit-content;
     height: var(--space-9);
     color: var(--fg);
     font-weight: 500;
+    & > svg {
+      min-width: 24px;
+    }
     &:focus-visible,
     &:hover {
       outline: 2px solid var(--primary-hover);
@@ -38,6 +45,11 @@ const theme_btns = css`
     }
     &[data-selected="true"] {
       color: var(--primary);
+    }
+    @media (width < 300px) {
+      & > svg {
+        display: none;
+      }
     }
   }
 `;

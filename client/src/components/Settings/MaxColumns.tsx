@@ -15,6 +15,9 @@ const title = css`
   font-size: var(--text-lg);
   flex-grow: 1;
   align-content: center;
+  @media (width < 300px) {
+    font-size: var(--text-base);
+  }
 `;
 
 const num_btns = css`

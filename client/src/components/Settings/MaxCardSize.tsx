@@ -22,26 +22,36 @@ const top = css`
 
 const title = css`
   font-size: var(--text-lg);
+  @media (width < 300px) {
+    font-size: var(--text-base);
+  }
 `;
 
 const sizeInputs = css`
   display: flex;
   justify-content: space-between;
   & label {
-    border-radius: var(--rounded-md);
-    background-color: var(--btn-bg);
-    padding-left: var(--space-2);
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
   }
   & input {
-    margin-left: var(--space-2);
     border: 1px solid var(--ring-color);
-    border-radius: 0 var(--rounded-md) var(--rounded-md) 0;
+    border-radius: var(--rounded-md);
     background-color: var(--bg);
     padding-left: var(--space-1);
     width: var(--space-16);
     height: var(--space-9);
+    font-size: var(--text-base);
     &:user-invalid {
       background-color: red;
+    }
+  }
+  @media (width < 280px) {
+    justify-content: space-around;
+    & label {
+      display: grid;
+      font-size: var(--text-sm);
     }
   }
 `;
