@@ -66,9 +66,9 @@ export default function SettingsPopover() {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    const beforeToggle = (e: ToggleEvent) => setIsOpen(e.newState === "open");
-    node.addEventListener("beforetoggle", beforeToggle);
-    return () => node.removeEventListener("beforetoggle", beforeToggle);
+    const onToggle = (e: ToggleEvent) => setIsOpen(e.newState === "open");
+    node.addEventListener("toggle", onToggle);
+    return () => node.removeEventListener("toggle", onToggle);
   }, []);
 
   useEffect(() => {
