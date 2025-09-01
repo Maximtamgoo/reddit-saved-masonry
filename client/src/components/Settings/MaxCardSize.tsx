@@ -92,7 +92,7 @@ export function MaxCardSize() {
             required
             value={maxCardWidth}
             min={minCardSize}
-            onBlurValue={(v) => setMaxCardWidth(v < minCardSize ? minCardSize : v)}
+            onBlurValue={(v) => setMaxCardWidth(Math.max(minCardSize, v))}
           />
         </label>
         <label htmlFor="maxCardHeight">
@@ -101,7 +101,7 @@ export function MaxCardSize() {
             required
             value={maxCardHeight}
             min={minCardSize}
-            onBlurValue={(v) => setMaxCardHeight(v < minCardSize ? minCardSize : v)}
+            onBlurValue={(v) => setMaxCardHeight(Math.max(minCardSize, v))}
           />
         </label>
       </div>

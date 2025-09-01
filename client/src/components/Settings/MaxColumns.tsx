@@ -61,9 +61,9 @@ const reset_btn = css`
 `;
 
 const { maxLanesLimit } = useSettingsStore.getInitialState();
+const nums = Array.from({ length: maxLanesLimit }, (_, i) => i + 1);
 
 export function MaxColumns() {
-  const nums = Array.from({ length: maxLanesLimit }, (_, i) => i + 1);
   const maxLanes = useSettingsStore((s) => s.maxLanes);
   const { setMaxLanes, resetMaxLanes } = useSettingsStore((s) => s.actions);
   return (
