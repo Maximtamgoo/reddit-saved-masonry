@@ -1,5 +1,5 @@
 import { cn } from "@src/utils/cn";
-import { lockBodyScroll } from "@src/utils/lockBodyScroll";
+import { bodyScroll } from "@src/utils/toggleBodyScroll";
 import {
   createContext,
   useContext,
@@ -62,9 +62,9 @@ Dialog.Content = function Content({ className, onClick, children }: ComponentPro
   useEffect(() => {
     const node = dialogRef?.current;
     if (node && isOpen) {
-      const unlock = lockBodyScroll();
+      bodyScroll.lock();
       node.showModal();
-      return () => unlock();
+      return () => bodyScroll.unlock();
     }
   }, [isOpen, dialogRef]);
 
