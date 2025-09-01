@@ -19,6 +19,8 @@ interface State {
 }
 
 const minCardSize = 350;
+const initCardWidth = Math.floor((window.screen.availWidth / 100) * 26);
+const initCardHeight = Math.floor((window.screen.availHeight / 100) * 75);
 
 export const useSettingsStore = create<State>()(
   persist(
@@ -28,8 +30,8 @@ export const useSettingsStore = create<State>()(
       minCardSize,
       // user values
       maxLanes: 3,
-      maxCardWidth: Math.max(minCardSize, (window.screen.availWidth / 100) * 25),
-      maxCardHeight: Math.max(minCardSize, (window.screen.availHeight / 100) * 80),
+      maxCardWidth: Math.max(minCardSize, initCardWidth),
+      maxCardHeight: Math.max(minCardSize, initCardHeight),
       actions: {
         setMaxLanes(maxLanes) {
           set({ maxLanes });
