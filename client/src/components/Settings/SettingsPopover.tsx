@@ -13,7 +13,7 @@ import { Profile } from "./Profile";
 const popover = css`
   &:popover-open {
     display: grid;
-    gap: var(--space-7);
+    gap: var(--space-6);
     margin: auto;
     border: 1px solid var(--ring-color);
     border-radius: var(--rounded-lg);
@@ -34,27 +34,27 @@ const backdrop = css`
 const top = css`
   min-width: 0;
   display: flex;
-  gap: var(--space-4);
+  align-items: center;
+  margin-bottom: calc(-1 * var(--space-3));
 `;
 
 const title = css`
   flex-grow: 1;
-  font-size: var(--text-3xl);
-  align-content: center;
+  font-size: var(--text-2xl);
 `;
 
 const close = css`
-  display: grid;
-  gap: var(--space-1);
-  & > span {
-    place-self: center;
+  position: relative;
+  &::after {
+    position: absolute;
+    top: var(--space-10);
     border: 2px solid var(--ring-color);
     border-radius: var(--rounded);
     width: var(--space-8);
+    pointer-events: none;
+    content: "ESC";
     font-weight: 500;
     font-size: var(--text-xs);
-    user-select: none;
-    text-align: center;
   }
 `;
 
@@ -83,12 +83,9 @@ export default function SettingsPopover() {
       <div ref={ref} id={id} popover="auto" className={popover}>
         <div className={top}>
           <div className={cn(title, "truncate")}>Settings</div>
-          <div className={close}>
-            <button className="btn" onClick={() => ref.current?.hidePopover()}>
-              <X />
-            </button>
-            <span>ESC</span>
-          </div>
+          <button className={cn("btn", close)} onClick={() => ref.current?.hidePopover()}>
+            <X />
+          </button>
         </div>
         <Theme />
         <MaxColumns />
