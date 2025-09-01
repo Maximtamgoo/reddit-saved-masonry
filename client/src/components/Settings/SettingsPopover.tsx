@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { Theme } from "./Theme";
 import { MaxColumns } from "./MaxColumns";
 import { MaxCardSize } from "./MaxCardSize";
-import { lockBodyScroll } from "@src/utils/lockBodyScroll";
+import { bodyScroll } from "@src/utils/toggleBodyScroll";
 import SettingsSvg from "@src/svg/settings.svg?react";
 import X from "@src/svg/x.svg?react";
 import { cn } from "@src/utils/cn";
@@ -74,14 +74,16 @@ export default function SettingsPopover() {
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
+    const onBeforeToggle = (e: ToggleEvent) =>
+      e.newState === "open" ? bodyScroll.lock() : bodyScroll.unlock();
     const onToggle = (e: ToggleEvent) => setIsOpen(e.newState === "open");
+    node.addEventListener("beforetoggle", onBeforeToggle);
     node.addEventListener("toggle", onToggle);
-    return () => node.removeEventListener("toggle", onToggle);
+    return () => {
+      node.removeEventListener("beforetoggle", onBeforeToggle);
+      node.removeEventListener("toggle", onToggle);
+    };
   }, []);
-
-  useEffect(() => {
-    if (isOpen) return lockBodyScroll();
-  }, [isOpen]);
 
   return (
     <>
