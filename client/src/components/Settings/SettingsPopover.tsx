@@ -35,12 +35,20 @@ const top = css`
   min-width: 0;
   display: flex;
   align-items: center;
-  margin-bottom: calc(-1 * var(--space-3));
+  margin-bottom: calc(-1 * var(--space-2));
 `;
 
 const title = css`
   flex-grow: 1;
   font-size: var(--text-2xl);
+  & > svg {
+    display: inline;
+    vertical-align: top;
+    margin-right: var(--space-1);
+    width: var(--space-9);
+    height: var(--space-9);
+    stroke-width: 1.5;
+  }
 `;
 
 const close = css`
@@ -82,7 +90,10 @@ export default function SettingsPopover() {
       </button>
       <div ref={ref} id={id} popover="auto" className={popover}>
         <div className={top}>
-          <div className={cn(title, "truncate")}>Settings</div>
+          <span className={cn(title, "truncate")}>
+            <SettingsSvg />
+            Settings
+          </span>
           <button className={cn("btn", close)} onClick={() => ref.current?.hidePopover()}>
             <X />
           </button>
