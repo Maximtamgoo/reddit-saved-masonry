@@ -8,10 +8,12 @@ export default function App() {
 
   if (isPending) return null;
 
+  if (isError) return <LoginPage />;
+
   return (
     <>
       <Header />
-      {isError ? <LoginPage /> : <MainPage />}
+      <MainPage />
     </>
   );
 }

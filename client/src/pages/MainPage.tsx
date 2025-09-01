@@ -25,7 +25,7 @@ export default function MainPage() {
 
   if (isLoadingError || isLoading) {
     return (
-      <div style={{ height: "calc(100vh - 53px)", alignContent: "center" }}>
+      <div style={{ height: "50vh", alignContent: "end" }}>
         <Loader isError={isLoadingError} onClick={fetchNextPage} />
       </div>
     );
