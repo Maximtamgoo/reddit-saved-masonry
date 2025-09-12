@@ -13,7 +13,7 @@ import { Profile } from "./Profile";
 const popover = css`
   &:popover-open {
     display: grid;
-    gap: var(--space-6);
+    gap: var(--space-8);
     margin: auto;
     border: 1px solid var(--ring-color);
     border-radius: var(--rounded-lg);

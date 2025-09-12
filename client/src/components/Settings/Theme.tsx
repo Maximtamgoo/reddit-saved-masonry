@@ -2,12 +2,16 @@ import { css } from "@acab/ecsstatic";
 import { useState } from "react";
 import Sun from "@src/svg/sun.svg?react";
 import Moon from "@src/svg/moon.svg?react";
-import Eclipse from "@src/svg/eclipse.svg?react";
+import SunMoon from "@src/svg/sun-moon.svg?react";
+import Monitor from "@src/svg/monitor.svg?react";
 
 const theme = css`
   display: grid;
   gap: var(--space-3);
   & > span {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
     font-size: var(--text-lg);
     @media (width < 300px) {
       font-size: var(--text-base);
@@ -84,7 +88,10 @@ export function Theme() {
 
   return (
     <div className={theme}>
-      <span>Theme</span>
+      <span>
+        <SunMoon />
+        Theme
+      </span>
       <div className={theme_btns}>
         {themes.map((theme) => (
           <button
@@ -93,7 +100,7 @@ export function Theme() {
             onClick={() => onClick(theme)}
           >
             {theme === "light" && <Sun />}
-            {theme === "auto" && <Eclipse />}
+            {theme === "auto" && <Monitor />}
             {theme === "dark" && <Moon />}
             {theme.charAt(0).toUpperCase() + theme.slice(1)}
           </button>

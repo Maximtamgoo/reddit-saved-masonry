@@ -1,6 +1,7 @@
 import { css } from "@acab/ecsstatic";
 import { useSettingsStore } from "@src/store/settings";
 import Rotate from "@src/svg/rotate-ccw.svg?react";
+import Scaling from "@src/svg/scaling.svg?react";
 import { cn } from "@src/utils/cn";
 import { InputNumber } from "../InputNumber";
 
@@ -21,6 +22,9 @@ const top = css`
 `;
 
 const title = css`
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
   font-size: var(--text-lg);
   @media (width < 300px) {
     font-size: var(--text-base);
@@ -80,7 +84,10 @@ export function MaxCardSize() {
   return (
     <div className={maxCardSize}>
       <div className={top}>
-        <span className={title}>Maximum Card Size</span>
+        <span className={title}>
+          <Scaling />
+          Maximum Card Size
+        </span>
         <button className={cn(reset_btn)} onClick={() => resetCardSizes()}>
           <Rotate />
         </button>

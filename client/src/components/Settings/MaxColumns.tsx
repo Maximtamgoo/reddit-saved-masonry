@@ -1,6 +1,7 @@
 import { css } from "@acab/ecsstatic";
 import { useSettingsStore } from "@src/store/settings";
 import Rotate from "@src/svg/rotate-ccw.svg?react";
+import Columns from "@src/svg/columns-3.svg?react";
 
 const maxColumns = css`
   display: grid;
@@ -12,6 +13,9 @@ const top = css`
 `;
 
 const title = css`
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
   font-size: var(--text-lg);
   flex-grow: 1;
   align-content: center;
@@ -69,7 +73,10 @@ export function MaxColumns() {
   return (
     <div className={maxColumns}>
       <div className={top}>
-        <span className={title}>Maximum Columns</span>
+        <span className={title}>
+          <Columns />
+          Maximum Columns
+        </span>
         <button className={reset_btn} onClick={() => resetMaxLanes()}>
           <Rotate />
         </button>
