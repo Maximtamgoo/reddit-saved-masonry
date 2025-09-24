@@ -2,12 +2,11 @@
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig to read more about this file */
     /* Language and Environment */
-    "target": "ES2022",
-    "lib": ["ES2022"],
+    "target": "es2022",
+    "lib": ["es2024", "ESNext.Array", "ESNext.Collection", "ESNext.Iterator"],
     "moduleDetection": "force",
     /* Modules */
-    "module": "NodeNext",
-    "moduleResolution": "NodeNext",
+    "module": "nodenext",
     /* Emit */
     "outDir": "./dist",
     "noEmitOnError": true,
@@ -21,10 +20,11 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "noUncheckedSideEffectImports": true,
+    "erasableSyntaxOnly": true,
     /* Completeness */
     "skipLibCheck": true,
     /* Other */
     "noErrorTruncation": true
   },
-  "include": ["src/index.ts"]
+  "include": ["./src"]
 }

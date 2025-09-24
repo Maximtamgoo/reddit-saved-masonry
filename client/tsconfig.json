@@ -9,6 +9,7 @@
     /* Bundler mode */
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "moduleDetection": "force",
     "noEmit": true,
@@ -18,14 +19,14 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+    "erasableSyntaxOnly": true,
     "noUncheckedSideEffectImports": true,
 
     /* Other */
-    "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
     "paths": {
       "@src/*": ["./src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["./src"]
 }
