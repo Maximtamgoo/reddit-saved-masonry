@@ -1,0 +1,25 @@
+.itemNav {
+  top: 20px;
+  right: 80px;
+  padding-inline: var(--space-4);
+  width: auto;
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--c-zinc-900);
+  }
+}
+
+.arrow {
+  top: 50%;
+  translate: 0 -50%;
+
+  &[data-arrow="left"] {
+    left: 20px;
+  }
+
+  &[data-arrow="right"] {
+    right: 20px;
+    rotate: 180deg;
+  }
+}
