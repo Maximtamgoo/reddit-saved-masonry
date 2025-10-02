@@ -36,17 +36,18 @@ export function RedditItemMasonry({
     return Math.max(1, Math.min(lanes, maxLanes ?? Infinity));
   }, [parentWidth, gap, minLaneWidth, maxLanes]);
 
+  const gapTotal = useMemo(() => gap * (lanes - 1), [gap, lanes]);
+
   const itemWidth = useMemo(() => {
-    const itemWidth = Math.floor((parentWidth - gap * (lanes - 1)) / lanes);
+    const itemWidth = Math.floor((parentWidth - gapTotal) / lanes);
     return Math.min(itemWidth, maxLaneWidth);
-  }, [parentWidth, gap, lanes, maxLaneWidth]);
+  }, [parentWidth, gapTotal, lanes, maxLaneWidth]);
 
   const maxWidth = useMemo(() => {
-    const gapTotal = gap * (lanes - 1);
     const maxWidth = itemWidth * lanes + gapTotal;
     document.documentElement.style.setProperty("--masonry-max-width", maxWidth + "px");
     return maxWidth;
-  }, [gap, itemWidth, lanes]);
+  }, [itemWidth, lanes, gapTotal]);
 
   const winVirtualizer = useWindowVirtualizer({
     enabled: parentWidth > 0,
