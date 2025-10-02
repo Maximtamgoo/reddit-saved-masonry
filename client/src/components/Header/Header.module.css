@@ -1,0 +1,45 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 1px solid var(--ring-color);
+  background-color: var(--bg);
+}
+
+.navBar {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  gap: var(--space-2);
+  transition: max-width 0.5s ease;
+  margin: auto;
+  padding: var(--space-2) var(--space-4);
+  max-width: var(--masonry-max-width, 405px);
+
+  & > span {
+    color: var(--primary);
+    font-size: var(--text-2xl);
+  }
+}
+
+.bookmark {
+  flex-shrink: 0;
+  width: var(--space-9);
+  height: var(--space-9);
+  color: var(--primary);
+}
+
+.github {
+  background-color: var(--bg);
+
+  &:hover {
+    background-color: var(--bg);
+  }
+
+  & > svg {
+    fill: var(--btn-bg);
+
+    &:hover {
+      fill: var(--btn-hover);
+    }
+  }
+}

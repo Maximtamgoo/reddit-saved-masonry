@@ -1,5 +1,5 @@
 import { useGetSignedInUser } from "./services/queries";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import LoginPage from "./pages/LoginPage";
 import MainPage from "./pages/MainPage";
 
