@@ -1,0 +1,35 @@
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-2);
+  height: var(--space-24);
+  color: var(--fg);
+  font-size: var(--text-2xl);
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.spin {
+  animation: spin 1s linear infinite;
+}
+
+.retry {
+  display: grid;
+  place-items: center;
+  gap: 5px;
+  scale: -1 1;
+  border-radius: 2em;
+  background-color: var(--btn-bg);
+  width: 40px;
+  height: 40px;
+  color: var(--fg);
+
+  &:hover {
+    background-color: var(--btn-hover);
+  }
+}

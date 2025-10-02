@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef } from "react";
 import { useGetSavedContent } from "@src/services/queries";
 import { RedditItemMasonry } from "@src/components/RedditItemMasonry";
-import Loader from "@src/components/Loader";
+import Loader from "@src/components/Loader/Loader";
 import { useSettingsStore } from "@src/store/settings";
 const { minCardSize } = useSettingsStore.getInitialState();
 
