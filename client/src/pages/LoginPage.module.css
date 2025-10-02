@@ -1,0 +1,33 @@
+.login {
+  align-content: end;
+  padding: var(--space-2);
+  height: 50vh;
+  text-align: center;
+}
+
+.title {
+  color: var(--primary);
+  font-size: var(--text-4xl);
+  text-wrap: balance;
+
+  & > svg {
+    display: inline;
+    vertical-align: middle;
+    margin-top: -6px;
+    width: var(--space-9);
+    height: var(--space-9);
+  }
+}
+
+.btn {
+  display: block;
+  margin: var(--space-10) auto;
+  border-radius: var(--rounded-lg);
+  background-color: var(--btn-bg);
+  width: var(--space-40);
+  height: var(--space-10);
+
+  &:hover {
+    background-color: var(--btn-hover);
+  }
+}
