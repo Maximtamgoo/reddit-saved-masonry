@@ -1,0 +1,40 @@
+.profile {
+  display: flex;
+  gap: var(--space-2);
+  min-width: 0;
+
+  @media (width < 300px) {
+    display: grid;
+
+    & > :last-child {
+      width: 100%;
+    }
+  }
+}
+
+.links {
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.imgLink {
+  overflow: hidden;
+}
+
+.nameLink {
+  color: var(--fg);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.signOut {
+  border-radius: var(--rounded-md);
+  padding: 0 var(--space-3);
+  width: fit-content;
+}

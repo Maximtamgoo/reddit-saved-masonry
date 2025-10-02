@@ -1,62 +1,9 @@
-import { css } from "@acab/ecsstatic";
 import { useState } from "react";
+import styles from "./Theme.module.css";
 import Sun from "@src/svg/sun.svg?react";
 import Moon from "@src/svg/moon.svg?react";
 import SunMoon from "@src/svg/sun-moon.svg?react";
 import Monitor from "@src/svg/monitor.svg?react";
-
-const theme = css`
-  display: grid;
-  gap: var(--space-3);
-  & > span {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-    font-size: var(--text-lg);
-    @media (width < 300px) {
-      font-size: var(--text-base);
-    }
-  }
-`;
-
-const theme_btns = css`
-  display: flex;
-  gap: var(--space-1);
-  & > button {
-    display: flex;
-    flex-grow: 1;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-2);
-    background-color: var(--btn-bg);
-    width: fit-content;
-    height: var(--space-9);
-    color: var(--fg);
-    font-weight: 500;
-    & > svg {
-      min-width: 24px;
-    }
-    &:focus-visible,
-    &:hover {
-      outline: 2px solid var(--primary-hover);
-      background-color: var(--btn-hover);
-    }
-    &:first-child {
-      border-radius: var(--rounded-md) 0 0 var(--rounded-md);
-    }
-    &:last-child {
-      border-radius: 0 var(--rounded-md) var(--rounded-md) 0;
-    }
-    &[data-selected="true"] {
-      color: var(--primary);
-    }
-    @media (width < 300px) {
-      & > svg {
-        display: none;
-      }
-    }
-  }
-`;
 
 const themes = ["light", "auto", "dark"] as const;
 type Theme = (typeof themes)[number];
@@ -87,12 +34,12 @@ export function Theme() {
   }
 
   return (
-    <div className={theme}>
+    <div className={styles.theme}>
       <span>
         <SunMoon />
         Theme
       </span>
-      <div className={theme_btns}>
+      <div className={styles.themeBtns}>
         {themes.map((theme) => (
           <button
             key={theme}

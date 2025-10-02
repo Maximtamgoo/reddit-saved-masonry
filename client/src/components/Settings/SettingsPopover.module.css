@@ -1,0 +1,57 @@
+.popover {
+  &:popover-open {
+    display: grid;
+    gap: var(--space-8);
+    margin: auto;
+    border: 1px solid var(--ring-color);
+    border-radius: var(--rounded-lg);
+    background-color: var(--bg);
+    padding: var(--space-4);
+    width: 350px;
+    max-width: 96vw;
+  }
+}
+
+.backdrop {
+  position: fixed;
+  backdrop-filter: blur(5px);
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  margin-bottom: calc(-1 * var(--space-2));
+  min-width: 0;
+}
+
+.title {
+  flex-grow: 1;
+  font-size: var(--text-2xl);
+
+  & > svg {
+    display: inline;
+    vertical-align: top;
+    stroke-width: 1.5;
+    margin-right: var(--space-1);
+    width: var(--space-9);
+    height: var(--space-9);
+  }
+}
+
+.close {
+  position: relative;
+
+  &::after {
+    position: absolute;
+    top: var(--space-10);
+    border: 2px solid var(--ring-color);
+    border-radius: var(--rounded);
+    width: var(--space-8);
+    pointer-events: none;
+    content: "ESC";
+    font-weight: 500;
+    font-size: var(--text-xs);
+  }
+}
