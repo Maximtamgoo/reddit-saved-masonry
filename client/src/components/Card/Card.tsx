@@ -1,5 +1,5 @@
-import { css } from "@acab/ecsstatic";
 import { memo, type MouseEvent } from "react";
+import styles from "./Card.module.css";
 import { RedditItem } from "@src/schema/RedditItem";
 import Details from "./Details";
 import Text from "./Text";
@@ -11,51 +11,6 @@ import Gallery from "../Modal/Gallery";
 import Unknown from "./Unknown";
 import { cn } from "@src/utils/cn";
 import { Dialog } from "@src/components/Dialog";
-
-const card = css`
-  container: card / inline-size;
-  display: grid;
-  grid-template-rows: auto 1fr;
-  outline: 1px solid var(--ring-color);
-  border-radius: var(--rounded-xl);
-  background-color: var(--card-bg);
-  height: 100%;
-`;
-
-const link_svg = css`
-  top: 20px;
-  right: 20px;
-`;
-
-const close = css`
-  top: 20px;
-  left: 20px;
-`;
-
-const trigger = css`
-  min-height: 0px;
-  z-index: 10;
-  outline-offset: 1px;
-  border-radius: 0 0 var(--rounded-xl) var(--rounded-xl);
-  overflow: hidden;
-`;
-
-const dialog = css`
-  border: none;
-  background-color: transparent;
-  width: 100%;
-  max-width: 100%;
-  height: 100%;
-  max-height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  &::backdrop {
-    backdrop-filter: blur(5px);
-    background-color: rgba(0, 0, 0, 0.75);
-  }
-`;
 
 type Props = {
   item: RedditItem;
@@ -77,25 +32,25 @@ export default memo(function Card({ item }: Props) {
   const galleryItems = isGallery ? item.gallery : isImage || isPlayable ? [item] : [];
 
   return (
-    <div className={card}>
+    <div className={styles.card}>
       <Details item={item} />
       {isText && <Text>{item.text}</Text>}
       {isUnknown && <Unknown />}
       {isMedia && (
         <Dialog>
-          <Dialog.Trigger className={trigger}>
+          <Dialog.Trigger className={styles.trigger}>
             <Preview
               url={item.preview.url}
               isPlayable={isPlayable || isFirstGalleryItemPlayable}
               galleryLength={galleryLength}
             />
           </Dialog.Trigger>
-          <Dialog.Content onClick={onClickDialog} className={dialog}>
-            <Dialog.Close className={cn("modal_btn", close)}>
+          <Dialog.Content onClick={onClickDialog} className={styles.dialog}>
+            <Dialog.Close className={cn("modal_btn", styles.close)}>
               <ArrowLeft />
             </Dialog.Close>
             <Link
-              className={cn("modal_btn", link_svg)}
+              className={cn("modal_btn", styles.linkSvg)}
               href={`https://www.reddit.com${item.permalink}`}
             >
               <LinkSvg />

@@ -1,13 +1,5 @@
-import { css } from "@acab/ecsstatic";
-
-const unknown = css`
-  display: grid;
-  place-items: center;
-  font-size: var(--space-20);
-  color: var(--c-black);
-  height: 100%;
-`;
+import styles from "./Card.module.css";
 
 export default function Unknown() {
-  return <div className={unknown}>?</div>;
+  return <div className={styles.unknown}>?</div>;
 }
