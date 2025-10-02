@@ -1,6 +1,5 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
-import { ecsstatic } from "@acab/ecsstatic/vite";
 import svgr from "vite-plugin-svgr";
 import checker from "vite-plugin-checker";
 import Sonda from "sonda/vite";
@@ -10,7 +9,6 @@ const isHostRender = !!process.env.RENDER;
 export default defineConfig({
   plugins: [
     react(),
-    ecsstatic(),
     svgr(),
     checker({
       overlay: { initialIsOpen: false },
