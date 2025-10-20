@@ -12,11 +12,11 @@ input[type="range"]::-webkit-slider-runnable-track {
   height: var(--space-2);
 }
 
-/* & > input[type="range"]::-moz-range-track {
-    border-radius: 4px;
-    background-color: green;
-    height: 8px;
-  } */
+input[type="range"]::-moz-range-track {
+  border-radius: 1rem;
+  background-color: var(--btn-bg);
+  height: var(--space-2);
+}
 
 input[type="range"]::-webkit-slider-thumb {
   /* -webkit-appearance: none; */
@@ -32,21 +32,16 @@ input[type="range"]::-webkit-slider-thumb:hover {
   background-color: var(--primary-hover);
 }
 
-/* & > input[type="range"]::-moz-range-thumb {
-    border-radius: 50%;
-    background-color: purple;
-    width: 20px;
-    height: 20px;
-  } */
-
-/* .thumbLabel {
-  display: grid;
-  position: absolute;
-  left: 0px;
-  place-items: center;
+input[type="range"]::-moz-range-thumb {
+  /* -webkit-appearance: none; */
+  appearance: none;
   margin-top: -6px;
-  border-radius: var(--rounded);
-  background-color: var(--btn-bg);
-  background-color: red;
+  border-radius: var(--rounded-full);
+  background-color: var(--primary);
+  width: 20px;
   height: 20px;
-} */
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background-color: var(--primary-hover);
+}
