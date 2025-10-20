@@ -10,7 +10,7 @@ export default defineConfig({
     rootConfig,
     react.configs.flat.recommended,
     react.configs.flat["jsx-runtime"],
-    reactHooks.configs["recommended-latest"],
+    reactHooks.configs.flat.recommended,
     reactRefresh.configs.recommended,
     pluginQuery.configs["flat/recommended"],
   ],
