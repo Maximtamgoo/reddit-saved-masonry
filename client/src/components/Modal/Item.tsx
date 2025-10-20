@@ -1,5 +1,5 @@
 import type { GalleryItem } from "@src/schema/RedditItem";
-import { memo, useRef, useState } from "react";
+import { memo, useCallback, useState } from "react";
 import Unknown from "../Card/Unknown";
 
 type Props = {
@@ -8,17 +8,22 @@ type Props = {
 };
 
 export default memo(function Item({ item, isVisible }: Props) {
-  const videoRef = useRef<HTMLVideoElement>(null);
   const [isError, setIsError] = useState(false);
 
-  if (isError) return <Unknown />;
+  const videoRef = useCallback(
+    (node: HTMLVideoElement | null) => {
+      if (!node) return;
+      if (isVisible) {
+        node.play();
+      } else {
+        node.pause();
+        node.currentTime = 0;
+      }
+    },
+    [isVisible],
+  );
 
-  if (isVisible) {
-    videoRef.current?.play();
-  } else {
-    videoRef.current?.pause();
-    if (videoRef.current) videoRef.current.currentTime = 0;
-  }
+  if (isError) return <Unknown />;
 
   return (
     <>
