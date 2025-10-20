@@ -19,7 +19,7 @@ interface State {
 }
 
 const minCardSize = 350;
-const initCardWidth = Math.floor((window.screen.availWidth / 100) * 26);
+const initCardWidth = Math.floor((window.screen.availWidth / 100) * 25);
 const initCardHeight = Math.floor((window.screen.availHeight / 100) * 75);
 
 export const useSettingsStore = create<State>()(
@@ -43,6 +43,7 @@ export const useSettingsStore = create<State>()(
           set({ maxCardHeight: px });
         },
         resetCardSizes() {
+          //! getInitialState might be from localstorage and not reset to actual default
           const { maxCardWidth, maxCardHeight } = store.getInitialState();
           set({ maxCardWidth, maxCardHeight });
         },
@@ -54,9 +55,10 @@ export const useSettingsStore = create<State>()(
     {
       name: "settings",
       partialize: (s) => ({
-        maxLanes: s.maxLanes,
-        maxCardWidth: s.maxCardWidth,
-        maxCardHeight: s.maxCardHeight,
+        // maxLanes: s.maxLanes,
+        //! resetCardSizes issue
+        // maxCardWidth: s.maxCardWidth,
+        // maxCardHeight: s.maxCardHeight,
       }),
     },
   ),
