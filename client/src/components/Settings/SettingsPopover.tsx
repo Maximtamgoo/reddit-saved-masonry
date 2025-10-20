@@ -35,19 +35,26 @@ export default function SettingsPopover() {
         <SettingsSvg />
       </button>
       <div ref={ref} id={id} popover="auto" className={styles.popover}>
-        <div className={styles.top}>
-          <span className={cn(styles.title, "truncate")}>
-            <SettingsSvg />
-            Settings
-          </span>
-          <button className={cn("btn", styles.close)} onClick={() => ref.current?.hidePopover()}>
-            <X />
-          </button>
-        </div>
-        <Theme />
-        <MaxColumns />
-        <MaxCardSize />
-        <Profile />
+        {isOpen && (
+          <>
+            <div className={styles.top}>
+              <span className={cn(styles.title, "truncate")}>
+                <SettingsSvg />
+                Settings
+              </span>
+              <button
+                className={cn("btn", styles.close)}
+                onClick={() => ref.current?.hidePopover()}
+              >
+                <X />
+              </button>
+            </div>
+            <Theme />
+            <MaxColumns />
+            <MaxCardSize />
+            <Profile />
+          </>
+        )}
       </div>
       {isOpen && createPortal(<div className={styles.backdrop}></div>, document.body)}
     </>
