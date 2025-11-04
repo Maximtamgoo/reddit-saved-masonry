@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useRef } from "react";
 import { useGetSavedContent } from "@src/services/queries";
 import { RedditItemMasonry } from "@src/components/RedditItemMasonry";
-import Loader from "@src/components/Loader/Loader";
 import { useSettingsStore } from "@src/store/settings";
+import Loader from "@src/components/Loader/Loader";
+
 const { minCardSize } = useSettingsStore.getInitialState();
 
 export default function MainPage() {
@@ -10,8 +11,15 @@ export default function MainPage() {
   const maxLanes = useSettingsStore((s) => s.maxLanes);
   const maxCardWidth = useSettingsStore((s) => s.maxCardWidth);
   const maxCardHeight = useSettingsStore((s) => s.maxCardHeight);
-  const query = useGetSavedContent();
-  const { data, isLoading, isLoadingError, isError, hasNextPage, fetchNextPage } = query;
+  const {
+    data,
+    isLoading,
+    isLoadingError,
+    isError,
+    hasNextPage,
+    isFetchingNextPage,
+    fetchNextPage,
+  } = useGetSavedContent();
 
   const redditItems = useMemo(() => data?.pages.flatMap((page) => page.redditItems) ?? [], [data]);
 
@@ -23,12 +31,12 @@ export default function MainPage() {
     }
   }, [hasNextPage, isError, fetchNextPage]);
 
-  if (isLoadingError || isLoading) {
-    return (
-      <div style={{ height: "50vh", alignContent: "end" }}>
-        <Loader isError={isLoadingError} onClick={fetchNextPage} />
-      </div>
-    );
+  if (isLoading) {
+    return <Loader state="loading" />;
+  }
+
+  if (isLoadingError) {
+    return <Loader state="error" onClick={fetchNextPage} />;
   }
 
   return (
@@ -42,12 +50,15 @@ export default function MainPage() {
       maxCardHeight={maxCardHeight}
       loadMore={loadMore}
       renderLoader={
-        <Loader
-          isError={isError}
-          isEnd={!hasNextPage}
-          endMessage="Reached the Reddit limit..."
-          onClick={fetchNextPage}
-        />
+        isFetchingNextPage ? (
+          <Loader state="loading" />
+        ) : isError ? (
+          <Loader state="error" onClick={fetchNextPage} />
+        ) : !hasNextPage ? (
+          <Loader state="end" endMsg="Reached the Reddit limit..." />
+        ) : (
+          <Loader state="loading" />
+        )
       }
     />
   );

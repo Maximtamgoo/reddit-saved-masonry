@@ -3,28 +3,41 @@ import LoaderCircle from "@src/svg/loader-circle.svg?react";
 import Rotate from "@src/svg/rotate-ccw.svg?react";
 import styles from "./Loader.module.css";
 
-type Props = { isError?: boolean; isEnd?: boolean; endMessage?: string; onClick?: () => void };
+type IsLoading = {
+  state: "loading";
+};
 
-export default memo(function Loader({
-  isError = false,
-  isEnd = false,
-  endMessage = "",
-  onClick,
-}: Props) {
-  if (isEnd) {
-    return <div className={styles.loader}>{endMessage}</div>;
+type IsError = {
+  state: "error";
+  onClick: () => void;
+};
+
+type IsEnd = {
+  state: "end";
+  endMsg: string;
+};
+
+type Props = IsLoading | IsError | IsEnd;
+
+export default memo(function Loader(props: Props) {
+  if (props.state === "error") {
+    return (
+      <div className={styles.loader}>
+        Could not get posts
+        <button className={styles.retry} onClick={props.onClick}>
+          <Rotate />
+        </button>
+      </div>
+    );
+  }
+
+  if (props.state === "end") {
+    return <div className={styles.loader}>{props.endMsg}</div>;
   }
 
   return (
     <div className={styles.loader}>
-      {isError ? "Could not get posts" : "Getting Posts"}
-      {isError ? (
-        <button className={styles.retry} onClick={onClick}>
-          <Rotate />
-        </button>
-      ) : (
-        <LoaderCircle className={styles.spin} width={40} height={40} />
-      )}
+      Getting Posts <LoaderCircle className={styles.spin} />
     </div>
   );
 });

@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   gap: var(--space-2);
-  height: var(--space-24);
+  padding: var(--space-8) 0;
   color: var(--fg);
   font-size: var(--text-2xl);
 }
@@ -15,7 +15,10 @@
 }
 
 .spin {
+  flex-shrink: 0;
   animation: spin 1s linear infinite;
+  width: var(--space-10);
+  height: var(--space-10);
 }
 
 .retry {
