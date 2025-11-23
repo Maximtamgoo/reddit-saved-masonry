@@ -49,32 +49,39 @@ export function RedditItemMasonry({
     return maxWidth;
   }, [itemWidth, lanes, gapTotal]);
 
+  const getItemKey = useCallback(
+    (i: number) => {
+      if (i === 0) console.log("getItemKey 0");
+      return items[i].id;
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [items, lanes, itemWidth, maxCardHeight],
+  );
+
+  const estimateSize = useCallback(
+    (i: number) => {
+      const item = items[i];
+      const minHeight = minCardHeight;
+      const maxHeight = maxCardHeight;
+      const detailsHeight = 100;
+      let totalHeight = detailsHeight;
+      if (item.type === "playable" || item.type === "image" || item.type === "gallery") {
+        const p = item.preview;
+        totalHeight += calculateAspectRatioFit(p.width, p.height, itemWidth, p.height).height;
+      }
+      return Math.max(minHeight, Math.min(maxHeight, Math.floor(totalHeight)));
+    },
+    [items, itemWidth, minCardHeight, maxCardHeight],
+  );
+
   const winVirtualizer = useWindowVirtualizer({
     enabled: parentWidth > 0,
     count: items.length,
     lanes,
     gap,
     overscan: 5,
-    getItemKey: useCallback(
-      (i: number) => items[i].id,
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      [items, lanes, itemWidth, maxCardHeight],
-    ),
-    estimateSize: useCallback(
-      (i: number) => {
-        const item = items[i];
-        const minHeight = minCardHeight;
-        const maxHeight = maxCardHeight;
-        const detailsHeight = 100;
-        let totalHeight = detailsHeight;
-        if (item.type === "playable" || item.type === "image" || item.type === "gallery") {
-          const p = item.preview;
-          totalHeight += calculateAspectRatioFit(p.width, p.height, itemWidth, p.height).height;
-        }
-        return Math.max(minHeight, Math.min(maxHeight, Math.floor(totalHeight)));
-      },
-      [items, itemWidth, minCardHeight, maxCardHeight],
-    ),
+    getItemKey,
+    estimateSize,
   });
 
   const virtualItems = winVirtualizer.getVirtualItems();
