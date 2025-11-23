@@ -28,10 +28,7 @@
 }
 
 #root {
-  display: grid;
-  grid-template-rows: auto 1fr;
   isolation: isolate;
-  height: 100vh;
 }
 
 body {

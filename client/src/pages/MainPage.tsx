@@ -32,17 +32,25 @@ export default function MainPage() {
   }, [hasNextPage, isError, fetchNextPage]);
 
   if (isLoading) {
-    return <Loader state="loading" />;
+    return (
+      <main style={{ height: "calc(100vh - 53px)", alignContent: "center" }}>
+        <Loader state="loading" />
+      </main>
+    );
   }
 
   if (isLoadingError) {
-    return <Loader state="error" onClick={fetchNextPage} />;
+    return (
+      <main style={{ height: "calc(100vh - 53px)", alignContent: "center" }}>
+        <Loader state="error" onClick={fetchNextPage} />
+      </main>
+    );
   }
 
   return (
     <RedditItemMasonry
       items={redditItems}
-      gap={20}
+      gap={25}
       maxLanes={maxLanes}
       minLaneWidth={minCardSize}
       maxLaneWidth={maxCardWidth}
