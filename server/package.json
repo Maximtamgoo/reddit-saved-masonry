@@ -15,16 +15,16 @@
     "cookie-parser": "^1.4.7",
     "express": "^5.1.0",
     "helmet": "^8.1.0",
-    "http-errors": "^2.0.0",
+    "http-errors": "^2.0.1",
     "morgan": "^1.10.1"
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",
-    "@types/cookie-parser": "^1.4.9",
-    "@types/express": "^5.0.3",
+    "@types/cookie-parser": "^1.4.10",
+    "@types/express": "^5.0.5",
     "@types/http-errors": "^2.0.5",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^24.8.1",
+    "@types/node": "^24.10.1",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }

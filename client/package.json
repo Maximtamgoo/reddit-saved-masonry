@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",
-    "@tanstack/react-query": "^5.90.5",
-    "@tanstack/react-query-devtools": "^5.90.2",
+    "@tanstack/react-query": "^5.90.10",
+    "@tanstack/react-query-devtools": "^5.91.0",
     "@tanstack/react-virtual": "^3.13.12",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -20,16 +20,16 @@
   },
   "devDependencies": {
     "@tanstack/eslint-plugin-query": "^5.91.2",
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
-    "@vitejs/plugin-react-swc": "^4.1.0",
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^7.0.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
     "eslint-plugin-react-refresh": "^0.4.24",
     "prettier-plugin-css-order": "^2.1.2",
-    "sonda": "^0.9.0",
+    "sonda": "^0.10.0",
     "typescript": "^5.9.3",
-    "vite": "^7.1.11",
+    "vite": "^7.2.4",
     "vite-plugin-checker": "^0.11.0",
     "vite-plugin-svgr": "^4.5.0"
   }
