@@ -1,22 +1,56 @@
 .popover {
+  display: block;
+  inset: 0;
+  left: unset;
+  translate: 100%;
+  /* 
+  transition-behavior: allow-discrete;
+  transition-duration: 0.5s;
+  transition-property: overlay display background-color; */
+
+  border: none;
+  border-left: 1px solid var(--ring-color);
+  background-color: var(--bg);
+  width: 350px;
+  height: 100%;
+
   &:popover-open {
-    display: grid;
-    gap: var(--space-8);
-    margin: auto;
-    border: 1px solid var(--ring-color);
-    border-radius: var(--rounded-lg);
-    background-color: var(--bg);
-    padding: var(--space-4);
-    width: 350px;
-    max-width: 96vw;
+    translate: 0 0;
+    /* &::backdrop {
+      background-color: rgba(0, 0, 0, 0.75);
+    } */
   }
+
+  /* &:popover-open::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0);
+  } */
 }
 
-.backdrop {
+.popover::backdrop {
+  display: block;
+  /* transition: background-color 4s; */
+  /* background-color: red; */
+}
+
+.popover:popover-open::backdrop {
+  /* background-color: rgba(0, 0, 0, 0.75); */
+  /* background-color: green; */
+}
+
+/* .backdrop {
   position: fixed;
-  backdrop-filter: blur(5px);
   inset: 0;
   background-color: rgba(0, 0, 0, 0.75);
+} */
+
+.container {
+  display: grid;
+  gap: var(--space-8);
+  padding: var(--space-4);
 }
 
 .top {
