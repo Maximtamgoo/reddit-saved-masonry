@@ -1,27 +1,29 @@
 :root {
   --text-xs: 0.75rem;
-
   --text-sm: 0.875rem;
-
   --text-base: 1rem;
-
   --text-lg: 1.125rem;
-
   --text-xl: 1.25rem;
-
   --text-2xl: 1.5rem;
-
   --text-3xl: 1.875rem;
-
   --text-4xl: 2.25rem;
-
   --text-5xl: 3rem;
-
   --text-6xl: 3.75rem;
-
   --text-7xl: 4.5rem;
-
   --text-8xl: 6rem;
-
   --text-9xl: 8rem;
+
+  --line-height-xs: 1rem;
+  --line-height-sm: 1.25rem;
+  --line-height-base: 1.5rem;
+  --line-height-lg: 1.75rem;
+  --line-height-xl: 1.75rem;
+  --line-height-2xl: 2rem;
+  --line-height-3xl: 2.25rem;
+  --line-height-4xl: 2.5rem;
+  --line-height-5xl: 1;
+  --line-height-6xl: 1;
+  --line-height-7xl: 1;
+  --line-height-8xl: 1;
+  --line-height-9xl: 1;
 }
