@@ -1,91 +1,39 @@
-.popover {
-  display: block;
-  inset: 0;
-  left: unset;
-  translate: 100%;
-  /* 
-  transition-behavior: allow-discrete;
-  transition-duration: 0.5s;
-  transition-property: overlay display background-color; */
+.trigger {
+  anchor-name: --settings;
+}
 
-  border: none;
-  border-left: 1px solid var(--ring-color);
+.settings {
+  position-anchor: --settings;
+  inset: auto;
+  top: calc(anchor(bottom) + var(--space-3));
+  right: calc(anchor(right) - var(--space-4));
+  gap: var(--space-6);
+  border: 1px solid var(--ring-color);
+  border-radius: var(--rounded-lg);
   background-color: var(--bg);
+  padding: var(--space-4);
   width: 350px;
-  height: 100%;
+  max-width: calc(100vw - var(--space-4));
 
   &:popover-open {
-    translate: 0 0;
-    /* &::backdrop {
-      background-color: rgba(0, 0, 0, 0.75);
-    } */
+    display: grid;
   }
-
-  /* &:popover-open::backdrop {
-    background-color: rgba(0, 0, 0, 0.75);
+  &:popover-open::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
   }
-
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0);
-  } */
 }
 
-.popover::backdrop {
-  display: block;
-  /* transition: background-color 4s; */
-  /* background-color: red; */
+body:has(.settings:popover-open) {
+  overflow: hidden;
+  pointer-events: none;
+  .settings {
+    pointer-events: all;
+  }
 }
-
-.popover:popover-open::backdrop {
-  /* background-color: rgba(0, 0, 0, 0.75); */
-  /* background-color: green; */
-}
-
-/* .backdrop {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.75);
-} */
-
-.container {
-  display: grid;
-  gap: var(--space-8);
-  padding: var(--space-4);
-}
-
 .top {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
-  margin-bottom: calc(-1 * var(--space-2));
-  min-width: 0;
-}
-
-.title {
-  flex-grow: 1;
+  gap: var(--space-2);
   font-size: var(--text-2xl);
-
-  & > svg {
-    display: inline;
-    vertical-align: top;
-    stroke-width: 1.5;
-    margin-right: var(--space-1);
-    width: var(--space-9);
-    height: var(--space-9);
-  }
-}
-
-.close {
-  position: relative;
-
-  &::after {
-    position: absolute;
-    top: var(--space-10);
-    border: 2px solid var(--ring-color);
-    border-radius: var(--rounded);
-    width: var(--space-8);
-    pointer-events: none;
-    content: "ESC";
-    font-weight: 500;
-    font-size: var(--text-xs);
-  }
 }

@@ -1,6 +1,7 @@
-import { Popover } from "../Popover/Popover";
-import styles from "./SettingsPopover.module.css";
+import styles from "./NewSettingsPopover.module.css";
 import SettingsSvg from "@src/svg/settings.svg?react";
+import XSvg from "@src/svg/x.svg?react";
+import { cn } from "@src/utils/cn";
 import { Theme } from "./Theme";
 import { MaxColumns } from "./MaxColumns";
 import { MaxCardSize } from "./MaxCardSize";
@@ -8,20 +9,23 @@ import { Profile } from "./Profile";
 
 export default function SettingsPopover() {
   return (
-    <Popover>
-      <Popover.Trigger className="btn">
+    <>
+      <button popoverTarget="settings" className={cn("btn", styles.trigger)}>
         <SettingsSvg />
-      </Popover.Trigger>
-      <Popover.Content className={styles.popover}>
-        <div className={styles.container}>
-          <Popover.Close className="btn">X</Popover.Close>
-          <Theme />
-          <MaxColumns />
-          <MaxCardSize />
-          <Profile />
+      </button>
+      <div id="settings" popover="auto" className={styles.settings}>
+        <div className={styles.top}>
+          <SettingsSvg />
+          Settings
+          <button popoverTarget="settings" popoverTargetAction="hide" className={cn("btn")}>
+            <XSvg />
+          </button>
         </div>
-      </Popover.Content>
-      {/* <Popover.Backdrop className={styles.backdrop} /> */}
-    </Popover>
+        <Theme />
+        <MaxColumns />
+        <MaxCardSize />
+        <Profile />
+      </div>
+    </>
   );
 }
