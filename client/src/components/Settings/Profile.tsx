@@ -11,20 +11,10 @@ export function Profile() {
 
   return (
     <div className={styles.profile}>
-      <div className={styles.links}>
-        <Link
-          className={cn("btn", styles.imgLink)}
-          href={`https://www.reddit.com/user/${data.name}/saved`}
-        >
-          {data.icon_img && <img src={data.icon_img} />}
-        </Link>
-        <Link
-          className={cn("truncate", styles.nameLink)}
-          href={`https://www.reddit.com/user/${data.name}/saved`}
-        >
-          {data.name}
-        </Link>
-      </div>
+      <Link className={styles.link} href={`https://www.reddit.com/user/${data.name}/saved`}>
+        {data.icon_img && <img className="btn" src={data.icon_img} />}
+        {data.name}
+      </Link>
       <button className={cn("btn", styles.signOut)} onClick={() => mutate()}>
         Sign Out
       </button>

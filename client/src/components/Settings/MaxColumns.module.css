@@ -1,41 +1,20 @@
 .maxColumns {
   display: grid;
-  gap: var(--space-3);
-}
-
-.top {
-  display: flex;
-}
-
-.title {
-  display: flex;
-  flex-grow: 1;
-  align-content: center;
-  align-items: center;
-  gap: var(--space-1);
-  font-size: var(--text-lg);
-
-  @media (width < 300px) {
-    font-size: var(--text-base);
-  }
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2);
 }
 
 .numBtns {
   display: flex;
+  grid-column: span 2;
   gap: var(--space-1);
 
   & > button {
+    flex-grow: 1;
     background-color: var(--btn-bg);
-    width: 100%;
     height: var(--space-9);
     color: var(--fg);
     font-weight: 500;
-
-    &:focus-visible,
-    &:hover {
-      outline: 2px solid var(--primary-hover);
-      background-color: var(--btn-hover);
-    }
 
     &:first-child {
       border-radius: var(--rounded-md) 0 0 var(--rounded-md);
@@ -48,20 +27,5 @@
     &[data-selected="true"] {
       color: var(--primary);
     }
-  }
-}
-
-.resetBtn {
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  border-radius: var(--rounded-full);
-  background-color: var(--btn-bg);
-  width: var(--space-7);
-  height: var(--space-7);
-
-  & > svg {
-    width: var(--space-5);
-    height: var(--space-5);
   }
 }

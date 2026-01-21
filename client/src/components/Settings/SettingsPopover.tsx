@@ -1,4 +1,4 @@
-import styles from "./NewSettingsPopover.module.css";
+import styles from "./SettingsPopover.module.css";
 import SettingsSvg from "@src/svg/settings.svg?react";
 import XSvg from "@src/svg/x.svg?react";
 import { cn } from "@src/utils/cn";

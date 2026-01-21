@@ -4,6 +4,7 @@
 
 .settings {
   position-anchor: --settings;
+  container: settings / inline-size;
   inset: auto;
   top: calc(anchor(bottom) + var(--space-3));
   right: calc(anchor(right) - var(--space-4));
@@ -13,6 +14,7 @@
   background-color: var(--bg);
   padding: var(--space-4);
   width: 350px;
+  min-width: 280px;
   max-width: calc(100vw - var(--space-4));
 
   &:popover-open {
@@ -20,6 +22,21 @@
   }
   &:popover-open::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
+  }
+  & button {
+    &:focus-visible,
+    &:hover {
+      outline: 2px solid var(--primary-hover);
+      background-color: var(--btn-hover);
+    }
+  }
+
+  & a,
+  input[type="range"] {
+    &:focus-visible,
+    &:hover {
+      outline: 2px solid var(--primary-hover);
+    }
   }
 }
 
@@ -30,10 +47,34 @@ body:has(.settings:popover-open) {
     pointer-events: all;
   }
 }
+
 .top {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: var(--space-2);
+  margin-bottom: calc(var(--space-2) * -1);
   font-size: var(--text-2xl);
+}
+
+.title_section {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-lg);
+}
+
+.resetBtn {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  border-radius: var(--rounded-md);
+  background-color: var(--btn-bg);
+  padding: 0 var(--space-2);
+  font-size: var(--text-sm);
+
+  & > svg {
+    width: var(--space-5);
+    height: var(--space-5);
+  }
 }

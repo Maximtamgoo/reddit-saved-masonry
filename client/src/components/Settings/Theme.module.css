@@ -1,17 +1,6 @@
 .theme {
   display: grid;
-  gap: var(--space-3);
-
-  & > span {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-    font-size: var(--text-lg);
-
-    @media (width < 300px) {
-      font-size: var(--text-base);
-    }
-  }
+  gap: var(--space-2);
 }
 
 .themeBtns {
@@ -30,16 +19,6 @@
     color: var(--fg);
     font-weight: 500;
 
-    & > svg {
-      min-width: 24px;
-    }
-
-    &:focus-visible,
-    &:hover {
-      outline: 2px solid var(--primary-hover);
-      background-color: var(--btn-hover);
-    }
-
     &:first-child {
       border-radius: var(--rounded-md) 0 0 var(--rounded-md);
     }
@@ -52,7 +31,7 @@
       color: var(--primary);
     }
 
-    @media (width < 300px) {
+    @media (width < 320px) {
       & > svg {
         display: none;
       }

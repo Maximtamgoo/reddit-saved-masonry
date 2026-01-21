@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styles from "./Theme.module.css";
+import settingsStyles from "./SettingsPopover.module.css";
 import Sun from "@src/svg/sun.svg?react";
 import Moon from "@src/svg/moon.svg?react";
-import SunMoon from "@src/svg/sun-moon.svg?react";
 import Monitor from "@src/svg/monitor.svg?react";
 
 const themes = ["light", "auto", "dark"] as const;
@@ -35,8 +35,8 @@ export function Theme() {
 
   return (
     <div className={styles.theme}>
-      <span>
-        <SunMoon />
+      <span className={settingsStyles.title_section}>
+        <Monitor />
         Theme
       </span>
       <div className={styles.themeBtns}>
