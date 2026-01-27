@@ -54,22 +54,20 @@ export function RedditItemMasonry({
       if (i === 0) console.log("getItemKey 0");
       return items[i].id;
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [items, lanes, itemWidth, maxCardHeight],
+    [items],
   );
 
   const estimateSize = useCallback(
     (i: number) => {
+      if (i === 0) console.log("estimateSize 0");
       const item = items[i];
-      const minHeight = minCardHeight;
-      const maxHeight = maxCardHeight;
       const detailsHeight = 100;
       let totalHeight = detailsHeight;
       if (item.type === "playable" || item.type === "image" || item.type === "gallery") {
         const p = item.preview;
         totalHeight += calculateAspectRatioFit(p.width, p.height, itemWidth, p.height).height;
       }
-      return Math.max(minHeight, Math.min(maxHeight, Math.floor(totalHeight)));
+      return Math.max(minCardHeight, Math.min(maxCardHeight, Math.floor(totalHeight)));
     },
     [items, itemWidth, minCardHeight, maxCardHeight],
   );
@@ -96,7 +94,7 @@ export function RedditItemMasonry({
       <div
         style={{
           position: "relative",
-          margin: "auto",
+          margin: "0 auto",
           maxWidth: maxWidth + "px",
           width: "100%",
           height: winVirtualizer.getTotalSize() + "px",
@@ -107,6 +105,7 @@ export function RedditItemMasonry({
             <div
               key={item.key}
               data-index={item.index}
+              ref={winVirtualizer.measureElement}
               style={{
                 position: "absolute",
                 top: 0,
@@ -114,10 +113,9 @@ export function RedditItemMasonry({
                 left: item.lane * itemWidth + "px",
                 width: itemWidth + "px",
                 marginLeft: item.lane * gap + "px",
-                height: item.size + "px",
               }}
             >
-              <Card item={items[item.index]} />
+              <Card item={items[item.index]} itemWidth={itemWidth} />
             </div>
           );
         })}

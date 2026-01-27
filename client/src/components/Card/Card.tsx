@@ -11,16 +11,22 @@ import Gallery from "../Modal/Gallery";
 import Unknown from "./Unknown";
 import { cn } from "@src/utils/cn";
 import { Dialog } from "@src/components/Dialog";
+import { useSettingsStore } from "@src/store/settings";
+import { calculateAspectRatioFit } from "@src/utils/calculateAspectRatioFit";
 
 type Props = {
   item: RedditItem;
+  itemWidth: number;
 };
 
 function onClickDialog(e: MouseEvent<HTMLDialogElement>) {
   if (e.target === e.currentTarget) e.currentTarget.close();
 }
 
-export default memo(function Card({ item }: Props) {
+const { minCardSize } = useSettingsStore.getInitialState();
+
+export default memo(function Card({ item, itemWidth }: Props) {
+  const maxCardHeight = useSettingsStore((s) => s.maxCardHeight);
   const isText = item.type === "text" || item.type === "comment";
   const isUnknown = item.type === "unknown";
   const isGallery = item.type === "gallery";
@@ -31,8 +37,23 @@ export default memo(function Card({ item }: Props) {
   const isMedia = isImage || isPlayable || isGallery;
   const galleryItems = isGallery ? item.gallery : isImage || isPlayable ? [item] : [];
 
+  const detailsHeight = 100;
+  let totalHeight = detailsHeight;
+  if (isMedia) {
+    const p = item.preview;
+    totalHeight += calculateAspectRatioFit(p.width, p.height, itemWidth, p.height).height;
+  }
+  const cardHeight = Math.max(minCardSize, Math.min(maxCardHeight, Math.floor(totalHeight)));
+
   return (
-    <div className={styles.card}>
+    <div
+      className={styles.card}
+      style={{
+        height: cardHeight + "px",
+        // minHeight: minCardSize + "px",
+        // maxHeight: `${isMedia ? maxCardHeight : minCardSize}px`,
+      }}
+    >
       <Details item={item} />
       {isText && <Text>{item.text}</Text>}
       {isUnknown && <Unknown />}
@@ -41,6 +62,8 @@ export default memo(function Card({ item }: Props) {
           <Dialog.Trigger className={styles.trigger}>
             <Preview
               url={item.preview.url}
+              // width={item.preview.width}
+              // height={item.preview.height}
               isPlayable={isPlayable || isFirstGalleryItemPlayable}
               galleryLength={galleryLength}
             />

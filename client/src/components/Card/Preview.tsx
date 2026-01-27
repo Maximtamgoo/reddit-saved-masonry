@@ -5,6 +5,8 @@ import Unknown from "./Unknown";
 
 type Props = {
   url: string;
+  // width: number;
+  // height: number;
   isPlayable: boolean;
   galleryLength: number;
 };
@@ -20,7 +22,13 @@ export default function Preview({ url, isPlayable, galleryLength }: Props) {
           <Play />
         </div>
       )}
-      <img src={url} onError={() => setIsError(true)} alt="Reddit Content" />
+      <img
+        src={url}
+        // width={width}
+        // height={height}
+        onError={() => setIsError(true)}
+        alt="Reddit Content"
+      />
     </div>
   );
 }
