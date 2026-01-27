@@ -11,16 +11,16 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",
-    "@tanstack/react-query": "^5.90.16",
+    "@tanstack/react-query": "^5.90.20",
     "@tanstack/react-query-devtools": "^5.91.2",
     "@tanstack/react-virtual": "^3.13.18",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "zustand": "^5.0.9"
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zustand": "^5.0.10"
   },
   "devDependencies": {
-    "@tanstack/eslint-plugin-query": "^5.91.2",
-    "@types/react": "^19.2.8",
+    "@tanstack/eslint-plugin-query": "^5.91.3",
+    "@types/react": "^19.2.10",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react-swc": "^4.2.2",
     "eslint-plugin-react": "^7.37.5",
