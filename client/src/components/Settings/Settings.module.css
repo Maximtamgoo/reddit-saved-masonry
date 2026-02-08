@@ -4,7 +4,6 @@
 
 .settings {
   position-anchor: --settings;
-  container: settings / inline-size;
   inset: auto;
   top: calc(anchor(bottom) + var(--space-3));
   right: calc(anchor(right) - var(--space-4));
@@ -17,12 +16,10 @@
   min-width: 280px;
   max-width: calc(100vw - var(--space-4));
 
-  &:popover-open {
-    display: grid;
-  }
-  &:popover-open::backdrop {
+  &:open::backdrop {
     background-color: rgba(0, 0, 0, 0.5);
   }
+
   & button {
     &:focus-visible,
     &:hover {
@@ -37,14 +34,6 @@
     &:hover {
       outline: 2px solid var(--primary-hover);
     }
-  }
-}
-
-body:has(.settings:popover-open) {
-  overflow: hidden;
-  pointer-events: none;
-  .settings {
-    pointer-events: all;
   }
 }
 

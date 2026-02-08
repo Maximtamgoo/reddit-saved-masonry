@@ -39,6 +39,10 @@ body {
   background-color: var(--bg);
 }
 
+body:has(dialog[open]) {
+  overflow: hidden;
+}
+
 button {
   cursor: pointer;
   border: none;
