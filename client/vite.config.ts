@@ -12,10 +12,8 @@ export default defineConfig({
     svgr(),
     checker({
       overlay: { initialIsOpen: false },
-      eslint: {
-        useFlatConfig: true,
-        lintCommand: "eslint './src/**/*.{ts,tsx}'",
-      },
+      oxlint: true,
+      typescript: true,
     }),
     Sonda({ enabled: !isHostRender, gzip: true }),
   ],

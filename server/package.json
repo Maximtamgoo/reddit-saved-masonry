@@ -6,8 +6,7 @@
   "scripts": {
     "start": "NODE_ENV=production node --env-file-if-exists=../.env ./dist/index.js",
     "build": "tsc",
-    "dev": "NODE_ENV=development tsx watch --env-file=../.env ./src/index.ts",
-    "lint": "eslint ."
+    "dev": "NODE_ENV=development tsx watch --env-file=../.env ./src/index.ts"
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",
@@ -24,7 +23,7 @@
     "@types/express": "^5.0.6",
     "@types/http-errors": "^2.0.5",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^25.0.10",
+    "@types/node": "^25.2.2",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3"
   }
