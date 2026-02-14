@@ -27,20 +27,12 @@
   --btn-hover: light-dark(var(--c-zinc-300), var(--c-zinc-600));
 }
 
-/* #root {
-  isolation: isolate;
-} */
-
-:root {
-  scrollbar-gutter: stable;
-}
-
-body {
+html {
   background-color: var(--bg);
-}
-
-body:has(dialog[open]) {
-  overflow: hidden;
+  scrollbar-gutter: stable;
+  &:has(dialog:open) {
+    overflow: hidden;
+  }
 }
 
 button {
