@@ -1,5 +1,5 @@
 import styles from "./MaxColumns.module.css";
-import settingsStyles from "./SettingsPopover.module.css";
+import settingsStyles from "./Settings.module.css";
 import { useSettingsStore } from "@src/store/settings";
 import Columns from "@src/svg/columns-3.svg?react";
 

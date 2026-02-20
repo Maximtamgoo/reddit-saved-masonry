@@ -2,8 +2,8 @@ import { useCallback, useEffect, useMemo, type ReactNode } from "react";
 import type { RedditItem } from "@src/schema/RedditItem";
 import Card from "./Card/Card";
 import { calculateAspectRatioFit } from "@src/utils/calculateAspectRatioFit";
-import { useResizeObserver } from "@src/hooks/useResizeObserver";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
+import { useWindowWidth } from "@src/hooks/useWindowWidth";
 
 type Props = {
   items: RedditItem[];
@@ -28,20 +28,19 @@ export function RedditItemMasonry({
   loadMore,
   renderLoader,
 }: Props) {
-  const { ref, rect } = useResizeObserver();
-  const parentWidth = rect.width;
+  const winWidth = useWindowWidth();
 
   const lanes = useMemo(() => {
-    const lanes = Math.floor((parentWidth + gap) / (minLaneWidth + gap));
+    const lanes = Math.floor((winWidth + gap) / (minLaneWidth + gap));
     return Math.max(1, Math.min(lanes, maxLanes ?? Infinity));
-  }, [parentWidth, gap, minLaneWidth, maxLanes]);
+  }, [winWidth, gap, minLaneWidth, maxLanes]);
 
   const gapTotal = useMemo(() => gap * (lanes - 1), [gap, lanes]);
 
   const itemWidth = useMemo(() => {
-    const itemWidth = Math.floor((parentWidth - gapTotal) / lanes);
+    const itemWidth = Math.floor((winWidth - gapTotal) / lanes);
     return Math.min(itemWidth, maxLaneWidth);
-  }, [parentWidth, gapTotal, lanes, maxLaneWidth]);
+  }, [winWidth, gapTotal, lanes, maxLaneWidth]);
 
   const maxWidth = useMemo(() => {
     const maxWidth = itemWidth * lanes + gapTotal;
@@ -73,7 +72,6 @@ export function RedditItemMasonry({
   );
 
   const winVirtualizer = useWindowVirtualizer({
-    enabled: parentWidth > 0,
     count: items.length,
     lanes,
     gap,
@@ -90,7 +88,7 @@ export function RedditItemMasonry({
   }, [virtualItems, items.length, loadMore]);
 
   return (
-    <main ref={ref} style={{ maxWidth: "100%", padding: "var(--space-2)" }}>
+    <main style={{ maxWidth: "100%", padding: "var(--space-2)" }}>
       <div
         style={{
           position: "relative",
@@ -120,7 +118,7 @@ export function RedditItemMasonry({
           );
         })}
       </div>
-      {winVirtualizer.options.enabled && renderLoader}
+      {renderLoader}
     </main>
   );
 }

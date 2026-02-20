@@ -1,5 +1,5 @@
 import styles from "./MaxCardSize.module.css";
-import settingsStyles from "./SettingsPopover.module.css";
+import settingsStyles from "./Settings.module.css";
 import { useSettingsStore } from "@src/store/settings";
 import Scaling from "@src/svg/scaling.svg?react";
 import { MaxCardWidth } from "./MaxCardWidth";

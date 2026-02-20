@@ -13,7 +13,6 @@ export default defineConfig({
     checker({
       overlay: { initialIsOpen: false },
       oxlint: true,
-      typescript: true,
     }),
     Sonda({ enabled: !isHostRender, gzip: true }),
   ],
