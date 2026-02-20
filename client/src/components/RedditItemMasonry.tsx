@@ -3,7 +3,7 @@ import type { RedditItem } from "@src/schema/RedditItem";
 import Card from "./Card/Card";
 import { calculateAspectRatioFit } from "@src/utils/calculateAspectRatioFit";
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
-import { useWindowWidth } from "@src/hooks/useWindowWidth";
+import { useResizeObserver } from "@src/hooks/useResizeObserver";
 
 type Props = {
   items: RedditItem[];
@@ -28,19 +28,20 @@ export function RedditItemMasonry({
   loadMore,
   renderLoader,
 }: Props) {
-  const winWidth = useWindowWidth();
+  const { ref, rect } = useResizeObserver();
+  const parentWidth = rect.width;
 
   const lanes = useMemo(() => {
-    const lanes = Math.floor((winWidth + gap) / (minLaneWidth + gap));
+    const lanes = Math.floor((parentWidth + gap) / (minLaneWidth + gap));
     return Math.max(1, Math.min(lanes, maxLanes ?? Infinity));
-  }, [winWidth, gap, minLaneWidth, maxLanes]);
+  }, [parentWidth, gap, minLaneWidth, maxLanes]);
 
   const gapTotal = useMemo(() => gap * (lanes - 1), [gap, lanes]);
 
   const itemWidth = useMemo(() => {
-    const itemWidth = Math.floor((winWidth - gapTotal) / lanes);
+    const itemWidth = Math.floor((parentWidth - gapTotal) / lanes);
     return Math.min(itemWidth, maxLaneWidth);
-  }, [winWidth, gapTotal, lanes, maxLaneWidth]);
+  }, [parentWidth, gapTotal, lanes, maxLaneWidth]);
 
   const maxWidth = useMemo(() => {
     const maxWidth = itemWidth * lanes + gapTotal;
@@ -72,6 +73,7 @@ export function RedditItemMasonry({
   );
 
   const winVirtualizer = useWindowVirtualizer({
+    enabled: parentWidth > 0,
     count: items.length,
     lanes,
     gap,
@@ -88,7 +90,7 @@ export function RedditItemMasonry({
   }, [virtualItems, items.length, loadMore]);
 
   return (
-    <main style={{ maxWidth: "100%", padding: "var(--space-2)" }}>
+    <main ref={ref} style={{ maxWidth: "100%", padding: "var(--space-2)" }}>
       <div
         style={{
           position: "relative",
@@ -118,7 +120,7 @@ export function RedditItemMasonry({
           );
         })}
       </div>
-      {renderLoader}
+      {winVirtualizer.options.enabled && renderLoader}
     </main>
   );
 }
