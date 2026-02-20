@@ -1,13 +1,6 @@
-.trigger {
-  anchor-name: --settings;
-}
-
 .settings {
-  position-anchor: --settings;
-  inset: auto;
-  top: calc(anchor(bottom) + var(--space-3));
-  right: calc(anchor(right) - var(--space-5));
   gap: var(--space-6);
+  margin: auto;
   border: 1px solid var(--ring-color);
   border-radius: var(--rounded-lg);
   background-color: var(--bg);

@@ -3,8 +3,8 @@ import settingsStyles from "./Settings.module.css";
 import { useSettingsStore } from "@src/store/settings";
 import Columns from "@src/svg/columns-3.svg?react";
 
-const { maxLanesLimit } = useSettingsStore.getInitialState();
-const nums = Array.from({ length: maxLanesLimit }, (_, i) => i + 1);
+const { MAX_LANES_LIMIT } = useSettingsStore.getInitialState();
+const nums = Array.from({ length: MAX_LANES_LIMIT }, (_, i) => i + 1);
 
 export function MaxColumns() {
   const maxLanes = useSettingsStore((s) => s.maxLanes);

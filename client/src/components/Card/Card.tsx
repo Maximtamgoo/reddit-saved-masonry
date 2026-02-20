@@ -23,10 +23,10 @@ function onClickDialog(e: MouseEvent<HTMLDialogElement>) {
   if (e.target === e.currentTarget) e.currentTarget.close();
 }
 
-const { minCardSize } = useSettingsStore.getInitialState();
+const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 
 export default memo(function Card({ item, itemWidth }: Props) {
-  const maxCardHeight = useSettingsStore((s) => s.maxCardHeight);
+  const userCardHeight = useSettingsStore((s) => s.userCardHeight);
   const isText = item.type === "text" || item.type === "comment";
   const isUnknown = item.type === "unknown";
   const isGallery = item.type === "gallery";
@@ -43,7 +43,7 @@ export default memo(function Card({ item, itemWidth }: Props) {
     const p = item.preview;
     totalHeight += calculateAspectRatioFit(p.width, p.height, itemWidth, p.height).height;
   }
-  const cardHeight = Math.max(minCardSize, Math.min(maxCardHeight, Math.floor(totalHeight)));
+  const cardHeight = Math.max(MIN_CARD_SIZE, Math.min(userCardHeight, Math.floor(totalHeight)));
 
   return (
     <div

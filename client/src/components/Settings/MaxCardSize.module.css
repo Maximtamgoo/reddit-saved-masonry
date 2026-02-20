@@ -11,13 +11,10 @@
   display: grid;
   grid-template-rows: auto auto;
   gap: var(--space-1);
-  /* grid-template-columns: var(--space-14) 1fr; */
-  /* background-color: red; */
 }
 
 .label {
   justify-self: center;
-  /* background-color: red; */
   width: var(--space-40);
   font-size: var(--text-sm);
   text-align: center;
@@ -28,43 +25,52 @@
   }
 }
 
-.hint {
-  grid-column: 2;
-  justify-self: end;
-  /* background-color: green; */
-  font-size: var(--text-sm);
+input[type="range"] {
+  appearance: none;
+  cursor: pointer;
+  background-color: transparent;
+  /* background-color: aqua; */
+  height: var(--space-6);
 }
 
-/* .sizeInputs {
-  display: flex;
-  justify-content: space-between;
+input[type="range"]::-webkit-slider-runnable-track {
+  border-radius: 1rem;
+  background-color: var(--btn-bg);
+  height: var(--space-2);
+}
 
-  & label {
-    display: flex;
-    align-items: center;
-    gap: var(--space-1);
-  }
+input[type="range"]::-moz-range-track {
+  border-radius: 1rem;
+  background-color: var(--btn-bg);
+  height: var(--space-2);
+}
 
-  & input {
-    border: 1px solid var(--ring-color);
-    border-radius: var(--rounded-md);
-    background-color: var(--bg);
-    padding-left: var(--space-1);
-    width: var(--space-16);
-    height: var(--space-9);
-    font-size: var(--text-base);
+input[type="range"]::-webkit-slider-thumb {
+  /* -webkit-appearance: none; */
+  appearance: none;
+  margin-top: -6px;
+  border: none;
+  border-radius: var(--rounded-full);
+  background-color: var(--primary);
+  width: 20px;
+  height: 20px;
+}
 
-    &:user-invalid {
-      background-color: red;
-    }
-  }
+input[type="range"]::-webkit-slider-thumb:hover {
+  background-color: var(--primary-hover);
+}
 
-  @media (width < 280px) {
-    justify-content: space-around;
+input[type="range"]::-moz-range-thumb {
+  /* -webkit-appearance: none; */
+  appearance: none;
+  margin-top: -6px;
+  border: none;
+  border-radius: var(--rounded-full);
+  background-color: var(--primary);
+  width: 20px;
+  height: 20px;
+}
 
-    & label {
-      display: grid;
-      font-size: var(--text-sm);
-    }
-  }
-} */
+input[type="range"]::-moz-range-thumb:hover {
+  background-color: var(--primary-hover);
+}

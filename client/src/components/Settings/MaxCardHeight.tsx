@@ -1,49 +1,37 @@
-import { useId, useState } from "react";
+import { useId, type ChangeEvent } from "react";
 import styles from "./MaxCardSize.module.css";
 import { useSettingsStore } from "@src/store/settings";
-import { RangeInput } from "../RangeInput/RangeInput";
 
-const { minCardSize } = useSettingsStore.getInitialState();
+const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 
 export function MaxCardHeight() {
   const id = useId();
-  const maxCardHeight = useSettingsStore((s) => s.maxCardHeight);
-  const { setMaxCardHeight } = useSettingsStore((s) => s.actions);
+  const userCardHeight = useSettingsStore((s) => s.userCardHeight);
+  const { setUserCardHeight } = useSettingsStore((s) => s.actions);
 
-  const minHeightPercent = Math.round((minCardSize / window.screen.availHeight) * 100);
-  const maxHeightPercent = Math.round((maxCardHeight / window.screen.availHeight) * 100);
+  const minHeightPercent = Math.round((MIN_CARD_SIZE / window.screen.availHeight) * 100);
+  const maxHeightPercent = Math.round((userCardHeight / window.screen.availHeight) * 100);
 
-  const [prev, setPrev] = useState(maxHeightPercent);
-  const [heightLabel, setHeightLabel] = useState(maxHeightPercent);
-
-  if (maxHeightPercent !== prev) {
-    setPrev(maxHeightPercent);
-    setHeightLabel(maxHeightPercent);
-  }
-
-  function onChangeValue(v: number) {
-    setHeightLabel(v);
-  }
-
-  function onPointerUpValue(v: number) {
-    setMaxCardHeight(Math.floor((window.screen.availHeight / 100) * v));
+  function onChange(e: ChangeEvent<HTMLInputElement>) {
+    const percent = parseInt(e.currentTarget.value);
+    if (isNaN(percent)) return;
+    setUserCardHeight(percent);
   }
 
   return (
     <div className={styles.sizeInput}>
-      <RangeInput
+      <input
+        type="range"
         id={id}
         value={maxHeightPercent}
         min={minHeightPercent}
         step={1}
         max={100}
-        onChangeValue={onChangeValue}
-        onPointerUpValue={onPointerUpValue}
+        onChange={onChange}
       />
       <label htmlFor={id} className={styles.label}>
-        <span>{heightLabel}%</span> of screen height
+        <span>{maxHeightPercent}%</span> of screen height
       </label>
-      {/* <div className={styles.hint}>% of screen height</div> */}
     </div>
   );
 }

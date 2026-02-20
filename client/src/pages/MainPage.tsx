@@ -4,13 +4,13 @@ import { RedditItemMasonry } from "@src/components/RedditItemMasonry";
 import { useSettingsStore } from "@src/store/settings";
 import Loader from "@src/components/Loader/Loader";
 
-const { minCardSize } = useSettingsStore.getInitialState();
+const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 
 export default function MainPage() {
   const isBusyRef = useRef(false);
   const maxLanes = useSettingsStore((s) => s.maxLanes);
-  const maxCardWidth = useSettingsStore((s) => s.maxCardWidth);
-  const maxCardHeight = useSettingsStore((s) => s.maxCardHeight);
+  const userCardWidth = useSettingsStore((s) => s.userCardWidth);
+  const userCardHeight = useSettingsStore((s) => s.userCardHeight);
   const {
     data,
     isLoading,
@@ -52,10 +52,10 @@ export default function MainPage() {
       items={redditItems}
       gap={25}
       maxLanes={maxLanes}
-      minLaneWidth={minCardSize}
-      maxLaneWidth={maxCardWidth}
-      minCardHeight={minCardSize}
-      maxCardHeight={maxCardHeight}
+      minLaneWidth={MIN_CARD_SIZE}
+      maxLaneWidth={userCardWidth}
+      minCardHeight={MIN_CARD_SIZE}
+      maxCardHeight={userCardHeight}
       loadMore={loadMore}
       renderLoader={
         isFetchingNextPage ? (

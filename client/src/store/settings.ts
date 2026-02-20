@@ -3,50 +3,53 @@ import { create } from "zustand";
 
 interface State {
   // static values
-  maxLanesLimit: number;
-  minCardSize: number;
+  MAX_LANES_LIMIT: number;
+  MIN_CARD_SIZE: number;
   // user values
   maxLanes: number;
-  maxCardWidth: number;
-  maxCardHeight: number;
+  userCardWidth: number;
+  userCardHeight: number;
   actions: {
     setMaxLanes: (maxLanes: number) => void;
-    setMaxCardWidth: (px: number) => void;
-    setMaxCardHeight: (px: number) => void;
+    setUserCardWidth: (px: number) => void;
+    setUserCardHeight: (px: number) => void;
     resetCardSizes: () => void;
     resetMaxLanes: () => void;
   };
 }
 
-const minCardSize = 350;
-const initCardWidth = Math.floor((window.screen.availWidth / 100) * 25);
-const initCardHeight = Math.floor((window.screen.availHeight / 100) * 75);
+const MAX_LANES_LIMIT = 5;
+const DEFAULT_MAX_LANES = 3;
+const MIN_CARD_SIZE = 350;
 
-export const useSettingsStore = create<State>()((set, _, store) => ({
+const cardWidth = Math.floor((window.screen.availWidth / 100) * 25);
+const userCardWidth = Math.max(MIN_CARD_SIZE, cardWidth);
+const cardHeight = Math.floor((window.screen.availHeight / 100) * 75);
+const userCardHeight = Math.max(MIN_CARD_SIZE, cardHeight);
+
+export const useSettingsStore = create<State>()((set) => ({
   // static values
-  maxLanesLimit: 5,
-  minCardSize,
+  MAX_LANES_LIMIT,
+  MIN_CARD_SIZE,
   // user values
-  maxLanes: 3,
-  maxCardWidth: Math.max(minCardSize, initCardWidth),
-  maxCardHeight: Math.max(minCardSize, initCardHeight),
+  maxLanes: DEFAULT_MAX_LANES,
+  userCardWidth,
+  userCardHeight,
   actions: {
     setMaxLanes(maxLanes) {
       set({ maxLanes });
     },
-    setMaxCardWidth(px) {
-      set({ maxCardWidth: px });
+    resetMaxLanes() {
+      set({ maxLanes: DEFAULT_MAX_LANES });
     },
-    setMaxCardHeight(px) {
-      set({ maxCardHeight: px });
+    setUserCardWidth(v) {
+      set({ userCardWidth: Math.floor((window.screen.availWidth / 100) * v) });
+    },
+    setUserCardHeight(v) {
+      set({ userCardHeight: Math.floor((window.screen.availHeight / 100) * v) });
     },
     resetCardSizes() {
-      //! getInitialState might be from localstorage and not reset to actual default
-      const { maxCardWidth, maxCardHeight } = store.getInitialState();
-      set({ maxCardWidth, maxCardHeight });
-    },
-    resetMaxLanes() {
-      set({ maxLanes: store.getInitialState().maxLanes });
+      set({ userCardWidth, userCardHeight });
     },
   },
 }));
