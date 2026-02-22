@@ -1,0 +1,43 @@
+.gallery {
+  margin: auto;
+  border: none;
+  max-width: fit-content;
+  max-height: fit-content;
+
+  &:open {
+    &::backdrop {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
+  & > img {
+    max-height: 100vh;
+  }
+}
+
+.itemNav {
+  position: fixed;
+  top: var(--space-10);
+  right: var(--space-10);
+  padding-inline: var(--space-4);
+  width: auto;
+  font-weight: 600;
+
+  &:hover {
+    background-color: var(--c-zinc-900);
+  }
+}
+
+.arrow {
+  position: fixed;
+  top: 50%;
+  translate: 0 -50%;
+
+  &[data-arrow="left"] {
+    left: var(--space-10);
+  }
+
+  &[data-arrow="right"] {
+    right: var(--space-10);
+    rotate: 180deg;
+  }
+}
