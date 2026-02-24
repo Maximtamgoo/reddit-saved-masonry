@@ -15,10 +15,10 @@ type Props = {
 };
 
 const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
+const openDialog = useGalleryStore.getState().actions.open;
 
 export default memo(function Card({ item, itemWidth }: Props) {
   const userCardHeight = useSettingsStore((s) => s.userCardHeight);
-  const open = useGalleryStore((s) => s.actions.open);
   const isText = item.type === "text" || item.type === "comment";
   const isUnknown = item.type === "unknown";
   const isGallery = item.type === "gallery";
@@ -49,7 +49,7 @@ export default memo(function Card({ item, itemWidth }: Props) {
       {isText && <Text>{item.text}</Text>}
       {isUnknown && <Unknown />}
       {isMedia && (
-        <button onClick={() => open(item)} className={styles.trigger}>
+        <button onClick={() => openDialog(item)} className={styles.trigger}>
           <Preview
             url={item.preview.url}
             isPlayable={isPlayable || isFirstGalleryItemPlayable}

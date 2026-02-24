@@ -25,6 +25,8 @@
   --ring-color: light-dark(var(--c-zinc-200), var(--c-zinc-700));
   --btn-bg: light-dark(var(--c-zinc-200), var(--c-zinc-700));
   --btn-hover: light-dark(var(--c-zinc-300), var(--c-zinc-600));
+  --modal-btn-bg: var(--c-zinc-900);
+  --modal-btn-hover: var(--c-zinc-800);
 }
 
 html {
@@ -39,18 +41,36 @@ button {
   cursor: pointer;
   border: none;
   background: none;
+  &:disabled {
+    cursor: auto;
+  }
+}
+
+dialog,
+button,
+input,
+video,
+img,
+a {
+  &:focus-visible {
+    outline: 2px solid var(--primary-hover);
+  }
+}
+
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 .btn {
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--space-1);
   border-radius: var(--rounded-full);
   background-color: var(--btn-bg);
   width: var(--space-9);
   height: var(--space-9);
   color: var(--fg);
-  font-weight: 500;
   &:hover {
     background-color: var(--btn-hover);
   }
@@ -60,18 +80,4 @@ button {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-
-.modal_btn {
-  display: grid;
-  position: absolute;
-  place-items: center;
-  border-radius: var(--rounded-full);
-  background-color: var(--c-zinc-900);
-  width: var(--space-10);
-  height: var(--space-10);
-  color: var(--c-white);
-  &:hover {
-    background-color: var(--c-zinc-800);
-  }
 }
