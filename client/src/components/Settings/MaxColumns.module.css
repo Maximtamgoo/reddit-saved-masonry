@@ -1,19 +1,10 @@
-.maxColumns {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: var(--space-2);
-}
-
-.numBtns {
+.num_btns {
   display: flex;
-  grid-column: span 2;
   gap: var(--space-1);
 
   & > button {
     flex-grow: 1;
-    background-color: var(--btn-bg);
-    height: var(--space-9);
-    color: var(--fg);
+    border-radius: 0;
     font-weight: 500;
 
     &:first-child {

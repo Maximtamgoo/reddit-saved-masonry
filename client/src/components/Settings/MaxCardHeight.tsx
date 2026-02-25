@@ -1,11 +1,10 @@
-import { useId, type ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 import styles from "./MaxCardSize.module.css";
 import { useSettingsStore } from "@src/store/settings";
 
 const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 
 export function MaxCardHeight() {
-  const id = useId();
   const userCardHeight = useSettingsStore((s) => s.userCardHeight);
   const { setUserCardHeight } = useSettingsStore((s) => s.actions);
 
@@ -22,16 +21,15 @@ export function MaxCardHeight() {
     <div className={styles.sizeInput}>
       <input
         type="range"
-        id={id}
         value={maxHeightPercent}
         min={minHeightPercent}
         step={1}
         max={100}
         onChange={onChange}
       />
-      <label htmlFor={id} className={styles.label}>
+      <div className={styles.label}>
         <span>{maxHeightPercent}%</span> of screen height
-      </label>
+      </div>
     </div>
   );
 }

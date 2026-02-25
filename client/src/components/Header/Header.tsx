@@ -3,7 +3,7 @@ import Link from "@src/components/Link";
 import Bookmark from "@src/svg/bookmark.svg?react";
 import Github from "@src/svg/github.svg?react";
 import styles from "./Header.module.css";
-import Settings from "../Settings/Settings";
+import { SettingsDialog } from "../Settings/SettingsDialog";
 
 export default function Header() {
   return (
@@ -17,7 +17,7 @@ export default function Header() {
         >
           <Github />
         </Link>
-        <Settings />
+        <SettingsDialog />
       </nav>
     </header>
   );

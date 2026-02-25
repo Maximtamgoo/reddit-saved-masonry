@@ -27,4 +27,5 @@
   border-radius: var(--rounded-md);
   padding: 0 var(--space-3);
   width: fit-content;
+  font-weight: 500;
 }

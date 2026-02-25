@@ -1,24 +1,10 @@
-.theme {
-  display: grid;
-  gap: var(--space-2);
-}
-
-.themeBtns {
+.theme_btns {
   display: flex;
   gap: var(--space-1);
-
   & > button {
-    display: flex;
     flex-grow: 1;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-2);
-    background-color: var(--btn-bg);
-    width: fit-content;
-    height: var(--space-9);
-    color: var(--fg);
+    border-radius: 0;
     font-weight: 500;
-
     &:first-child {
       border-radius: var(--rounded-md) 0 0 var(--rounded-md);
     }

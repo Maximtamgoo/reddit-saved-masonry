@@ -1,11 +1,10 @@
-import { useId, type ChangeEvent } from "react";
+import { type ChangeEvent } from "react";
 import styles from "./MaxCardSize.module.css";
 import { useSettingsStore } from "@src/store/settings";
 
 const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 
 export function MaxCardWidth() {
-  const id = useId();
   const userCardWidth = useSettingsStore((s) => s.userCardWidth);
   const { setUserCardWidth } = useSettingsStore((s) => s.actions);
 
@@ -22,16 +21,15 @@ export function MaxCardWidth() {
     <div className={styles.sizeInput}>
       <input
         type="range"
-        id={id}
         value={maxWidthPercent}
         min={minWidthPercent}
         step={1}
         max={100}
         onChange={onChange}
       />
-      <label htmlFor={id} className={styles.label}>
+      <div className={styles.label}>
         <span>{maxWidthPercent}%</span> of screen width
-      </label>
+      </div>
     </div>
   );
 }

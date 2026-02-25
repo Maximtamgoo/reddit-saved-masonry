@@ -1,22 +1,22 @@
-import styles from "./MaxCardSize.module.css";
-import settingsStyles from "./Settings.module.css";
+import shared from "./Shared.module.css";
 import { useSettingsStore } from "@src/store/settings";
 import Scaling from "@src/svg/scaling.svg?react";
 import { MaxCardWidth } from "./MaxCardWidth";
 import { MaxCardHeight } from "./MaxCardHeight";
+import { cn } from "@src/utils/cn";
 
 export function MaxCardSize() {
   const { resetCardSizes } = useSettingsStore((s) => s.actions);
 
   return (
-    <div className={styles.maxCardSize}>
-      <span className={settingsStyles.title_section}>
+    <div className={shared.section}>
+      <span className={shared.title}>
         <Scaling />
         Max Card Size
+        <button className={cn("btn", shared.reset)} onClick={() => resetCardSizes()}>
+          Reset
+        </button>
       </span>
-      <button className={settingsStyles.resetBtn} onClick={() => resetCardSizes()}>
-        Reset
-      </button>
       <MaxCardWidth />
       <MaxCardHeight />
     </div>

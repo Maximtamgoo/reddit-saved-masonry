@@ -1,0 +1,25 @@
+.settings {
+  gap: var(--space-6);
+  margin: auto;
+  border: 1px solid var(--ring-color);
+  border-radius: var(--rounded-lg);
+  background-color: var(--bg);
+  padding: var(--space-4);
+  width: 350px;
+  min-width: 280px;
+  max-width: calc(100vw - var(--space-4));
+
+  &:open {
+    display: grid;
+  }
+}
+
+.top {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: var(--text-2xl);
+  & > :last-child {
+    margin-left: auto;
+  }
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styles from "./Theme.module.css";
-import settingsStyles from "./Settings.module.css";
+import shared from "./Shared.module.css";
 import Sun from "@src/svg/sun.svg?react";
 import Moon from "@src/svg/moon.svg?react";
 import Monitor from "@src/svg/monitor.svg?react";
@@ -34,15 +34,16 @@ export function Theme() {
   }
 
   return (
-    <div className={styles.theme}>
-      <span className={settingsStyles.title_section}>
+    <div className={shared.section}>
+      <span className={shared.title}>
         <Monitor />
         Theme
       </span>
-      <div className={styles.themeBtns}>
+      <div className={styles.theme_btns}>
         {themes.map((theme) => (
           <button
             key={theme}
+            className="btn"
             data-selected={theme === selectedTheme || undefined}
             onClick={() => onClick(theme)}
           >
