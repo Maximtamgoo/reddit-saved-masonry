@@ -74,6 +74,9 @@ dialog::backdrop {
   &:hover {
     background-color: var(--btn-hover);
   }
+  &:active {
+    translate: 0 1px;
+  }
 }
 
 .truncate {

@@ -28,6 +28,9 @@
       &:hover {
         background-color: var(--modal-btn-hover);
       }
+      &:active {
+        translate: none;
+      }
     }
   }
 }
@@ -58,8 +61,8 @@
 }
 
 .arrow {
-  top: 50%;
-  translate: 0 -50%;
+  /* top: calc(50vh - halfButtonHeight); */
+  top: calc(50vh - 18px);
 
   &[data-direction="left"] {
     left: var(--space-8);

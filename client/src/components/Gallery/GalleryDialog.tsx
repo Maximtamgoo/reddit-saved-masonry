@@ -58,7 +58,6 @@ export function GalleryDialog() {
           <div className={cn(styles.item_count)}>
             {index + 1} / {len}
           </div>
-
           <ArrowBtn
             className={arrow_btn}
             disabled={index === len - 1}
