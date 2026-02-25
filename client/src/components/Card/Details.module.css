@@ -9,19 +9,18 @@
   padding-bottom: var(--space-3);
 }
 
-.btnBase {
-  display: grid;
-  place-items: center;
-  border-radius: var(--rounded-full);
-  background-color: var(--btn-bg);
-  width: var(--space-9);
-  height: var(--space-9);
+.sub_icon {
   overflow: hidden;
-
   & > img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+  &:hover {
+    background-color: var(--btn-bg);
+  }
+  &:active {
+    translate: none;
   }
 }
 
@@ -63,10 +62,6 @@
 
 .bookmark {
   color: var(--primary);
-
-  &:hover {
-    background-color: var(--btn-hover);
-  }
 
   & > svg[data-saved="false"] {
     fill: none;

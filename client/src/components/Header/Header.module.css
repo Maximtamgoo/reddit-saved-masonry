@@ -31,10 +31,6 @@
 .github {
   background-color: var(--bg);
 
-  &:hover {
-    background-color: var(--bg);
-  }
-
   & > svg {
     fill: var(--btn-bg);
 

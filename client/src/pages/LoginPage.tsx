@@ -8,7 +8,7 @@ export default function LoginPage() {
         <Bookmark />
         Reddit Saved Masonry
       </div>
-      <button className={styles.btn} onClick={() => (window.location.href = "/api/authurl")}>
+      <button className="btn" onClick={() => (window.location.href = "/api/authurl")}>
         Sign in with Reddit
       </button>
       View your saved Reddit posts in a masonry grid.

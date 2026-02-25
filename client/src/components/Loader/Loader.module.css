@@ -20,19 +20,3 @@
   width: var(--space-10);
   height: var(--space-10);
 }
-
-.retry {
-  display: grid;
-  place-items: center;
-  gap: 5px;
-  scale: -1 1;
-  border-radius: 2em;
-  background-color: var(--btn-bg);
-  width: 40px;
-  height: 40px;
-  color: var(--fg);
-
-  &:hover {
-    background-color: var(--btn-hover);
-  }
-}

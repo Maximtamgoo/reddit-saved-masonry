@@ -21,7 +21,7 @@ export default function Details({ item }: Props) {
 
   return (
     <div className={styles.details}>
-      <div className={styles.btnBase}>
+      <div className={cn("btn", styles.sub_icon)}>
         {!isImgError && icon_url && <img src={icon_url} onError={() => setIsImgError(true)} />}
       </div>
       <div className={cn(styles.credits, "truncate")}>
@@ -34,7 +34,7 @@ export default function Details({ item }: Props) {
         </Link>
       </div>
       <button
-        className={cn(styles.btnBase, styles.bookmark)}
+        className={cn("btn", styles.bookmark)}
         disabled={isPending}
         onClick={() => mutate({ saved: !item.saved })}
       >

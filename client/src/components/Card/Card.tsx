@@ -15,10 +15,10 @@ type Props = {
 };
 
 const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
-const openDialog = useGalleryStore.getState().actions.open;
 
 export default memo(function Card({ item, itemWidth }: Props) {
   const userCardHeight = useSettingsStore((s) => s.userCardHeight);
+  const openDialog = useGalleryStore((s) => s.actions.open);
   const isText = item.type === "text" || item.type === "comment";
   const isUnknown = item.type === "unknown";
   const isGallery = item.type === "gallery";
@@ -37,14 +37,7 @@ export default memo(function Card({ item, itemWidth }: Props) {
   const cardHeight = Math.max(MIN_CARD_SIZE, Math.min(userCardHeight, Math.floor(totalHeight)));
 
   return (
-    <div
-      className={styles.card}
-      style={{
-        height: cardHeight + "px",
-        // minHeight: minCardSize + "px",
-        // maxHeight: `${isMedia ? maxCardHeight : minCardSize}px`,
-      }}
-    >
+    <div className={styles.card} style={{ height: cardHeight + "px" }}>
       <Details item={item} />
       {isText && <Text>{item.text}</Text>}
       {isUnknown && <Unknown />}

@@ -8,23 +8,11 @@
   height: 100%;
 }
 
-.linkSvg {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-}
-
-.close {
-  position: absolute;
-  top: 20px;
-  left: 20px;
-}
-
 .trigger {
-  z-index: 10;
   outline-offset: 1px;
   border-radius: 0 0 var(--rounded-xl) var(--rounded-xl);
-  min-height: 0px;
+  isolation: isolate;
+  /* min-height: 0px; */
   overflow: hidden;
 }
 

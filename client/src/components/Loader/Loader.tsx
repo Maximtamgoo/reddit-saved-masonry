@@ -1,6 +1,6 @@
 import { memo } from "react";
 import LoaderCircle from "@src/svg/loader-circle.svg?react";
-import Rotate from "@src/svg/rotate-ccw.svg?react";
+import Refresh from "@src/svg/refresh-cw.svg?react";
 import styles from "./Loader.module.css";
 
 type IsLoading = {
@@ -24,8 +24,8 @@ export default memo(function Loader(props: Props) {
     return (
       <div className={styles.loader}>
         Could not get posts
-        <button className={styles.retry} onClick={props.onClick}>
-          <Rotate />
+        <button className="btn" onClick={props.onClick}>
+          <Refresh />
         </button>
       </div>
     );
