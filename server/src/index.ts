@@ -29,14 +29,16 @@ app.use(
 );
 app.use(routes);
 
-const clientDist = path.join(import.meta.dirname, "../../client/dist");
-if (env.NODE_ENV === "production" && existsSync(clientDist)) {
+if (env.NODE_ENV === "production") {
+  const clientDist = path.join(import.meta.dirname, "../../client/dist");
+  if (!existsSync(clientDist)) {
+    throw Error(`existsSync: Path does not exist at: ${clientDist}`);
+  }
   app.use(express.static(clientDist));
   console.log("Serving static files:", clientDist);
   app.get("/*all", (_req, res) => res.redirect("/"));
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 app.use(((error, _req, res, _next) => {
   if (error instanceof ValitaError) {
     console.log(error.message);

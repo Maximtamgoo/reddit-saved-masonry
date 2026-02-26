@@ -4,9 +4,7 @@
   "private": true,
   "scripts": {
     "start": "npm start -w server",
-    "build": "npm run build-client && npm run build-server",
-    "build-client": "npm run build -w client",
-    "build-server": "npm run build -w server",
+    "build": "npm run build -w client",
     "dev": "npm run dev-server & npm run dev-client",
     "dev-client": "npm run dev -w client",
     "dev-server": "npm run dev -w server",
@@ -17,7 +15,7 @@
     "server"
   ],
   "devDependencies": {
-    "oxlint": "^1.49.0",
+    "oxlint": "^1.50.0",
     "prettier": "3.8.1"
   },
   "engines": {

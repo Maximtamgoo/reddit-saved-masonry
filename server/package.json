@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "NODE_ENV=production node --env-file-if-exists=../.env ./dist/index.js",
+    "start": "NODE_ENV=production tsx --env-file-if-exists=../.env ./src/index.ts",
     "build": "tsc",
     "dev": "NODE_ENV=development tsx watch --env-file=../.env ./src/index.ts"
   },
@@ -15,7 +15,8 @@
     "express": "^5.2.1",
     "helmet": "^8.1.0",
     "http-errors": "^2.0.1",
-    "morgan": "^1.10.1"
+    "morgan": "^1.10.1",
+    "tsx": "^4.21.0"
   },
   "devDependencies": {
     "@types/compression": "^1.8.1",
@@ -23,8 +24,7 @@
     "@types/express": "^5.0.6",
     "@types/http-errors": "^2.0.5",
     "@types/morgan": "^1.9.10",
-    "@types/node": "^25.3.0",
-    "tsx": "^4.21.0",
+    "@types/node": "^25.3.1",
     "typescript": "^5.9.3"
   }
 }
