@@ -29,8 +29,6 @@ app.use(
 );
 app.use(routes);
 
-console.log("NODE_ENV:", env.NODE_ENV);
-
 const clientDist = path.join(import.meta.dirname, "../../client/dist");
 if (env.NODE_ENV === "production" && existsSync(clientDist)) {
   app.use(express.static(clientDist));

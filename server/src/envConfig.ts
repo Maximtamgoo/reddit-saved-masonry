@@ -9,6 +9,9 @@ const Schema = object({
   REDDIT_REDIRECT_URI: string(),
 });
 
+console.log("process.env.NODE_ENV:", process.env.NODE_ENV);
+console.log("process.env.PORT:", process.env.PORT);
+
 const result = Schema.try(process.env, { mode: "strip" });
 
 if (!result.ok) {
