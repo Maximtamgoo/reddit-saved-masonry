@@ -10,13 +10,11 @@ type UnknownObj = {
 };
 type Req = Request<UnknownObj, UnknownObj, UnknownObj>;
 
-const isProduction = env.NODE_ENV === "production";
-
 const accessTokenOptions = (maxAge: number) =>
   ({
     maxAge,
     sameSite: "lax",
-    secure: isProduction,
+    secure: true,
   }) as const;
 
 router.get("/api/authurl", (_req, res, next) => {
@@ -37,7 +35,7 @@ router.post("/api/authorize", async (req: Req, res, next) => {
     res.cookie("refresh_token", token.refresh_token, {
       maxAge: 2629800 * 1000,
       sameSite: "strict",
-      secure: isProduction,
+      secure: true,
       httpOnly: true,
     });
     res.send();
