@@ -14,7 +14,11 @@ const app = express();
 app.use(express.json());
 app.use(compression());
 app.use(cookieParser());
-app.use(morgan("[:date] :method :url - :status"));
+app.use(
+  morgan("[:date] :method :url - :status", {
+    skip: (req, _res) => ["/assets/", "/favicon"].some((s) => req.url.includes(s)),
+  }),
+);
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -33,7 +37,7 @@ app.use(routes);
 if (env.NODE_ENV === "production") {
   const clientDist = path.join(import.meta.dirname, "../../client/dist");
   if (!existsSync(clientDist)) {
-    throw Error(`existsSync: Path does not exist at: ${clientDist}`);
+    throw Error(`Client dist folder does not exist: ${clientDist}`);
   }
   app.use(express.static(clientDist));
   console.log("Serving static files:", clientDist);
