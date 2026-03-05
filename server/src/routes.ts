@@ -1,14 +1,9 @@
 import { literal, string, union } from "@badrap/valita";
-import express, { type Request } from "express";
+import express from "express";
 import createError from "http-errors";
 import { env } from "./envConfig.js";
 import { authorize, getNewAccessToken, revokeToken, toggleBookmark } from "./reddit.js";
 const router = express.Router();
-
-type UnknownObj = {
-  [x: string]: unknown;
-};
-type Req = Request<UnknownObj, UnknownObj, UnknownObj>;
 
 const accessTokenOptions = (maxAge: number) =>
   ({
@@ -27,7 +22,7 @@ router.get("/api/authurl", (_req, res, next) => {
   }
 });
 
-router.post("/api/authorize", async (req: Req, res, next) => {
+router.post("/api/authorize", async (req, res, next) => {
   try {
     const code = string().parse(req.body.authorization_code);
     const token = await authorize(code);
@@ -44,7 +39,7 @@ router.post("/api/authorize", async (req: Req, res, next) => {
   }
 });
 
-router.post("/api/access_token", async (req: Req, res, next) => {
+router.post("/api/access_token", async (req, res, next) => {
   try {
     const result = string().try(req.cookies.refresh_token);
     if (!result.ok) throw createError(400, "Invalid refresh_token");
@@ -56,7 +51,7 @@ router.post("/api/access_token", async (req: Req, res, next) => {
   }
 });
 
-router.post("/api/signout", async (req: Req, res, next) => {
+router.post("/api/signout", async (req, res, next) => {
   try {
     res.clearCookie("refresh_token");
     res.clearCookie("access_token");
@@ -68,7 +63,7 @@ router.post("/api/signout", async (req: Req, res, next) => {
   }
 });
 
-router.post("/api/bookmark/:state", async (req: Req, res, next) => {
+router.post("/api/bookmark/:state", async (req, res, next) => {
   try {
     const state = union(literal("unsave"), literal("save")).parse(req.params.state);
     const id = string().parse(req.body.id);

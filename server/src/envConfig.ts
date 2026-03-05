@@ -12,11 +12,6 @@ const Schema = object({
   HTTPS_CERT: string().optional(),
 });
 
-const result = Schema.try(process.env, { mode: "strip" });
-
-if (!result.ok) {
-  console.log(result.message);
-  process.exit(1);
-}
-
-export const env = result.value as Readonly<Infer<typeof Schema>>;
+const env = Schema.parse(process.env, { mode: "strip" }) as Readonly<Infer<typeof Schema>>;
+console.log("env.NODE_ENV:", env.NODE_ENV);
+export { env };
