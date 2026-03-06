@@ -42,20 +42,14 @@ export async function getSavedContent(username: string, after: string, limit = 5
 }
 
 export async function toggleBookmark(id: string, state: boolean) {
-  const access_token = await getAccessToken();
-  const res = await fetch(`/api/bookmark/${state ? "save" : "unsave"}`, {
+  const res = await fetch(`/api/bookmark/${id}?state=${state ? "save" : "unsave"}`, {
     method: "POST",
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ id }),
   });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
   return (await res.json()) as { saved: boolean };
 }
 
 export async function signOut() {
-  const res = await fetch("/api/signout", { method: "POST" });
+  const res = await fetch("/api/signout", { method: "DELETE" });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
 }

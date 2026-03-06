@@ -66,5 +66,7 @@ export async function toggleBookmark(access_token: string, state: "unsave" | "sa
   });
 
   if (!res.ok) throw createError(res.status, res.statusText);
-  return object({}).parse(await res.json());
+  return object({})
+    .map(() => state)
+    .parse(await res.json());
 }
