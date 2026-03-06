@@ -4,8 +4,7 @@ import { env } from "./envConfig.js";
 import app from "./app.js";
 
 if (!env.HTTPS_KEY || !env.HTTPS_CERT) {
-  console.log("Missing env.HTTPS_KEY or env.HTTPS_CERT");
-  process.exit(1);
+  throw Error("Missing env.HTTPS_KEY or env.HTTPS_CERT");
 }
 
 const key = readFileSync(env.HTTPS_KEY);

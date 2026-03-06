@@ -26,5 +26,5 @@
     /* Other */
     "noErrorTruncation": true
   },
-  "include": ["./src/index.ts"]
+  "include": ["src"]
 }

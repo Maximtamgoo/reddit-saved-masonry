@@ -52,7 +52,7 @@ app.use(((error, _req, res, _next) => {
     console.log(`${error.name}: ${error.message}`);
     res.sendStatus(error.status);
   } else {
-    console.log("express error:", error);
+    console.log("unknown error:", error);
     res.sendStatus(500);
   }
 }) as ErrorRequestHandler);
