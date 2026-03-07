@@ -2,36 +2,29 @@ import { ListingItem } from "@src/schema/Listing";
 import { RedditItem } from "@src/schema/RedditItem";
 import { transformRedditItem } from "@src/utils/transformRedditItem";
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import * as api from "./api";
+import * as reddit from "./reddit";
+import * as auth from "./auth";
 
 export const queryKeys = {
   all: () => ["all"] as const,
-  user: () => [...queryKeys.all(), "user"] as const,
-  savedContent: (name: string) => [...queryKeys.all(), "savedContent", name] as const,
+  session: () => [...queryKeys.all(), "session"] as const,
+  savedContent: () => [...queryKeys.all(), "savedContent"] as const,
+};
+
+export const mutationKeys = {
   bookmark: (id: string) => ["bookmark", id] as const,
   signOut: () => ["signOut"] as const,
 };
 
-export function useGetSignedInUser() {
+export function useSession() {
   return useQuery({
-    queryKey: queryKeys.user(),
+    queryKey: queryKeys.session(),
     queryFn: async () => {
-      const urlParams = new URLSearchParams(location.search);
-      if (location.pathname === "/auth_callback") history.replaceState(null, "", "/");
-      const urlError = urlParams.get("error");
-      if (urlError) throw Error(urlError);
-      const urlCode = urlParams.get("code");
-      if (urlCode) await api.authorize(urlCode);
-      return await api.getMe();
+      const session = await auth.getSession();
+      history.replaceState(null, "", "/");
+      return session;
     },
   });
-}
-
-type User = ReturnType<typeof useGetSignedInUser>["data"];
-
-export function useGetUserData() {
-  const qc = useQueryClient();
-  return qc.getQueryData<User>(queryKeys.user());
 }
 
 const redditItemMap = new Map<string, { pageParamIndex: number; itemIndex: number }>();
@@ -39,16 +32,15 @@ const redditItemMap = new Map<string, { pageParamIndex: number; itemIndex: numbe
 type SavedContent = ReturnType<typeof useGetSavedContent>["data"];
 
 export function useGetSavedContent() {
-  const username = useGetUserData()?.name ?? "";
   return useInfiniteQuery({
-    queryKey: queryKeys.savedContent(username),
+    queryKey: queryKeys.savedContent(),
     initialPageParam: "",
     networkMode: "always",
     queryFn: async ({ pageParam, client, queryKey }) => {
       const oldData = client.getQueryData<SavedContent>(queryKey);
       const pageParamIndex = oldData ? oldData.pageParams.length : 0;
 
-      const listing = await api.getSavedContent(username, pageParam);
+      const listing = await reddit.getSavedContent(pageParam);
       const redditItems: RedditItem[] = [];
       for (let i = 0; i < listing.data.children.length; i++) {
         const item = listing.data.children[i];
@@ -82,12 +74,11 @@ export function useGetSavedContent() {
 
 export function useToggleBookmark(id: string) {
   const qc = useQueryClient();
-  const username = useGetUserData()?.name ?? "";
   return useMutation({
-    mutationKey: queryKeys.bookmark(id),
-    mutationFn: ({ saved }: { saved: boolean }) => api.toggleBookmark(id, saved),
-    onSuccess: (_, { saved }) => {
-      qc.setQueryData<SavedContent>(queryKeys.savedContent(username), (oldData) => {
+    mutationKey: mutationKeys.bookmark(id),
+    mutationFn: (saved: boolean) => reddit.toggleBookmark(id, saved),
+    onSuccess: (_, saved) => {
+      qc.setQueryData<SavedContent>(queryKeys.savedContent(), (oldData) => {
         if (oldData) {
           const indexMap = redditItemMap.get(id);
           if (indexMap) {
@@ -104,8 +95,8 @@ export function useToggleBookmark(id: string) {
 export function useSignOut() {
   const qc = useQueryClient();
   return useMutation({
-    mutationKey: queryKeys.signOut(),
-    mutationFn: api.signOut,
+    mutationKey: mutationKeys.signOut(),
+    mutationFn: auth.signOut,
     onSuccess: () => {
       qc.resetQueries({ queryKey: queryKeys.all(), type: "all" });
       document.documentElement.style.setProperty("--masonry-max-width", "405px");

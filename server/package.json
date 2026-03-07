@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",
+    "better-auth": "^1.5.4",
     "compression": "^1.8.1",
     "cookie-parser": "^1.4.7",
     "express": "^5.2.1",

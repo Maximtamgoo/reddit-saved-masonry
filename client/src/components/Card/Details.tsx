@@ -36,7 +36,7 @@ export default function Details({ item }: Props) {
       <button
         className={cn("btn", styles.bookmark)}
         disabled={isPending}
-        onClick={() => mutate({ saved: !item.saved })}
+        onClick={() => mutate(!item.saved)}
       >
         <Bookmark data-saved={item.saved} />
       </button>

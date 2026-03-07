@@ -12,7 +12,7 @@ const RedditTokenResponse = object({
 
 const WeirdRedditResponse = literal("0");
 
-const base64Creds = Buffer.from(`${env.REDDIT_CLIENTID}:${env.REDDIT_CLIENT_SECRET}`).toString(
+const base64Creds = Buffer.from(`${env.REDDIT_CLIENT_ID}:${env.REDDIT_CLIENT_SECRET}`).toString(
   "base64",
 );
 

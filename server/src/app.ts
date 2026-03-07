@@ -8,17 +8,20 @@ import createError from "http-errors";
 import morgan from "morgan";
 import { ValitaError } from "@badrap/valita";
 import { env } from "./envConfig.js";
-import routes from "./routes.js";
+// import routes from "./routes.js";
+import { auth } from "./auth.js";
+import { toNodeHandler } from "better-auth/node";
 
 const app = express();
-app.use(express.json());
-app.use(compression());
-app.use(cookieParser());
 app.use(
   morgan("[:date] :method :url - :status", {
     skip: (req, _res) => ["/assets/", "/favicon"].some((s) => req.url.includes(s)),
   }),
 );
+app.all("/api/auth/*all", toNodeHandler(auth)); //set before app.use(express.json()) line.
+app.use(express.json());
+app.use(compression());
+app.use(cookieParser());
 app.use(
   helmet({
     contentSecurityPolicy: {
@@ -32,7 +35,8 @@ app.use(
     },
   }),
 );
-app.use(routes);
+
+// app.use(routes);
 
 if (env.NODE_ENV === "production") {
   const clientDist = path.join(import.meta.dirname, "../../client/dist");

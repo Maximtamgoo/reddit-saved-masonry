@@ -15,7 +15,7 @@ const accessTokenOptions = (maxAge: number) =>
 router.get("/api/authurl", (_req, res, next) => {
   try {
     res.redirect(
-      `https://www.reddit.com/api/v1/authorize?client_id=${env.REDDIT_CLIENTID}&response_type=code&state=_&redirect_uri=${env.REDDIT_REDIRECT_URI}&duration=permanent&scope=identity history save`,
+      `https://www.reddit.com/api/v1/authorize?client_id=${env.REDDIT_CLIENT_ID}&response_type=code&state=_&redirect_uri=${env.REDDIT_REDIRECT_URI}&duration=permanent&scope=identity history save`,
     );
   } catch (error) {
     next(error);
