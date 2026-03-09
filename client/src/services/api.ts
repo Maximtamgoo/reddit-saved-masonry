@@ -1,52 +1,18 @@
-import { object, string } from "@badrap/valita";
-import { Listing } from "@src/schema/Listing";
-import { getCookie } from "@src/utils/getCookie";
 import HttpError from "@src/utils/HttpError";
 
-export async function authorize(authorization_code: string) {
-  const res = await fetch("/api/authorize", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ authorization_code }),
-  });
-  if (!res.ok) throw new HttpError(res.status, res.statusText);
-}
+const getCookieValue = async (name: string) => (await window.cookieStore.get(name))?.value;
 
 export async function getAccessToken() {
-  const token = getCookie("access_token");
+  const token = await getCookieValue("access_token");
   if (token) return token;
   const res = await fetch("/api/access_token", { method: "POST" });
   if (!res.ok) throw new HttpError(res.status, res.statusText);
-  const newToken = getCookie("access_token");
-  if (!newToken) throw Error("access_token cookie not found");
+  const newToken = await getCookieValue("access_token");
   return newToken;
 }
 
-export async function getMe() {
-  const access_token = await getAccessToken();
-  const res = await fetch("https://oauth.reddit.com/api/v1/me", {
-    headers: { Authorization: `Bearer ${access_token}` },
-  });
-  if (!res.ok) throw new HttpError(res.status, res.statusText);
-  return object({ name: string(), icon_img: string() }).parse(await res.json(), { mode: "strip" });
-}
-
-export async function getSavedContent(username: string, after: string, limit = 50) {
-  const access_token = await getAccessToken();
-  const url = `https://oauth.reddit.com/user/${username}/saved?after=${after}&limit=${limit}&sr_detail=1&raw_json=1`;
-  const res = await fetch(url, {
-    headers: { Authorization: `Bearer ${access_token}` },
-  });
-  if (!res.ok) throw new HttpError(res.status, res.statusText);
-  return Listing.parse(await res.json(), { mode: "strip" });
-}
-
-export async function toggleBookmark(id: string, state: boolean) {
-  const res = await fetch(`/api/bookmark/${id}?state=${state ? "save" : "unsave"}`, {
-    method: "POST",
-  });
-  if (!res.ok) throw new HttpError(res.status, res.statusText);
-  return (await res.json()) as { saved: boolean };
+export function signInRedirect() {
+  window.location.href = "/api/redirect";
 }
 
 export async function signOut() {

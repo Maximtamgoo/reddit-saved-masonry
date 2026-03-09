@@ -2,13 +2,13 @@ import { ListingItem } from "@src/schema/Listing";
 import { RedditItem } from "@src/schema/RedditItem";
 import { transformRedditItem } from "@src/utils/transformRedditItem";
 import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import * as reddit from "./reddit";
-import * as auth from "./auth";
+import { signOut } from "./api";
+import { getMe, getSavedContent, toggleBookmark } from "./reddit";
 
 export const queryKeys = {
   all: () => ["all"] as const,
-  session: () => [...queryKeys.all(), "session"] as const,
-  savedContent: () => [...queryKeys.all(), "savedContent"] as const,
+  user: () => [...queryKeys.all(), "user"] as const,
+  savedContent: (name: string) => [...queryKeys.all(), name, "savedContent"] as const,
 };
 
 export const mutationKeys = {
@@ -16,13 +16,13 @@ export const mutationKeys = {
   signOut: () => ["signOut"] as const,
 };
 
-export function useSession() {
+export function useUser() {
   return useQuery({
-    queryKey: queryKeys.session(),
+    queryKey: queryKeys.user(),
     queryFn: async () => {
-      const session = await auth.getSession();
+      const data = await getMe();
       history.replaceState(null, "", "/");
-      return session;
+      return data;
     },
   });
 }
@@ -32,15 +32,16 @@ const redditItemMap = new Map<string, { pageParamIndex: number; itemIndex: numbe
 type SavedContent = ReturnType<typeof useGetSavedContent>["data"];
 
 export function useGetSavedContent() {
+  const username = useUser().data?.name ?? "";
   return useInfiniteQuery({
-    queryKey: queryKeys.savedContent(),
+    queryKey: queryKeys.savedContent(username),
     initialPageParam: "",
     networkMode: "always",
     queryFn: async ({ pageParam, client, queryKey }) => {
       const oldData = client.getQueryData<SavedContent>(queryKey);
       const pageParamIndex = oldData ? oldData.pageParams.length : 0;
 
-      const listing = await reddit.getSavedContent(pageParam);
+      const listing = await getSavedContent(username, pageParam);
       const redditItems: RedditItem[] = [];
       for (let i = 0; i < listing.data.children.length; i++) {
         const item = listing.data.children[i];
@@ -74,11 +75,12 @@ export function useGetSavedContent() {
 
 export function useToggleBookmark(id: string) {
   const qc = useQueryClient();
+  const username = useUser().data?.name ?? "";
   return useMutation({
     mutationKey: mutationKeys.bookmark(id),
-    mutationFn: (saved: boolean) => reddit.toggleBookmark(id, saved),
+    mutationFn: (saved: boolean) => toggleBookmark(id, saved),
     onSuccess: (_, saved) => {
-      qc.setQueryData<SavedContent>(queryKeys.savedContent(), (oldData) => {
+      qc.setQueryData<SavedContent>(queryKeys.savedContent(username), (oldData) => {
         if (oldData) {
           const indexMap = redditItemMap.get(id);
           if (indexMap) {
@@ -96,10 +98,10 @@ export function useSignOut() {
   const qc = useQueryClient();
   return useMutation({
     mutationKey: mutationKeys.signOut(),
-    mutationFn: auth.signOut,
+    mutationFn: signOut,
     onSuccess: () => {
-      qc.resetQueries({ queryKey: queryKeys.all(), type: "all" });
-      document.documentElement.style.setProperty("--masonry-max-width", "405px");
+      qc.clear();
+      window.location.href = "/";
     },
   });
 }

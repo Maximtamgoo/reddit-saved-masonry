@@ -2,13 +2,12 @@ import { literal, object, string, union, type Infer } from "@badrap/valita";
 
 const Schema = object({
   NODE_ENV: union(literal("production"), literal("development")),
-  BETTER_AUTH_SECRET: string(),
-  BETTER_AUTH_URL: string(),
+  COOKIE_SECRET: string(),
   PORT: string(),
   REDDIT_CLIENT_ID: string(),
   REDDIT_CLIENT_SECRET: string(),
   REDDIT_USERAGENT: string(),
-  // REDDIT_REDIRECT_URI: string(),
+  REDDIT_REDIRECT_URI: string(),
 
   HTTPS_KEY: string().optional(),
   HTTPS_CERT: string().optional(),
