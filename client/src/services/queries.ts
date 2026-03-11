@@ -1,14 +1,20 @@
+import { QueryClient, useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { ListingItem } from "@src/schema/Listing";
 import { RedditItem } from "@src/schema/RedditItem";
 import { transformRedditItem } from "@src/utils/transformRedditItem";
-import { useInfiniteQuery, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { signOut } from "./api";
 import { getMe, getSavedContent, toggleBookmark } from "./reddit";
 
+export const qc = new QueryClient({
+  defaultOptions: {
+    queries: { retry: 1, staleTime: Infinity, refetchOnWindowFocus: false },
+    mutations: { retry: 1 },
+  },
+});
+
 export const queryKeys = {
-  all: () => ["all"] as const,
-  user: () => [...queryKeys.all(), "user"] as const,
-  savedContent: (name: string) => [...queryKeys.all(), name, "savedContent"] as const,
+  user: () => ["user"] as const,
+  savedContent: () => ["savedContent"] as const,
 };
 
 export const mutationKeys = {
@@ -16,14 +22,13 @@ export const mutationKeys = {
   signOut: () => ["signOut"] as const,
 };
 
+history.replaceState(null, "", "/");
+
 export function useUser() {
   return useQuery({
     queryKey: queryKeys.user(),
-    queryFn: async () => {
-      const data = await getMe();
-      history.replaceState(null, "", "/");
-      return data;
-    },
+    retry: false,
+    queryFn: getMe,
   });
 }
 
@@ -34,7 +39,7 @@ type SavedContent = ReturnType<typeof useGetSavedContent>["data"];
 export function useGetSavedContent() {
   const username = useUser().data?.name ?? "";
   return useInfiniteQuery({
-    queryKey: queryKeys.savedContent(username),
+    queryKey: queryKeys.savedContent(),
     initialPageParam: "",
     networkMode: "always",
     queryFn: async ({ pageParam, client, queryKey }) => {
@@ -74,13 +79,11 @@ export function useGetSavedContent() {
 }
 
 export function useToggleBookmark(id: string) {
-  const qc = useQueryClient();
-  const username = useUser().data?.name ?? "";
   return useMutation({
     mutationKey: mutationKeys.bookmark(id),
     mutationFn: (saved: boolean) => toggleBookmark(id, saved),
     onSuccess: (_, saved) => {
-      qc.setQueryData<SavedContent>(queryKeys.savedContent(username), (oldData) => {
+      qc.setQueryData<SavedContent>(queryKeys.savedContent(), (oldData) => {
         if (oldData) {
           const indexMap = redditItemMap.get(id);
           if (indexMap) {
@@ -95,13 +98,11 @@ export function useToggleBookmark(id: string) {
 }
 
 export function useSignOut() {
-  const qc = useQueryClient();
   return useMutation({
     mutationKey: mutationKeys.signOut(),
     mutationFn: signOut,
-    onSuccess: () => {
-      qc.clear();
-      window.location.href = "/";
+    onSettled: () => {
+      window.location.reload();
     },
   });
 }

@@ -1,16 +1,10 @@
 import { createRoot } from "react-dom/client";
 import { StrictMode } from "react";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { qc } from "./services/queries";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import "./index.css";
 import App from "./App";
-
-const qc = new QueryClient({
-  defaultOptions: {
-    queries: { retry: 1, staleTime: Infinity, refetchOnWindowFocus: false },
-    mutations: { retry: 1 },
-  },
-});
 
 createRoot(document.getElementById("root") as Element).render(
   <StrictMode>
