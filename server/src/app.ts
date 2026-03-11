@@ -9,10 +9,11 @@ import morgan from "morgan";
 import { ValitaError } from "@badrap/valita";
 import { env } from "./envConfig.js";
 import routes from "./routes.js";
+import { ValidatorError } from "./validator.js";
 
 const app = express();
 app.use(
-  morgan("[:date] :method :url - :status", {
+  morgan("[:date[iso]] :method :url - :status", {
     skip: (req, _res) => ["/assets/", "/favicon"].some((s) => req.url.includes(s)),
   }),
 );
@@ -46,7 +47,10 @@ if (env.NODE_ENV === "production") {
 }
 
 app.use(((error, _req, res, _next) => {
-  if (error instanceof ValitaError) {
+  if (error instanceof ValidatorError) {
+    console.log(error.message);
+    res.sendStatus(error.status);
+  } else if (error instanceof ValitaError) {
     console.log(error.message);
     res.sendStatus(400);
   } else if (createError.isHttpError(error)) {
