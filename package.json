@@ -16,7 +16,7 @@
     "server"
   ],
   "devDependencies": {
-    "oxlint": "^1.51.0",
+    "oxlint": "^1.55.0",
     "prettier": "3.8.1"
   },
   "engines": {
