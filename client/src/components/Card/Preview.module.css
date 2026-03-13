@@ -6,7 +6,16 @@
   height: 100%;
 }
 
-.playBtn {
+.loader {
+  display: grid;
+  position: absolute;
+  place-items: center;
+  width: var(--space-16);
+  height: var(--space-16);
+  color: var(--ring-color);
+}
+
+.play {
   display: grid;
   position: absolute;
   place-items: center;
@@ -17,7 +26,7 @@
   color: var(--c-white);
 }
 
-.gallery {
+.gallery_length {
   display: grid;
   position: absolute;
   top: var(--space-4);

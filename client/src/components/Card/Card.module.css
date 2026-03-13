@@ -29,5 +29,6 @@
   place-items: center;
   height: 100%;
   color: var(--c-black);
+  color: var(--fg);
   font-size: var(--space-20);
 }
