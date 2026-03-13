@@ -4,17 +4,20 @@ import express, { type ErrorRequestHandler } from "express";
 import compression from "compression";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
-import createError from "http-errors";
 import morgan from "morgan";
-import { ValitaError } from "@badrap/valita";
 import { env } from "./envConfig.js";
 import routes from "./routes.js";
-import { ValidatorError } from "./validator.js";
+import { HttpError, ValidationError } from "./errors.js";
 
 const app = express();
 app.use(
   morgan("[:date[iso]] :method :url - :status", {
-    skip: (req, _res) => ["/assets/", "/favicon"].some((s) => req.url.includes(s)),
+    skip: (req, res) => {
+      return (
+        (req.url === "/" && res.statusCode === 200) ||
+        ["/assets/", "/favicon"].some((s) => req.url.includes(s))
+      );
+    },
   }),
 );
 app.use(express.json());
@@ -39,7 +42,8 @@ app.use(routes);
 if (env.NODE_ENV === "production") {
   const clientDist = path.join(import.meta.dirname, "../../client/dist");
   if (!existsSync(clientDist)) {
-    throw Error(`Client dist folder does not exist: ${clientDist}`);
+    console.log(`Client dist folder does not exist: ${clientDist}`);
+    process.exit(1);
   }
   app.use(express.static(clientDist));
   console.log("Serving static files:", clientDist);
@@ -47,17 +51,11 @@ if (env.NODE_ENV === "production") {
 }
 
 app.use(((error, _req, res, _next) => {
-  if (error instanceof ValidatorError) {
+  if (error instanceof HttpError || error instanceof ValidationError) {
     console.log(error.message);
-    res.sendStatus(error.status);
-  } else if (error instanceof ValitaError) {
-    console.log(error.message);
-    res.sendStatus(400);
-  } else if (createError.isHttpError(error)) {
-    console.log(`${error.name}: ${error.message}`);
     res.sendStatus(error.status);
   } else {
-    console.log("unknown error:", error);
+    console.log("Unknown error:", error);
     res.sendStatus(500);
   }
 }) as ErrorRequestHandler);

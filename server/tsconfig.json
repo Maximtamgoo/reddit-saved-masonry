@@ -11,9 +11,7 @@
     "outDir": "./dist",
     "noEmitOnError": true,
     /* Interop Constraints */
-    "isolatedModules": true,
     "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "verbatimModuleSyntax": true,
     /* Type Checking */
     "strict": true,
