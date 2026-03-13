@@ -29,10 +29,10 @@
 }
 
 .github {
-  background-color: var(--bg);
-
+  overflow: hidden;
   & > svg {
     fill: var(--btn-bg);
+    background-color: var(--bg);
 
     &:hover {
       fill: var(--btn-hover);
