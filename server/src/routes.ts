@@ -15,6 +15,8 @@ router.get("/api/redirect", (_req, res, next) => {
   }
 });
 
+const access_token_max_age = 1000 * 60 * 60 * 1; // 1 hour in milliseconds
+
 router.get("/api/callback", v.query({ code: string() }), async (req, res, next) => {
   try {
     const code = req.query.code as string;
@@ -29,7 +31,7 @@ router.get("/api/callback", v.query({ code: string() }), async (req, res, next) 
     res.cookie("access_token", data.access_token, {
       secure: true,
       sameSite: "strict",
-      maxAge: data.expires_in * 1000, // 24 hours in milliseconds
+      maxAge: access_token_max_age,
     });
     res.redirect("/");
   } catch (error) {
@@ -47,9 +49,9 @@ router.post(
       res.cookie("access_token", data.access_token, {
         secure: true,
         sameSite: "strict",
-        maxAge: data.expires_in * 1000, // 24 hours in milliseconds
+        maxAge: access_token_max_age,
       });
-      res.send();
+      res.sendStatus(204);
     } catch (error) {
       next(error);
     }
@@ -65,7 +67,7 @@ router.delete(
       res.clearCookie("access_token");
       const refresh_token = req.signedCookies.refresh_token as string;
       await revokeToken("refresh_token", refresh_token);
-      res.send();
+      res.sendStatus(204);
     } catch (error) {
       next(error);
     }
