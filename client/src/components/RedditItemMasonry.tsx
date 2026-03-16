@@ -8,7 +8,7 @@ import { useResizeObserver } from "@src/hooks/useResizeObserver";
 type Props = {
   items: RedditItem[];
   gap?: number;
-  maxLanes?: number;
+  maxLanes: number;
   minLaneWidth: number;
   maxLaneWidth: number;
   minCardHeight: number;
@@ -33,7 +33,7 @@ export function RedditItemMasonry({
 
   const lanes = useMemo(() => {
     const lanes = Math.floor((parentWidth + gap) / (minLaneWidth + gap));
-    return Math.max(1, Math.min(lanes, maxLanes ?? Infinity));
+    return Math.max(1, Math.min(lanes, maxLanes));
   }, [parentWidth, gap, minLaneWidth, maxLanes]);
 
   const gapTotal = useMemo(() => gap * (lanes - 1), [gap, lanes]);
@@ -115,7 +115,7 @@ export function RedditItemMasonry({
                 marginLeft: item.lane * gap + "px",
               }}
             >
-              <Card item={items[item.index]} itemWidth={itemWidth} />
+              <Card item={items[item.index]} itemWidth={itemWidth} itemHeight={maxCardHeight} />
             </div>
           );
         })}

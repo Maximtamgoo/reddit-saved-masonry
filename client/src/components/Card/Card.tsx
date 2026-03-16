@@ -12,12 +12,12 @@ import { useGalleryStore } from "@src/store/gallery";
 type Props = {
   item: RedditItem;
   itemWidth: number;
+  itemHeight: number;
 };
 
 const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 
-export default memo(function Card({ item, itemWidth }: Props) {
-  const userCardHeight = useSettingsStore((s) => s.userCardHeight);
+export default memo(function Card({ item, itemWidth, itemHeight }: Props) {
   const openDialog = useGalleryStore((s) => s.actions.open);
   const isText = item.type === "text" || item.type === "comment";
   const isUnknown = item.type === "unknown";
@@ -34,7 +34,7 @@ export default memo(function Card({ item, itemWidth }: Props) {
     const p = item.preview;
     totalHeight += calculateAspectRatioFit(p.width, p.height, itemWidth, p.height).height;
   }
-  const cardHeight = Math.max(MIN_CARD_SIZE, Math.min(userCardHeight, Math.floor(totalHeight)));
+  const cardHeight = Math.max(MIN_CARD_SIZE, Math.min(itemHeight, Math.floor(totalHeight)));
 
   return (
     <div className={styles.card} style={{ height: cardHeight + "px" }}>
