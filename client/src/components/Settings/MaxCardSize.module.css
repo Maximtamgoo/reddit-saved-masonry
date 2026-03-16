@@ -34,14 +34,13 @@ input[type="range"]::-moz-range-track {
 }
 
 input[type="range"]::-webkit-slider-thumb {
-  /* -webkit-appearance: none; */
   appearance: none;
   margin-top: -6px;
   border: none;
   border-radius: var(--rounded-full);
   background-color: var(--primary);
-  width: 20px;
-  height: 20px;
+  width: var(--space-2);
+  height: var(--space-5);
 }
 
 input[type="range"]::-webkit-slider-thumb:hover {
@@ -49,14 +48,13 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 input[type="range"]::-moz-range-thumb {
-  /* -webkit-appearance: none; */
   appearance: none;
   margin-top: -6px;
   border: none;
   border-radius: var(--rounded-full);
   background-color: var(--primary);
-  width: 20px;
-  height: 20px;
+  width: var(--space-2);
+  height: var(--space-5);
 }
 
 input[type="range"]::-moz-range-thumb:hover {

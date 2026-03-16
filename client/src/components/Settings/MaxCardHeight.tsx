@@ -5,30 +5,29 @@ import { useSettingsStore } from "@src/store/settings";
 const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 
 export function MaxCardHeight() {
-  const userCardHeight = useSettingsStore((s) => s.userCardHeight);
-  const { setUserCardHeight } = useSettingsStore((s) => s.actions);
+  const cardHeightPercent = useSettingsStore((s) => s.cardHeightPercent);
+  const { setCardHeightPercent } = useSettingsStore((s) => s.actions);
 
-  const minHeightPercent = Math.round((MIN_CARD_SIZE / window.screen.availHeight) * 100);
-  const maxHeightPercent = Math.round((userCardHeight / window.screen.availHeight) * 100);
+  const min = Math.floor((MIN_CARD_SIZE / window.screen.availWidth) * 100);
 
   function onChange(e: ChangeEvent<HTMLInputElement>) {
     const percent = parseInt(e.currentTarget.value);
     if (isNaN(percent)) return;
-    setUserCardHeight(percent);
+    setCardHeightPercent(percent);
   }
 
   return (
     <div className={styles.sizeInput}>
       <input
         type="range"
-        value={maxHeightPercent}
-        min={minHeightPercent}
+        value={cardHeightPercent}
+        min={min}
         step={1}
         max={100}
         onChange={onChange}
       />
       <div className={styles.label}>
-        <span>{maxHeightPercent}%</span> of screen height
+        <span>{cardHeightPercent}%</span> of screen height
       </div>
     </div>
   );

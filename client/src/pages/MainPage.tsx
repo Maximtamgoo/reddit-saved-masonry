@@ -9,8 +9,8 @@ const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
 export default function MainPage() {
   const isBusyRef = useRef(false);
   const maxLanes = useSettingsStore((s) => s.maxLanes);
-  const userCardWidth = useSettingsStore((s) => s.userCardWidth);
-  const userCardHeight = useSettingsStore((s) => s.userCardHeight);
+  const cardWidthPercent = useSettingsStore((s) => s.cardWidthPercent);
+  const cardHeightPercent = useSettingsStore((s) => s.cardHeightPercent);
   const {
     data,
     isLoading,
@@ -47,15 +47,18 @@ export default function MainPage() {
     );
   }
 
+  const cardWidthPixels = Math.floor((window.screen.availWidth / 100) * cardWidthPercent);
+  const cardHeightPixels = Math.floor((window.screen.availHeight / 100) * cardHeightPercent);
+
   return (
     <RedditItemMasonry
       items={redditItems}
       gap={25}
       maxLanes={maxLanes}
       minLaneWidth={MIN_CARD_SIZE}
-      maxLaneWidth={userCardWidth}
+      maxLaneWidth={cardWidthPixels}
       minCardHeight={MIN_CARD_SIZE}
-      maxCardHeight={userCardHeight}
+      maxCardHeight={cardHeightPixels}
       loadMore={loadMore}
       renderLoader={
         isFetchingNextPage ? (
