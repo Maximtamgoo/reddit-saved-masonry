@@ -27,7 +27,6 @@ history.replaceState(null, "", "/");
 export function useUser() {
   return useQuery({
     queryKey: queryKeys.user(),
-    retry: false,
     queryFn: getMe,
   });
 }
