@@ -4,7 +4,7 @@ import { RedditItemMasonry } from "@src/components/RedditItemMasonry";
 import { useSettingsStore } from "@src/store/settings";
 import Loader from "@src/components/Loader/Loader";
 
-const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
+const { MIN_CARD_WIDTH, MIN_CARD_HEIGHT } = useSettingsStore.getInitialState();
 
 export default function MainPage() {
   const isBusyRef = useRef(false);
@@ -47,17 +47,21 @@ export default function MainPage() {
     );
   }
 
-  const cardWidthPixels = Math.floor((window.screen.availWidth / 100) * cardWidthPercent);
-  const cardHeightPixels = Math.floor((window.screen.availHeight / 100) * cardHeightPercent);
+  const cardWidthPixels = Math.floor(
+    Math.max(MIN_CARD_WIDTH, (window.screen.availWidth / 100) * cardWidthPercent),
+  );
+  const cardHeightPixels = Math.floor(
+    Math.max(MIN_CARD_HEIGHT, (window.screen.availHeight / 100) * cardHeightPercent),
+  );
 
   return (
     <RedditItemMasonry
       items={redditItems}
       gap={25}
       maxLanes={maxLanes}
-      minLaneWidth={MIN_CARD_SIZE}
+      minLaneWidth={MIN_CARD_WIDTH}
       maxLaneWidth={cardWidthPixels}
-      minCardHeight={MIN_CARD_SIZE}
+      minCardHeight={MIN_CARD_HEIGHT}
       maxCardHeight={cardHeightPixels}
       loadMore={loadMore}
       renderLoader={

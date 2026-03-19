@@ -15,7 +15,7 @@ type Props = {
   itemHeight: number;
 };
 
-const { MIN_CARD_SIZE } = useSettingsStore.getInitialState();
+const { MIN_CARD_HEIGHT } = useSettingsStore.getInitialState();
 
 export default memo(function Card({ item, itemWidth, itemHeight }: Props) {
   const openDialog = useGalleryStore((s) => s.actions.open);
@@ -34,7 +34,7 @@ export default memo(function Card({ item, itemWidth, itemHeight }: Props) {
     const p = item.preview;
     totalHeight += calculateAspectRatioFit(p.width, p.height, itemWidth, p.height).height;
   }
-  const cardHeight = Math.max(MIN_CARD_SIZE, Math.min(itemHeight, Math.floor(totalHeight)));
+  const cardHeight = Math.max(MIN_CARD_HEIGHT, Math.min(itemHeight, Math.floor(totalHeight)));
 
   return (
     <div className={styles.card} style={{ height: cardHeight + "px" }}>

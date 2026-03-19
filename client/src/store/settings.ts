@@ -4,7 +4,8 @@ import { persist } from "zustand/middleware";
 interface State {
   // static values
   MAX_LANES_LIMIT: number;
-  MIN_CARD_SIZE: number;
+  MIN_CARD_WIDTH: number;
+  MIN_CARD_HEIGHT: number;
   // user values
   maxLanes: number;
   cardWidthPercent: number;
@@ -20,21 +21,23 @@ interface State {
 }
 
 const MAX_LANES_LIMIT = 5;
-const DEFAULT_MAX_LANES = 3;
-const DEFAULT_CARD_WIDTH_PERCENT = 25;
-const DEFAULT_CARD_HEIGHT_PERCENT = 75;
-const MIN_CARD_SIZE = 350;
+const MAX_LANES = 3;
+const CARD_WIDTH_PERCENT = 25;
+const CARD_HEIGHT_PERCENT = 75;
+const MIN_CARD_WIDTH = 350;
+const MIN_CARD_HEIGHT = 250;
 
 export const useSettingsStore = create<State>()(
   persist(
     (set) => ({
       // static values
       MAX_LANES_LIMIT,
-      MIN_CARD_SIZE,
+      MIN_CARD_WIDTH,
+      MIN_CARD_HEIGHT,
       // user values
-      maxLanes: DEFAULT_MAX_LANES,
-      cardWidthPercent: DEFAULT_CARD_WIDTH_PERCENT,
-      cardHeightPercent: DEFAULT_CARD_HEIGHT_PERCENT,
+      maxLanes: MAX_LANES,
+      cardWidthPercent: CARD_WIDTH_PERCENT,
+      cardHeightPercent: CARD_HEIGHT_PERCENT,
       actions: {
         setMaxLanes(maxLanes) {
           set({ maxLanes });
@@ -46,12 +49,12 @@ export const useSettingsStore = create<State>()(
           set({ cardHeightPercent });
         },
         resetMaxLanes() {
-          set({ maxLanes: DEFAULT_MAX_LANES });
+          set({ maxLanes: MAX_LANES });
         },
         resetCardSizes() {
           set({
-            cardWidthPercent: DEFAULT_CARD_WIDTH_PERCENT,
-            cardHeightPercent: DEFAULT_CARD_HEIGHT_PERCENT,
+            cardWidthPercent: CARD_WIDTH_PERCENT,
+            cardHeightPercent: CARD_HEIGHT_PERCENT,
           });
         },
       },

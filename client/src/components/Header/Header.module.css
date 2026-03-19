@@ -12,6 +12,7 @@
   transition: max-width 0.5s ease;
   margin: auto;
   padding: var(--space-2) var(--space-4);
+  min-width: fit-content;
   max-width: var(--masonry-max-width);
 
   & > span {
