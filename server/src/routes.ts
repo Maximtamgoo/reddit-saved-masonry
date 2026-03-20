@@ -15,7 +15,7 @@ router.get("/api/redirect", (_req, res, next) => {
   }
 });
 
-const access_token_max_age = 1000 * 60 * 60 * 1; // 1 hour in milliseconds
+const secure = env.NODE_ENV === "production";
 
 router.get("/api/callback", v.query({ code: string() }), async (req, res, next) => {
   try {
@@ -24,14 +24,14 @@ router.get("/api/callback", v.query({ code: string() }), async (req, res, next) 
     res.cookie("refresh_token", data.refresh_token, {
       signed: true,
       httpOnly: true,
-      secure: true,
       sameSite: "strict",
       maxAge: 1000 * 60 * 60 * 24 * 30, // 30 days in milliseconds
+      secure,
     });
     res.cookie("access_token", data.access_token, {
-      secure: true,
       sameSite: "strict",
-      maxAge: access_token_max_age,
+      maxAge: data.expires_in * 1000, // 24 hour in milliseconds
+      secure,
     });
     res.redirect("/");
   } catch (error) {
@@ -47,9 +47,9 @@ router.post(
       const refresh_token = req.signedCookies.refresh_token as string;
       const data = await refreshAccessToken(refresh_token);
       res.cookie("access_token", data.access_token, {
-        secure: true,
         sameSite: "strict",
-        maxAge: access_token_max_age,
+        maxAge: data.expires_in * 1000, // 24 hour in milliseconds
+        secure,
       });
       res.sendStatus(204);
     } catch (error) {
