@@ -65,5 +65,4 @@ export async function revokeToken(tokenHint: "access_token" | "refresh_token", t
     const msg = `ValidationError in fetch response: '${r.issues[0].code}' at '${r.issues[0].path}'`;
     throw new ValidationError(500, r.issues, msg);
   }
-  return undefined;
 }

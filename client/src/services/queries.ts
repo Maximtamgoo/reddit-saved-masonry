@@ -2,13 +2,13 @@ import { QueryClient, useInfiniteQuery, useMutation, useQuery } from "@tanstack/
 import { ListingItem } from "@src/schema/Listing";
 import { RedditItem } from "@src/schema/RedditItem";
 import { transformRedditItem } from "@src/utils/transformRedditItem";
-import { signOut } from "./api";
 import { getMe, getSavedContent, toggleBookmark } from "./reddit";
+import { signOut } from "./auth";
 
 export const qc = new QueryClient({
   defaultOptions: {
-    queries: { retry: 1, staleTime: Infinity, refetchOnWindowFocus: false },
-    mutations: { retry: 1 },
+    queries: { retry: false, staleTime: Infinity, refetchOnWindowFocus: false },
+    mutations: { retry: false },
   },
 });
 
