@@ -27,7 +27,7 @@
   --btn-hover: light-dark(var(--c-zinc-300), var(--c-zinc-600));
   --modal-btn-bg: var(--c-zinc-900);
   --modal-btn-hover: var(--c-zinc-800);
-  --masonry-max-width: 405px;
+  --masonry-max-width: 100%;
 }
 
 html {

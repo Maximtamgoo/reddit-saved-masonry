@@ -8,22 +8,26 @@
 
 .navBar {
   display: flex;
+  align-items: center;
   gap: var(--space-2);
   transition: max-width 0.5s ease;
-  margin: auto;
+  margin: 0 auto;
   padding: var(--space-2) var(--space-4);
-  min-width: fit-content;
   max-width: var(--masonry-max-width);
+}
 
-  & > span {
-    flex-grow: 1;
-    color: var(--primary);
-    font-size: var(--text-2xl);
+.title {
+  flex-grow: 1;
+  color: var(--primary);
+  font-size: var(--text-2xl);
+  @media (width < 400px) {
+    font-size: var(--text-lg);
   }
 }
 
 .bookmark {
   flex-shrink: 0;
+  margin-right: calc(-1 * var(--space-2));
   width: var(--space-9);
   height: var(--space-9);
   color: var(--primary);

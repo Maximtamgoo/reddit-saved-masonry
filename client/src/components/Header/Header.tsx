@@ -10,7 +10,7 @@ export default function Header() {
     <header className={styles.header}>
       <nav className={styles.navBar}>
         <Bookmark className={styles.bookmark} />
-        <span className="truncate">Reddit Saved Masonry</span>
+        <span className={cn(styles.title, "truncate")}>Reddit Saved Masonry</span>
         <Link
           className={cn("btn", styles.github)}
           href="https://github.com/Maximtamgoo/reddit-saved-masonry"
