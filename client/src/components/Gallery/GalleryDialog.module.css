@@ -13,7 +13,6 @@
   & > a,
   button {
     position: fixed;
-    outline: 1px solid var(--c-zinc-500);
     background-color: var(--modal-btn-bg);
     color: var(--c-zinc-50);
 

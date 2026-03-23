@@ -1,4 +1,5 @@
 import styles from "./SettingsDialog.module.css";
+import { Dialog } from "../Dialog";
 import SettingsSvg from "@src/svg/settings.svg?react";
 import XSvg from "@src/svg/x.svg?react";
 import { Theme } from "./Theme";
@@ -8,25 +9,23 @@ import { Profile } from "./Profile";
 
 export function SettingsDialog() {
   return (
-    <>
-      {/* @ts-expect-error commandfor & command should be available */}
-      <button commandfor="settings" command="show-modal" className="btn">
+    <Dialog>
+      <Dialog.Trigger className="btn">
         <SettingsSvg />
-      </button>
-      <dialog id="settings" closedby="any" className={styles.settings}>
+      </Dialog.Trigger>
+      <Dialog.Content className={styles.settings}>
         <div className={styles.top}>
           <SettingsSvg />
           Settings
-          {/* @ts-expect-error commandfor & command should be available */}
-          <button commandfor="settings" command="close" className="btn">
+          <Dialog.Close className="btn">
             <XSvg />
-          </button>
+          </Dialog.Close>
         </div>
         <Theme />
         <MaxColumns />
         <MaxCardSize />
         <Profile />
-      </dialog>
-    </>
+      </Dialog.Content>
+    </Dialog>
   );
 }
