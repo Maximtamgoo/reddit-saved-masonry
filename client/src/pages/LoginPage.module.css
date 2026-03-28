@@ -1,7 +1,7 @@
 .login {
   align-content: end;
   padding: var(--space-2);
-  height: 50vh;
+  height: 50svh;
   text-align: center;
   & > button {
     margin: var(--space-10) auto;

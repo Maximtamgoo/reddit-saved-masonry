@@ -7,7 +7,7 @@
 
   & > img,
   video {
-    max-height: 100vh;
+    max-height: 100svh;
   }
 
   & > a,
@@ -60,8 +60,8 @@
 }
 
 .arrow {
-  /* top: calc(50vh - halfButtonHeight); */
-  top: calc(50vh - 18px);
+  /* top: calc(50svh - halfButtonHeight); */
+  top: calc(50svh - 18px);
 
   &[data-direction="left"] {
     left: var(--space-8);

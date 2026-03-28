@@ -33,7 +33,7 @@ export default function MainPage() {
 
   if (isLoading) {
     return (
-      <main style={{ height: "calc(100vh - 53px)", alignContent: "center" }}>
+      <main style={{ height: "calc(100svh - 53px)", alignContent: "center" }}>
         <Loader state="loading" />
       </main>
     );
@@ -41,7 +41,7 @@ export default function MainPage() {
 
   if (isLoadingError) {
     return (
-      <main style={{ height: "calc(100vh - 53px)", alignContent: "center" }}>
+      <main style={{ height: "calc(100svh - 53px)", alignContent: "center" }}>
         <Loader state="error" onClick={fetchNextPage} />
       </main>
     );
