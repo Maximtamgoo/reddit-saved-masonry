@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",
-    "@tanstack/react-query": "^5.91.3",
-    "@tanstack/react-query-devtools": "^5.91.3",
+    "@tanstack/react-query": "^5.95.2",
+    "@tanstack/react-query-devtools": "^5.95.2",
     "@tanstack/react-virtual": "^3.13.23",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
@@ -25,9 +25,9 @@
     "@vitejs/plugin-react-swc": "^4.3.0",
     "prettier-plugin-css-order": "^2.2.0",
     "sonda": "^0.11.1",
-    "typescript": "^5.9.3",
-    "vite": "^8.0.1",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
     "vite-plugin-checker": "^0.12.0",
-    "vite-plugin-svgr": "^4.5.0"
+    "vite-plugin-svgr": "^5.0.0"
   }
 }
