@@ -1,9 +1,7 @@
 import { useState } from "react";
 import styles from "./Theme.module.css";
 import shared from "./Shared.module.css";
-import Sun from "@src/svg/sun.svg?react";
-import Moon from "@src/svg/moon.svg?react";
-import Monitor from "@src/svg/monitor.svg?react";
+import { Sun, Moon, Monitor } from "lucide-react";
 
 const themes = ["light", "auto", "dark"] as const;
 type Theme = (typeof themes)[number];

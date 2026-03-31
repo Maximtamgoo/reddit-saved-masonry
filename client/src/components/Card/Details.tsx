@@ -4,7 +4,7 @@ import Link from "@src/components/Link";
 import type { RedditItem } from "@src/schema/RedditItem";
 import { useToggleBookmark } from "@src/services/queries";
 import { cn } from "@src/utils/cn";
-import Bookmark from "@src/svg/bookmark.svg?react";
+import { Bookmark } from "lucide-react";
 
 type Props = {
   item: RedditItem;

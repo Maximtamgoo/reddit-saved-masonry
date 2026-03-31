@@ -63,8 +63,8 @@
 .bookmark {
   color: var(--primary);
 
-  & > svg[data-saved="false"] {
-    fill: none;
+  & > svg[data-saved="true"] {
+    fill: var(--primary);
   }
 }
 

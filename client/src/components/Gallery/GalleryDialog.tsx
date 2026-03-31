@@ -1,6 +1,5 @@
 import styles from "./GalleryDialog.module.css";
-import XSvg from "@src/svg/x.svg?react";
-import LinkSvg from "@src/svg/link.svg?react";
+import { X, LinkIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useGalleryStore } from "@src/store/gallery";
 import Item from "./Item";
@@ -34,14 +33,14 @@ export function GalleryDialog() {
     <Dialog isOpen={isOpen} onClose={() => close()}>
       <Dialog.Content className={styles.gallery}>
         <Dialog.Close className={cn("btn", styles.close)}>
-          <XSvg />
+          <X />
         </Dialog.Close>
         <Link
           className={cn("btn", styles.link)}
           href={`https://www.reddit.com${item.permalink}`}
           onClick={(e) => e.stopPropagation()}
         >
-          <LinkSvg />
+          <LinkIcon />
         </Link>
         {galleryItems.map((item) => (
           <Item key={item.id} item={item} isVisible={galleryItems[index].id === item.id} />

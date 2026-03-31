@@ -27,6 +27,7 @@
 
 .bookmark {
   flex-shrink: 0;
+  fill: var(--primary);
   margin-right: calc(-1 * var(--space-2));
   width: var(--space-9);
   height: var(--space-9);

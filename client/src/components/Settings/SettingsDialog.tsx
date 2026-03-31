@@ -1,7 +1,6 @@
 import styles from "./SettingsDialog.module.css";
 import { Dialog } from "../Dialog";
-import SettingsSvg from "@src/svg/settings.svg?react";
-import XSvg from "@src/svg/x.svg?react";
+import { Settings, X } from "lucide-react";
 import { Theme } from "./Theme";
 import { MaxColumns } from "./MaxColumns";
 import { MaxCardSize } from "./MaxCardSize";
@@ -11,14 +10,14 @@ export function SettingsDialog() {
   return (
     <Dialog>
       <Dialog.Trigger className="btn">
-        <SettingsSvg />
+        <Settings />
       </Dialog.Trigger>
       <Dialog.Content className={styles.settings}>
         <div className={styles.top}>
-          <SettingsSvg />
+          <Settings />
           Settings
           <Dialog.Close className="btn">
-            <XSvg />
+            <X />
           </Dialog.Close>
         </div>
         <Theme />

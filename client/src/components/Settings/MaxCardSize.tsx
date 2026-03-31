@@ -1,6 +1,6 @@
 import shared from "./Shared.module.css";
 import { useSettingsStore } from "@src/store/settings";
-import Scaling from "@src/svg/scaling.svg?react";
+import { Scaling } from "lucide-react";
 import { MaxCardWidth } from "./MaxCardWidth";
 import { MaxCardHeight } from "./MaxCardHeight";
 import { cn } from "@src/utils/cn";

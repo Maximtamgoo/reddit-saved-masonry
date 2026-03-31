@@ -2,7 +2,7 @@ import { cn } from "@src/utils/cn";
 import styles from "./MaxColumns.module.css";
 import shared from "./Shared.module.css";
 import { useSettingsStore } from "@src/store/settings";
-import Columns from "@src/svg/columns-3.svg?react";
+import { Columns3 } from "lucide-react";
 
 const { MAX_LANES_LIMIT } = useSettingsStore.getInitialState();
 const nums = Array.from({ length: MAX_LANES_LIMIT }, (_, i) => i + 1);
@@ -13,7 +13,7 @@ export function MaxColumns() {
   return (
     <div className={shared.section}>
       <span className={shared.title}>
-        <Columns />
+        <Columns3 />
         Max Columns
         <button className={cn("btn", shared.reset)} onClick={() => resetMaxLanes()}>
           Reset

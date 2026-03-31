@@ -1,6 +1,5 @@
 import { memo } from "react";
-import LoaderCircle from "@src/svg/loader-circle.svg?react";
-import Refresh from "@src/svg/refresh-cw.svg?react";
+import { LoaderCircle, RefreshCw } from "lucide-react";
 import styles from "./Loader.module.css";
 
 type IsLoading = {
@@ -25,7 +24,7 @@ export default memo(function Loader(props: Props) {
       <div className={styles.loader}>
         Could not get posts
         <button className="btn" onClick={props.onClick}>
-          <Refresh />
+          <RefreshCw />
         </button>
       </div>
     );

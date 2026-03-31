@@ -19,6 +19,7 @@
   & > svg {
     display: inline;
     vertical-align: middle;
+    fill: var(--primary);
     margin-top: -6px;
     width: var(--space-9);
     height: var(--space-9);

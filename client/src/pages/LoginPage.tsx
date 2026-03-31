@@ -1,6 +1,6 @@
 import { signInRedirect } from "@src/services/auth";
 import styles from "./LoginPage.module.css";
-import Bookmark from "@src/svg/bookmark.svg?react";
+import { Bookmark } from "lucide-react";
 
 export default function LoginPage() {
   return (

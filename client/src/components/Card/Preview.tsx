@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./Preview.module.css";
-import FileImage from "@src/svg/file-image.svg?react";
-import Play from "@src/svg/play.svg?react";
+import { FileImage, Play } from "lucide-react";
 import Unknown from "./Unknown";
 
 type Props = {

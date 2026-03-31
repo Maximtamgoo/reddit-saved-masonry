@@ -1,4 +1,4 @@
-import ChevronLeft from "@src/svg/chevron-left.svg?react";
+import { ChevronLeft } from "lucide-react";
 import type { ComponentProps } from "react";
 
 type Props = {
