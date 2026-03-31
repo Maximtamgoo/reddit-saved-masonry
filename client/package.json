@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",
-    "@tanstack/react-query": "^5.95.2",
-    "@tanstack/react-query-devtools": "^5.95.2",
+    "@tanstack/react-query": "^5.96.0",
+    "@tanstack/react-query-devtools": "^5.96.0",
     "@tanstack/react-virtual": "^3.13.23",
     "lucide-react": "^1.7.0",
     "react": "^19.2.4",
