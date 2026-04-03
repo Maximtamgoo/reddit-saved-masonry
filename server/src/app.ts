@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { Hono } from "hono";
 import { secureHeaders } from "hono/secure-headers";
 import { HTTPException } from "hono/http-exception";
+import { etag } from "hono/etag";
 import { compress } from "hono/compress";
 import { serveStatic } from "@hono/node-server/serve-static";
 import { logger } from "./logger.js";
@@ -31,6 +32,7 @@ if (env.NODE_ENV === "production") {
     console.log(`Client dist folder does not exist: ${clientDist}`);
     process.exit(1);
   }
+  app.use(etag());
   app.use(compress());
   app.use("/*", serveStatic({ root: clientDist }), async (c) => {
     const html = await readFile(clientDist + "/index.html", "utf-8");
