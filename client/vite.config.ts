@@ -1,7 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import checker from "vite-plugin-checker";
-import Sonda from "sonda/vite";
+import { analyzer } from "vite-bundle-analyzer";
 
 const isHostRender = !!process.env.RENDER;
 
@@ -12,11 +12,8 @@ export default defineConfig({
       overlay: { initialIsOpen: false },
       oxlint: true,
     }),
-    Sonda({ enabled: !isHostRender, gzip: true }),
+    analyzer({ enabled: !isHostRender }),
   ],
-  build: {
-    sourcemap: !isHostRender,
-  },
   server: {
     open: true,
     port: 3000,
