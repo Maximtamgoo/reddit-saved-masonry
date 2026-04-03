@@ -3,7 +3,7 @@ import { literal, object, string, union, type Infer } from "@badrap/valita";
 const Schema = object({
   NODE_ENV: union(literal("production"), literal("development")),
   COOKIE_SECRET: string(),
-  PORT: string(),
+  PORT: string().map((v) => Number(v)),
   REDDIT_CLIENT_ID: string(),
   REDDIT_CLIENT_SECRET: string(),
   REDDIT_USERAGENT: string(),

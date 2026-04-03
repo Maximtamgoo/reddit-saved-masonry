@@ -1,5 +1,6 @@
 import { literal, number, object, string, type Type } from "@badrap/valita";
-import { HttpError, ValidationError } from "./errors.js";
+import { HTTPException } from "hono/http-exception";
+import { type ContentfulStatusCode } from "hono/utils/http-status";
 import { env } from "./envConfig.js";
 
 export const RedditTokens = object({
@@ -27,12 +28,15 @@ async function request<T>(url: string, schema: Type<T>, options?: RequestInit) {
   const res = await fetch(url, options);
   if (!res.ok) {
     const text = await res.text();
-    throw new HttpError(res.status, text, "HttpError in fetch response: " + text);
+    throw new HTTPException(res.status as ContentfulStatusCode, {
+      message: res.statusText,
+      cause: text,
+    });
   }
   const r = schema.try(await res.json());
   if (!r.ok) {
-    const msg = `ValidationError in fetch response: '${r.issues[0].code}' at '${r.issues[0].path}'`;
-    throw new ValidationError(500, r.issues, msg);
+    const message = `ValitaError: '${r.issues[0].code}' at '${r.issues[0].path}'`;
+    throw new HTTPException(500, { message, cause: r.issues });
   }
   return r.value;
 }
@@ -58,11 +62,14 @@ export async function revokeToken(tokenHint: "access_token" | "refresh_token", t
   });
   if (!res.ok) {
     const text = await res.text();
-    throw new HttpError(res.status, text, "HttpError in fetch response: " + text);
+    throw new HTTPException(res.status as ContentfulStatusCode, {
+      message: res.statusText,
+      cause: text,
+    });
   }
   const r = literal("0").try(res.headers.get("content-length"));
   if (!r.ok) {
-    const msg = `ValidationError in fetch response: '${r.issues[0].code}' at '${r.issues[0].path}'`;
-    throw new ValidationError(500, r.issues, msg);
+    const message = `ValitaError: '${r.issues[0].code}' at '${r.issues[0].path}'`;
+    throw new HTTPException(500, { message, cause: r.issues });
   }
 }

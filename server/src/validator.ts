@@ -1,25 +1,30 @@
-import { object, type Type } from "@badrap/valita";
-import type { RequestHandler } from "express";
-import { ValidationError } from "./errors.js";
+import type { Context } from "hono";
+import { validator } from "hono/validator";
+import { string, ok, err, type Type } from "@badrap/valita";
+import { getSignedCookie } from "hono/cookie";
+import { env } from "./envConfig.js";
 
-type Target = "query" | "signedCookies";
-
-type Schemas = Record<string, Type>;
-
-function validator(target: Target, schemas: Schemas) {
-  return ((req, _res, next) => {
-    const r = object(schemas).try(req[target], { mode: "passthrough" });
-    if (r.ok) {
-      next();
-    } else {
-      const status = target === "signedCookies" ? 401 : 400;
-      const issue = r.issues[0];
-      const msg = `ValidationError in ${target}: '${issue.code}' at '${issue.path}'`;
-      next(new ValidationError(status, r.issues, msg));
-    }
-  }) as RequestHandler;
+export function query<T>(schema: Type<T>) {
+  return validator("query", (value, c: Context) => {
+    const r = schema.try(value);
+    if (!r.ok) return c.text("Bad Request", 400);
+    return r.value;
+  });
 }
 
-export const query = (schemas: Schemas) => validator("query", schemas);
+const JsonString = string().chain((json) => {
+  try {
+    return ok(JSON.parse(json));
+  } catch {
+    return err("Invalid JSON");
+  }
+});
 
-export const signedCookies = (schemas: Schemas) => validator("signedCookies", schemas);
+export function signedJSONCookie<T>(schema: Type<T>) {
+  return validator("cookie", async (_, c: Context) => {
+    const jsonSession = await getSignedCookie(c, env.COOKIE_SECRET, "session");
+    const r = JsonString.chain(schema).try(jsonSession);
+    if (r.ok) return r.value;
+    return c.text("Unauthorized", 401);
+  });
+}
