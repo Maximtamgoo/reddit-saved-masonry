@@ -4,9 +4,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "tsx ./src/index.ts",
-    "dev": "NODE_ENV=development PORT=5000 tsx watch --env-file=../.env ./src/index.ts",
-    "preview": "NODE_ENV=production PORT=3000 tsx --env-file=../.env ./src/index_https.ts"
+    "start": "tsx --env-file=../.env ./src/app.ts",
+    "dev": "PORT=5000 tsx watch --env-file=../.env ./src/app.ts"
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",

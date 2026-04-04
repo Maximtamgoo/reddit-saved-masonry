@@ -7,6 +7,7 @@ import { HTTPException } from "hono/http-exception";
 import { etag } from "hono/etag";
 import { compress } from "hono/compress";
 import { serveStatic } from "@hono/node-server/serve-static";
+import { serve } from "@hono/node-server";
 import { logger } from "./logger.js";
 import { routes } from "./routes.js";
 import { env } from "./envConfig.js";
@@ -26,12 +27,8 @@ app.use(
 );
 app.route("/api", routes);
 
-if (env.NODE_ENV === "production") {
-  const clientDist = path.join(import.meta.dirname, "../../client/dist");
-  if (!existsSync(clientDist)) {
-    console.log(`Client dist folder does not exist: ${clientDist}`);
-    process.exit(1);
-  }
+const clientDist = path.join(import.meta.dirname, "../../client/dist");
+if (existsSync(clientDist)) {
   app.use(etag());
   app.use(compress());
   app.use("/*", serveStatic({ root: clientDist }), async (c) => {
@@ -39,6 +36,8 @@ if (env.NODE_ENV === "production") {
     return c.html(html);
   });
   console.log("Serving static files:", clientDist);
+} else {
+  console.error("Skipped static files setup because path does not exist:", clientDist);
 }
 
 app.onError((error, c) => {
@@ -50,4 +49,10 @@ app.onError((error, c) => {
   return c.text("Internal Server Error", 500);
 });
 
-export default app;
+serve(
+  {
+    fetch: app.fetch,
+    port: env.PORT,
+  },
+  ({ port }) => console.log("Server started on port:", port),
+);
