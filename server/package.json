@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "tsx --env-file=../.env ./src/app.ts",
-    "dev": "PORT=5000 tsx watch --env-file=../.env ./src/app.ts"
+    "dev": "PORT=5000 SERVE_STATIC=false tsx watch --env-file=../.env ./src/app.ts"
   },
   "dependencies": {
     "@badrap/valita": "^0.4.6",

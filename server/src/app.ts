@@ -27,8 +27,12 @@ app.use(
 );
 app.route("/api", routes);
 
-const clientDist = path.join(import.meta.dirname, "../../client/dist");
-if (existsSync(clientDist)) {
+if (env.SERVE_STATIC) {
+  const clientDist = path.join(import.meta.dirname, "../../client/dist");
+  if (!existsSync(clientDist)) {
+    console.error("Path does not exist:" + clientDist);
+    process.exit(1);
+  }
   app.use(etag());
   app.use(compress());
   app.use("/*", serveStatic({ root: clientDist }), async (c) => {
@@ -36,8 +40,6 @@ if (existsSync(clientDist)) {
     return c.html(html);
   });
   console.log("Serving static files:", clientDist);
-} else {
-  console.error("Skipped static files setup because path does not exist:", clientDist);
 }
 
 app.onError((error, c) => {
