@@ -8,13 +8,13 @@
     "dev": "PORT=5000 SERVE_STATIC=false tsx watch --env-file=../.env ./src/app.ts"
   },
   "dependencies": {
-    "@badrap/valita": "^0.4.6",
-    "@hono/node-server": "^1.19.13",
-    "hono": "^4.12.12",
+    "@badrap/valita": "^0.5.1",
+    "@hono/node-server": "^2.0.2",
+    "hono": "^4.12.18",
     "tsx": "^4.21.0"
   },
   "devDependencies": {
-    "@types/node": "^25.5.2",
-    "typescript": "^6.0.2"
+    "@types/node": "^25.6.2",
+    "typescript": "^6.0.3"
   }
 }
