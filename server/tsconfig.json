@@ -11,11 +11,11 @@
       "ESNext.Iterator",
       "ESNext.Promise"
     ],
+    "types": ["node"],
     "moduleDetection": "force",
     /* Modules */
     "module": "nodenext",
     /* Emit */
-    "outDir": "./dist",
     "noEmitOnError": true,
     /* Interop Constraints */
     "esModuleInterop": true,

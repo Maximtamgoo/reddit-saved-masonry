@@ -28,8 +28,7 @@ export function RedditItemMasonry({
   loadMore,
   renderLoader,
 }: Props) {
-  const { ref, rect } = useResizeObserver();
-  const parentWidth = rect.width;
+  const { ref, value: parentWidth } = useResizeObserver("width");
 
   const lanes = useMemo(() => {
     const lanes = Math.floor((parentWidth + gap) / (minLaneWidth + gap));
@@ -51,7 +50,7 @@ export function RedditItemMasonry({
 
   const getItemKey = useCallback(
     (i: number) => {
-      if (i === 0) console.log("getItemKey 0");
+      // if (i === 0) console.log("getItemKey 0");
       return items[i].id;
     },
     [items],
@@ -59,7 +58,7 @@ export function RedditItemMasonry({
 
   const estimateSize = useCallback(
     (i: number) => {
-      if (i === 0) console.log("estimateSize 0");
+      // if (i === 0) console.log("estimateSize 0");
       const item = items[i];
       const detailsHeight = 100;
       let totalHeight = detailsHeight;
