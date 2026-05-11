@@ -1,6 +1,6 @@
 import { QueryClient, useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 import { RedditItem } from "@src/schema/RedditItem";
-import { transformToRedditItem } from "@src/utils/transformRedditItem";
+import { transformToRedditItem } from "@src/utils/transformToRedditItem";
 import { getMe, getSavedContent, toggleBookmark } from "./reddit";
 import { signOut } from "./auth";
 
