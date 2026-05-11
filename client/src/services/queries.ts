@@ -1,7 +1,6 @@
 import { QueryClient, useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
-import { ListingItem } from "@src/schema/Listing";
 import { RedditItem } from "@src/schema/RedditItem";
-import { transformRedditItem } from "@src/utils/transformRedditItem";
+import { transformToRedditItem } from "@src/utils/transformRedditItem";
 import { getMe, getSavedContent, toggleBookmark } from "./reddit";
 import { signOut } from "./auth";
 
@@ -49,22 +48,17 @@ export function useGetSavedContent() {
       const redditItems: RedditItem[] = [];
       for (let i = 0; i < listing.data.children.length; i++) {
         const item = listing.data.children[i];
-        const listingItemResult = ListingItem.try(item, { mode: "strip" });
-        if (!listingItemResult.ok) {
-          console.log("Failed to parse ListingItem:", listingItemResult.message);
-          console.log("Failed ListingItem:", item);
-          continue;
+        try {
+          const redditItem = transformToRedditItem(item);
+          if (redditItem.type === "unknown") console.log("unknown item:", item);
+          redditItems.push(redditItem);
+          redditItemMap.set(redditItem.id, { pageParamIndex, itemIndex: i });
+        } catch (error) {
+          console.log(error);
+          if (error instanceof Error) {
+            console.log("Cause:", error.cause);
+          }
         }
-
-        const result = RedditItem.try(transformRedditItem(listingItemResult.value));
-        if (!result.ok) {
-          console.log("Failed to parse reddit item:", result.message);
-          console.log("Failed reddit item:", listingItemResult.value);
-          continue;
-        }
-        if (result.value.type === "unknown") console.log("unknown item:", item);
-        redditItems.push(result.value);
-        redditItemMap.set(result.value.id, { pageParamIndex, itemIndex: i });
       }
 
       return {

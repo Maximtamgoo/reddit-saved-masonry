@@ -1,7 +1,20 @@
 import { ListingItem } from "@src/schema/Listing";
-import type { GalleryItem, RedditItem } from "@src/schema/RedditItem";
+import { RedditItem, type GalleryItem } from "@src/schema/RedditItem";
 
-export function transformRedditItem(item: ListingItem): RedditItem {
+export function transformToRedditItem(listingItem: unknown) {
+  const listingItemResult = ListingItem.try(listingItem, { mode: "strip" });
+  if (!listingItemResult.ok) {
+    throw new Error(listingItemResult.message, { cause: listingItem });
+  }
+  const parsedListingItem = listingItemResult.value;
+  const redditItemResult = RedditItem.try(transformItem(parsedListingItem));
+  if (!redditItemResult.ok) {
+    throw new Error(redditItemResult.message, { cause: parsedListingItem });
+  }
+  return redditItemResult.value;
+}
+
+function transformItem(item: ListingItem) {
   const { name: id, author, subreddit, subreddit_name_prefixed, permalink } = item.data;
 
   const base = {
