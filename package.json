@@ -2,6 +2,10 @@
   "name": "reddit-saved-masonry",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
   "scripts": {
     "start": "npm start -w server",
     "build": "npm run build -w client",
@@ -11,15 +15,11 @@
     "dev-host": "npm run dev-server & npm run dev-host -w client",
     "lint": "oxlint"
   },
-  "workspaces": [
-    "client",
-    "server"
-  ],
   "devDependencies": {
     "oxfmt": "^0.59.0",
     "oxlint": "^1.74.0"
   },
   "engines": {
-    "node": ">=24.0.0 <25.0.0"
+    "node": ">=24.0.0"
   }
 }
