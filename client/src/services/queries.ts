@@ -17,6 +17,7 @@ export const queryKeys = {
 };
 
 export const mutationKeys = {
+  tryToken: () => ["tryToken"] as const,
   bookmark: (id: string) => ["bookmark", id] as const,
   signOut: () => ["signOut"] as const,
 };
@@ -27,6 +28,22 @@ export function useUser() {
   return useQuery({
     queryKey: queryKeys.user(),
     queryFn: getMe,
+  });
+}
+
+export function useTryToken() {
+  return useMutation({
+    mutationKey: mutationKeys.tryToken(),
+    mutationFn: (token: string) => {
+      localStorage.setItem("token", token);
+      return getMe();
+    },
+    onError() {
+      localStorage.removeItem("token");
+    },
+    onSuccess: (me) => {
+      qc.setQueryData<ReturnType<typeof useUser>["data"]>(queryKeys.user(), () => me);
+    },
   });
 }
 
@@ -93,7 +110,10 @@ export function useToggleBookmark(id: string) {
 export function useSignOut() {
   return useMutation({
     mutationKey: mutationKeys.signOut(),
-    mutationFn: signOut,
+    mutationFn: () => {
+      localStorage.removeItem("token");
+      return signOut();
+    },
     onSettled: () => {
       window.location.reload();
     },

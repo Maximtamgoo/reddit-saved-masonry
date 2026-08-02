@@ -11,6 +11,13 @@ type Session = Infer<typeof Session>;
 let session: Session | null = null;
 
 export async function getSession() {
+  const token = localStorage.getItem("token");
+  if (token)
+    return {
+      access_token: token,
+      expires_at: 0,
+    };
+
   const expires_at = session?.expires_at ?? 0;
   const isExpired = Date.now() >= expires_at;
   if (session && !isExpired) return session;
