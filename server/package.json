@@ -9,12 +9,12 @@
   },
   "dependencies": {
     "@badrap/valita": "^0.5.4",
-    "@hono/node-server": "^2.0.11",
-    "hono": "^4.12.31",
-    "tsx": "^4.23.1"
+    "@hono/node-server": "^2.1.1",
+    "hono": "^4.13.3",
+    "tsx": "^4.23.12"
   },
   "devDependencies": {
-    "@types/node": "^26.1.1",
+    "@types/node": "^26.2.0",
     "typescript": "^7.0.2"
   }
 }
