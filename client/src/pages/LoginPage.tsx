@@ -1,14 +1,15 @@
 import { signInRedirect } from "@src/services/auth";
 import styles from "./LoginPage.module.css";
 import { Bookmark } from "lucide-react";
-import { useRef } from "react";
+import { useRef, type SubmitEvent } from "react";
 import { useTryToken } from "@src/services/queries";
 
 export default function LoginPage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const { mutate } = useTryToken();
 
-  function handleInput() {
+  function onSubmit(e: SubmitEvent<HTMLFormElement>) {
+    e.preventDefault();
     const value = inputRef.current?.value;
     if (value && value !== "") mutate(value);
   }
@@ -24,12 +25,12 @@ export default function LoginPage() {
         Sign in with Reddit
       </button>
       <p>- or -</p>
-      <div className={styles.token}>
+      <form className={styles.token} onSubmit={onSubmit}>
         <input ref={inputRef} type="text" autoComplete="off" name="token" />
-        <button className="btn" onClick={handleInput}>
+        <button className="btn" type="submit">
           Sign in with token
         </button>
-      </div>
+      </form>
     </main>
   );
 }
